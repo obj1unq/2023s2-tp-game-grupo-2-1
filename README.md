@@ -5,8 +5,8 @@
 
 - Cristian Fernandez
 - Mateo Gabriel Giuffra Hernandez
-- Bian
-- Malena
+- Bianca Picchio
+- Malena Sciutto
 
 #Sinopsis
 
