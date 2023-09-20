@@ -4,7 +4,7 @@
 ## Equipo de desarrollo
 
 - Cristian Fernandez
-- Mateo
+- Mateo Gabriel Giuffra Hernandez
 - Bian
 - Malena
 
