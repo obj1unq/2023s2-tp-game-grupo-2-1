@@ -1,8 +1,9 @@
-# Nombre del juego (<- borrar y completar)
+#Harry Potter y el escape de Azkaban
+
 
 ## Equipo de desarrollo
 
-- Alguien
+- Cristian Fernandez
 - Persona
 - etc.
 
