@@ -4,8 +4,9 @@
 ## Equipo de desarrollo
 
 - Cristian Fernandez
-- Persona
-- etc.
+- Mateo
+- Bian
+- Malena
 
 ## Capturas
 
