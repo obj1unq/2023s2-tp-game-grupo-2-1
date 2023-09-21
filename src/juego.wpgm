@@ -1,15 +1,16 @@
 import wollok.game.*
 import personajes.*
+import direcciones.*
 
 program juego {
 	game.title("Harry Potter: Escape de Azkaban")
 	game.cellSize(50)
 	game.width(36)
 	game.height(18)
-	game.boardGround("background.png")
+	game.boardGround("Fondo 2.png")
 	
 	game.addVisualCharacter(harry)
-	game.addVisualCharacter(sirius)
+	game.addVisual(sirius)
 	
 	keyboard.up().onPressDo({ harry.mover(arriba) })
 	keyboard.down().onPressDo({ harry.mover(abajo) })
