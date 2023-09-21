@@ -1,8 +1,20 @@
 import wollok.game.*
-import pepita.*
+import harry.*
+import pociones.*
+import extras.*
 
 program juego {
+	
+	//configurar el tablero
+	game.width(40)
+	game.height(30)
+	game.cellSize(50)
+	
+	//Agrego visualizaciones
+	game.addVisual(pocion)
+	game.addVisualCharacter(harry)
+	game.addVisual(fondo)
+	
 	game.title("Juego Base")
-	game.addVisual(pepita)
 	game.start()
 }
