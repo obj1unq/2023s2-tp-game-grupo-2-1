@@ -1,6 +1,7 @@
 import wollok.game.*
 import personajes.*
 import direcciones.*
+import objetosUtiles.*
 
 program juego {
 	game.title("Harry Potter: Escape de Azkaban")
@@ -11,6 +12,7 @@ program juego {
 	
 	game.addVisualCharacter(harry)
 	game.addVisual(sirius)
+	game.addVisual(oculto)
 	
 	keyboard.up().onPressDo({ harry.mover(arriba) })
 	keyboard.down().onPressDo({ harry.mover(abajo) })
