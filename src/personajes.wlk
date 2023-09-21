@@ -59,6 +59,7 @@ object harryInvisible {
 
 }
 
+
 object caminando {
 
 	method puedeMover() {
