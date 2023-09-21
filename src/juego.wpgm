@@ -1,8 +1,12 @@
 import wollok.game.*
-import pepita.*
+import personajes.*
 
 program juego {
-	game.title("Juego Base")
-	game.addVisual(pepita)
+	game.title("Harry Potter: Escape de Azkaban")
+	game.cellSize(50)
+	game.width(36)
+	game.height(18)	
+	
 	game.start()
+	
 }
