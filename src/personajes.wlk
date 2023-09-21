@@ -2,7 +2,7 @@ import wollok.game.*
 
 object harry {
 
-	method position() = game.at()
+	method position() = game.center()
 
 	method image() = "harry.png"
 
@@ -10,4 +10,7 @@ object harry {
 
 object sirius {
 	
+	method position() = game.center()
+
+	method image() = "harry.png"
 }

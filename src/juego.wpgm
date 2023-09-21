@@ -5,12 +5,21 @@ program juego {
 	game.title("Harry Potter: Escape de Azkaban")
 	game.cellSize(50)
 	game.width(36)
-	game.height(18)	
-	
+	game.height(18)
 	game.boardGround("background.png")
-	game.addVisual(harry)
-	game.addVisual(sirius)
+	
+	game.addVisualCharacter(harry)
+	game.addVisualCharacter(sirius)
+	
+	keyboard.up().onPressDo({ harry.mover(arriba) })
+	keyboard.down().onPressDo({ harry.mover(abajo) })
+	keyboard.left().onPressDo({ harry.mover(izquierda) })
+	keyboard.right().onPressDo({ harry.mover(derecha) })
+	
+	keyboard.w().onPressDo({ sirius.mover(arriba) })
+	keyboard.s().onPressDo({ sirius.mover(abajo) })
+	keyboard.a().onPressDo({ sirius.mover(izquierda) })
+	keyboard.d().onPressDo({ sirius.mover(derecha) })
 	
 	game.start()
-	
 }
