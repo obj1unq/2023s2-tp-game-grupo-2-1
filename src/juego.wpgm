@@ -7,6 +7,10 @@ program juego {
 	game.width(36)
 	game.height(18)	
 	
+	game.boardGround("background.png")
+	game.addVisual(harry)
+	game.addVisual(sirius)
+	
 	game.start()
 	
 }

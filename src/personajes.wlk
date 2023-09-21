@@ -4,7 +4,7 @@ object harry {
 
 	method position() = game.at()
 
-	method image() = ""
+	method image() = "harry.png"
 
 }
 
