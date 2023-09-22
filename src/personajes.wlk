@@ -4,7 +4,7 @@ import direcciones.*
 
 object harry {
 
-	var estado = harryHumano
+	var property estado = harryHumano
 	var objeto = null
 	var property position = game.center()
 
@@ -12,6 +12,7 @@ object harry {
 
 	method ocultarse() {
 		estado = harryInvisible
+		game.schedule(10000, {self.estado(harryHumano)})
 	}
 
 	method puedeOcupar(posicion) {
@@ -92,7 +93,7 @@ object siriusPerro {
 
 object sirius {
 
-	var estado = siriusHumano
+	var property estado = siriusHumano
 	var objeto = null
 	var property position = game.center()
 
@@ -100,6 +101,7 @@ object sirius {
 
 	method ocultarse() {
 		estado = siriusPerro
+		game.schedule(10000, {self.estado(siriusHumano)})
 	}
 
 	// validars:
