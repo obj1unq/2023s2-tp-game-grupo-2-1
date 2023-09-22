@@ -18,30 +18,38 @@ object harry {
 		return tablero.pertenece(posicion)
 	}
 
+	// validars:
+	method validarEquipar(objetoUtil) {
+		if (not objetoUtil.esEquipable()) {
+			game.say(self, "No hay nada acá")
+		}
+	}
+
+	method validarUsarObjeto() {
+		if (objeto == null) {
+			game.say(self, "No tengo nada para usar")
+		}
+	}
+
+	method equiparSiPuede(objetoUtil) {
+		self.validarEquipar(objetoUtil)
+		objeto = objetoUtil
+	}
+
+	method usarObjeto() {
+		self.validarUsarObjeto()
+		objeto.serUsado(self)
+	}
+
 	method sePuedeMover(direccion) {
 		const proxima = direccion.siguiente(self.position())
 		return self.puedeOcupar(proxima)
 	}
 
-
 	method mover(direccion) {
-		const proxima = direccion.siguiente(self.position())
-		self.position(proxima)
-	}
-
-	method equiparSiPuede(objetoUtil) {
-		if (objetoUtil.esEquipable()) {
-			objeto = objetoUtil
-		} else {
-			game.say(self, "No hay nada acá")
-		}
-	}
-
-	method usarObjeto() {
-		if (objeto != null) {
-			objeto.serUsado(self)
-		} else {
-			game.say(self, "No tengo nada para usar")
+		if (self.sePuedeMover(direccion)) {
+			const proxima = direccion.siguiente(self.position())
+			self.position(proxima)
 		}
 	}
 
@@ -58,7 +66,6 @@ object harryInvisible {
 	method image() = "harryInvisible.png"
 
 }
-
 
 object caminando {
 
@@ -89,27 +96,33 @@ object sirius {
 	var objeto = null
 	var property position = game.center()
 
-
 	method image() = estado.image()
 
 	method ocultarse() {
 		estado = siriusPerro
 	}
 
-	method equiparSiPuede(objetoUtil) {
-		if (objetoUtil.esEquipable()) {
-			objeto = objetoUtil
-		} else {
+	// validars:
+	method validarEquipar(objetoUtil) {
+		if (not objetoUtil.esEquipable()) {
 			game.say(self, "No hay nada acá")
 		}
 	}
 
-	method usarObjeto() {
-		if (objeto != null) {
-			objeto.serUsado(self)
-		} else {
+	method validarUsarObjeto() {
+		if (objeto == null) {
 			game.say(self, "No tengo nada para usar")
 		}
+	}
+
+	method equiparSiPuede(objetoUtil) {
+		self.validarEquipar(objetoUtil)
+		objeto = objetoUtil
+	}
+
+	method usarObjeto() {
+		self.validarUsarObjeto()
+		objeto.serUsado(self)
 	}
 
 	method puedeOcupar(posicion) {
@@ -121,10 +134,11 @@ object sirius {
 		return self.puedeOcupar(proxima)
 	}
 
-
 	method mover(direccion) {
-		const proxima = direccion.siguiente(self.position())
-		self.position(proxima)
+		if (self.sePuedeMover(direccion)) {
+			const proxima = direccion.siguiente(self.position())
+			self.position(proxima)
+		}
 	}
 
 }
