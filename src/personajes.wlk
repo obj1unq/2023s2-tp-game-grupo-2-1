@@ -5,7 +5,6 @@ import direcciones.*
 object harry {
 
 	var property estado = harryHumano
-	var property objeto = null
 	var property position = game.center()
 
 	method image() = estado.image()
@@ -19,26 +18,19 @@ object harry {
 		return tablero.pertenece(posicion)
 	}
 
-//	method validarEquipar(objetoUtil) {
+//	method equiparSiPuede(objetoUtil) {
 //		if (not objetoUtil.esEquipable()) {
 //			game.say(self, "No hay nada acá")
+//		}else{
+//		objeto = objetoUtil
 //		}
 //	}
-//	method equiparSiPuede(objetoUtil) {
-//		self.validarEquipar(objetoUtil)
-//		objeto = objetoUtil
-//	}
+	
 	method usarObjeto() {
-		if (self.hayObjeto(oculto)) {
-			self.objeto(oculto)
-			objeto.serUsado(self)
-		} else {
-			game.say(self, "No tengo nada para usar")
-		}
-	}
-
-	method hayObjeto(_objeto) {
-		return self.position() == _objeto.position()
+		const colisiones = objetosUsables.losQuePertenecen(game.colliders(self))
+				if (colisiones.isEmpty()){
+					game.say(self, "No tengo nada para usar")
+				}else colisiones.head().serUsado(self)
 	}
 
 	method sePuedeMover(direccion) {
@@ -51,6 +43,14 @@ object harry {
 			const proxima = direccion.siguiente(self.position())
 			self.position(proxima)
 		}
+	}
+	
+	method colisionasteConHarry() {
+		
+	}
+	
+	method colision(objeto) {
+		objeto.colisionasteConHarry(self)
 	}
 
 }
@@ -77,7 +77,7 @@ object caminando {
 object siriusHumano {
 
 	method image() {
-		return "sirius.png"
+		return "sirius"
 	}
 
 }
@@ -85,7 +85,7 @@ object siriusHumano {
 object siriusPerro {
 
 	method image() {
-		return "siriusPerro.png"
+		return "siriusPerro"
 	}
 
 }
@@ -93,10 +93,9 @@ object siriusPerro {
 object sirius {
 
 	var property estado = siriusHumano
-	var property objeto = null
 	var property position = game.center()
 
-	method image() = estado.image()
+	method image() = estado.image() + ".png"
 
 	method ocultarse() {
 		estado = siriusPerro
@@ -113,17 +112,12 @@ object sirius {
 //		self.validarEquipar(objetoUtil)
 //		objeto = objetoUtil
 //	}
-	method usarObjeto() {
-		if (self.hayObjeto(oculto)) {
-			self.objeto(oculto)
-			objeto.serUsado(self)
-		} else {
-			game.say(self, "No tengo nada para usar")
-		}
-	}
 
-	method hayObjeto(_objeto) {
-		return self.position() == _objeto.position()
+	method usarObjeto() {
+		const colisiones = objetosUsables.losQuePertenecen(game.colliders(self))
+				if (colisiones.isEmpty()){
+					game.say(self, "No tengo nada para usar")
+				}else colisiones.head().serUsado(self)
 	}
 
 	method puedeOcupar(posicion) {

@@ -10,7 +10,19 @@ object oculto {
 		personaje.ocultarse()
 	}
 
-//	method esEquipable() = true
+}
+
+object objetosUsables {
+
+	const objetosUsables = #{ oculto }
+
+	method objetosUsables() {
+		return objetosUsables
+	}
+
+	method losQuePertenecen(objetos) {
+		return objetos.filter({ objeto => objetosUsables.contains(objeto) })
+	}
 
 }
 

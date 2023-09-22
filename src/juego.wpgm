@@ -10,9 +10,9 @@ program juego {
 	game.height(18)
 	game.boardGround("Fondo 2.png")
 	
-	game.addVisualCharacter(harry)
-	game.addVisual(sirius)
 	game.addVisual(oculto)
+	game.addVisual(harry)
+	game.addVisual(sirius)
 	
 	keyboard.up().onPressDo({ harry.mover(arriba) })
 	keyboard.down().onPressDo({ harry.mover(abajo) })
