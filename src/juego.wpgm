@@ -24,8 +24,8 @@ program juego {
 	keyboard.a().onPressDo({ sirius.mover(izquierda) })
 	keyboard.d().onPressDo({ sirius.mover(derecha) })
 	
-	keyboard.q().onPressDo({ sirius.equiparSiPuede(game.uniqueCollider(sirius))})
-	keyboard.l().onPressDo({ harry.equiparSiPuede(game.uniqueCollider(harry))})
+//	keyboard.q().onPressDo({ sirius.equiparSiPuede(game.uniqueCollider(sirius))})
+//	keyboard.l().onPressDo({ harry.equiparSiPuede(game.uniqueCollider(harry))})
 	keyboard.space().onPressDo({ sirius.usarObjeto() })
 	keyboard.enter().onPressDo({ harry.usarObjeto() })
 	

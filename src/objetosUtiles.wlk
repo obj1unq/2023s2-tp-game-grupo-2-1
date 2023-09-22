@@ -10,7 +10,7 @@ object oculto {
 		personaje.ocultarse()
 	}
 
-	method esEquipable() = true
+//	method esEquipable() = true
 
 }
 

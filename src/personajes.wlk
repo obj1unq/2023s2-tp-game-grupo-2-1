@@ -5,41 +5,40 @@ import direcciones.*
 object harry {
 
 	var property estado = harryHumano
-	var objeto = null
+	var property objeto = null
 	var property position = game.center()
 
 	method image() = estado.image()
 
 	method ocultarse() {
 		estado = harryInvisible
-		game.schedule(10000, {self.estado(harryHumano)})
+		game.schedule(10000, { self.estado(harryHumano)})
 	}
 
 	method puedeOcupar(posicion) {
 		return tablero.pertenece(posicion)
 	}
 
-	// validars:
-	method validarEquipar(objetoUtil) {
-		if (not objetoUtil.esEquipable()) {
-			game.say(self, "No hay nada acá")
-		}
-	}
-
-	method validarUsarObjeto() {
-		if (objeto == null) {
+//	method validarEquipar(objetoUtil) {
+//		if (not objetoUtil.esEquipable()) {
+//			game.say(self, "No hay nada acá")
+//		}
+//	}
+//	method equiparSiPuede(objetoUtil) {
+//		self.validarEquipar(objetoUtil)
+//		objeto = objetoUtil
+//	}
+	method usarObjeto() {
+		if (self.hayObjeto(oculto)) {
+			self.objeto(oculto)
+			objeto.serUsado(self)
+		} else {
 			game.say(self, "No tengo nada para usar")
 		}
 	}
 
-	method equiparSiPuede(objetoUtil) {
-		self.validarEquipar(objetoUtil)
-		objeto = objetoUtil
-	}
-
-	method usarObjeto() {
-		self.validarUsarObjeto()
-		objeto.serUsado(self)
+	method hayObjeto(_objeto) {
+		return self.position() == _objeto.position()
 	}
 
 	method sePuedeMover(direccion) {
@@ -94,37 +93,37 @@ object siriusPerro {
 object sirius {
 
 	var property estado = siriusHumano
-	var objeto = null
+	var property objeto = null
 	var property position = game.center()
 
 	method image() = estado.image()
 
 	method ocultarse() {
 		estado = siriusPerro
-		game.schedule(10000, {self.estado(siriusHumano)})
+		game.schedule(10000, { self.estado(siriusHumano)})
 	}
 
-	// validars:
-	method validarEquipar(objetoUtil) {
-		if (not objetoUtil.esEquipable()) {
-			game.say(self, "No hay nada acá")
-		}
-	}
-
-	method validarUsarObjeto() {
-		if (objeto == null) {
+//	validar:
+//	method validarEquipar(objetoUtil) {
+//		if (not objetoUtil.esEquipable()) {
+//			game.say(self, "No hay nada acá")
+//		}
+//	}
+//	method equiparSiPuede(objetoUtil) {
+//		self.validarEquipar(objetoUtil)
+//		objeto = objetoUtil
+//	}
+	method usarObjeto() {
+		if (self.hayObjeto(oculto)) {
+			self.objeto(oculto)
+			objeto.serUsado(self)
+		} else {
 			game.say(self, "No tengo nada para usar")
 		}
 	}
 
-	method equiparSiPuede(objetoUtil) {
-		self.validarEquipar(objetoUtil)
-		objeto = objetoUtil
-	}
-
-	method usarObjeto() {
-		self.validarUsarObjeto()
-		objeto.serUsado(self)
+	method hayObjeto(_objeto) {
+		return self.position() == _objeto.position()
 	}
 
 	method puedeOcupar(posicion) {
