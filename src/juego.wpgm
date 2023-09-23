@@ -6,9 +6,9 @@ import objetosUtiles.*
 program juego {
 	game.title("Harry Potter: Escape de Azkaban")
 	game.cellSize(50)
-	game.width(36)
+	game.width(30)
 	game.height(18)
-	game.boardGround("Fondo 2.png")
+	game.boardGround("background2.png")
 	
 	game.addVisual(oculto)
 	game.addVisual(harry)

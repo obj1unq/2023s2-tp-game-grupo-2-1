@@ -25,17 +25,16 @@ object harry {
 //		objeto = objetoUtil
 //		}
 //	}
-	
 	method usarObjeto() {
 		const colisiones = objetosUsables.losQuePertenecen(game.colliders(self))
-				self.validarUso(colisiones)
-				colisiones.head().serUsado(self)
+		self.validarUso(colisiones)
+		colisiones.head().serUsado(self)
 	}
-	
-	method validarUso(objetos){
-		if (objetos.isEmpty()){
-					self.error( "No tengo nada para usar")
-				}
+
+	method validarUso(objetos) {
+		if (objetos.isEmpty()) {
+			self.error("No tengo nada para usar")
+		}
 	}
 
 	method sePuedeMover(direccion) {
@@ -49,11 +48,10 @@ object harry {
 			self.position(proxima)
 		}
 	}
-	
+
 	method colisionasteConHarry() {
-		
 	}
-	
+
 	method colision(objeto) {
 		objeto.colisionasteConHarry(self)
 	}
@@ -117,19 +115,18 @@ object sirius {
 //		self.validarEquipar(objetoUtil)
 //		objeto = objetoUtil
 //	}
-
 	method usarObjeto() {
 		const colisiones = objetosUsables.losQuePertenecen(game.colliders(self))
-				self.validarUso(colisiones)
-				colisiones.head().serUsado(self)
+		self.validarUso(colisiones)
+		colisiones.head().serUsado(self)
 	}
-	
-	method validarUso(objetos){
-		if (objetos.isEmpty()){
-					self.error( "No tengo nada para usar")
-				}
+
+	method validarUso(objetos) {
+		if (objetos.isEmpty()) {
+			self.error("No tengo nada para usar")
+		}
 	}
-	
+
 	method puedeOcupar(posicion) {
 		return tablero.pertenece(posicion)
 	}
