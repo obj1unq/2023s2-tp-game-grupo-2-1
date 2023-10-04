@@ -15,7 +15,11 @@ object harry {
 	}
 
 	method puedeOcupar(posicion) {
-		return tablero.pertenece(posicion)
+		return tablero.puedeOcupar(posicion, self)
+	}
+	
+	method puedePasar(puerta){
+		return false
 	}
 
 //	method equiparSiPuede(objetoUtil) {
@@ -49,11 +53,24 @@ object harry {
 		}
 	}
 
-	method colisionasteConHarry() {
+/*	method colisionasteConHarry() {
 	}
 
 	method colision(objeto) {
 		objeto.colisionasteConHarry(self)
+	}
+*/
+	
+	method esSolidoPara(personaje){
+		return false
+	}
+	
+	method volverAlPrincipio(){
+		self.position(game.at(0,0))
+	}
+	
+	method colisionarCon(personaje){
+		
 	}
 
 }
@@ -82,6 +99,10 @@ object siriusHumano {
 	method image() {
 		return "sirius"
 	}
+	
+	method puedePasar(puerta){
+		return false
+	}
 
 }
 
@@ -89,6 +110,10 @@ object siriusPerro {
 
 	method image() {
 		return "siriusPerro"
+	}
+	
+	method puedePasar(puerta){
+		return true
 	}
 
 }
@@ -128,7 +153,11 @@ object sirius {
 	}
 
 	method puedeOcupar(posicion) {
-		return tablero.pertenece(posicion)
+		return tablero.puedeOcupar(posicion, self)
+	}
+	
+	method puedePasar(puerta){
+		return estado.puedePasar(puerta)
 	}
 
 	method sePuedeMover(direccion) {
@@ -141,6 +170,18 @@ object sirius {
 			const proxima = direccion.siguiente(self.position())
 			self.position(proxima)
 		}
+	}
+	
+	method esSolidoPara(personaje){
+		return false
+	}
+	
+	method volverAlPrincipio(){
+		self.position(game.at(0,0))
+	}
+	
+	method colisionarCon(personaje){
+		
 	}
 
 }

@@ -2,6 +2,7 @@ import wollok.game.*
 import personajes.*
 import direcciones.*
 import objetosUtiles.*
+import enemigos.*
 
 program juego {
 	game.title("Harry Potter: Escape de Azkaban")
@@ -13,6 +14,7 @@ program juego {
 	game.addVisual(oculto)
 	game.addVisual(harry)
 	game.addVisual(sirius)
+	game.onTick(1000, "caminataGuardias", {guardias.caminar()})
 	
 	keyboard.up().onPressDo({ harry.mover(arriba) })
 	keyboard.down().onPressDo({ harry.mover(abajo) })
@@ -26,6 +28,8 @@ program juego {
 	
 //	keyboard.q().onPressDo({ sirius.equiparSiPuede(game.uniqueCollider(sirius))})
 //	keyboard.l().onPressDo({ harry.equiparSiPuede(game.uniqueCollider(harry))})
+	game.onCollideDo(harry, {colisionado => colisionado.colisionarCon(harry)})
+	game.onCollideDo(sirius, {colisionado => colisionado.colisionarCon(sirius)})
 	keyboard.space().onPressDo({ sirius.usarObjeto() })
 	keyboard.enter().onPressDo({ harry.usarObjeto() })
 	

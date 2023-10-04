@@ -1,23 +1,29 @@
 import wollok.game.*
 
-object oculto {
+class Oculto {
 
-	var property position = game.at(2, 5)
+	var property position 
 
 	method image() = "escondite.png"
 
 	method serUsado(personaje) {
 		personaje.ocultarse()
 	}
+	
+	method colisionarCon(personaje){}
 
 }
 
 object objetosUsables {
 
-	const objetosUsables = #{ oculto }
+	const objetosUsables = #{}
 
 	method objetosUsables() {
 		return objetosUsables
+	}
+	
+	method agregarObjeto(objeto){
+		objetosUsables.add(objeto)
 	}
 
 	method losQuePertenecen(objetos) {
