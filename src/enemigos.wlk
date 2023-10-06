@@ -85,6 +85,8 @@ class Pared{
 	method esSolidoPara(personaje){
 		return true
 	}
+	
+	method colisionarCon(personaje){}
 }
 
 class AtrapaMagos{

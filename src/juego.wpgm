@@ -3,6 +3,7 @@ import personajes.*
 import direcciones.*
 import objetosUtiles.*
 import enemigos.*
+import nivelx.*
 
 program juego {
 	game.title("Harry Potter: Escape de Azkaban")
@@ -11,11 +12,11 @@ program juego {
 	game.height(18)
 	game.boardGround("background2.png")
 	
-	game.addVisual(oculto)
-	game.addVisual(harry)
-	game.addVisual(sirius)
-	game.onTick(1000, "caminataGuardias", {guardias.caminar()})
+	//game.addVisual(harry)
+	//game.addVisual(sirius)
+	//game.onTick(1000, "caminataGuardias", {guardias.caminar()})
 	
+	nivelx.generar()
 	keyboard.up().onPressDo({ harry.mover(arriba) })
 	keyboard.down().onPressDo({ harry.mover(abajo) })
 	keyboard.left().onPressDo({ harry.mover(izquierda) })
@@ -32,7 +33,6 @@ program juego {
 	game.onCollideDo(sirius, {colisionado => colisionado.colisionarCon(sirius)})
 	keyboard.space().onPressDo({ sirius.usarObjeto() })
 	keyboard.enter().onPressDo({ harry.usarObjeto() })
-	
 	
 	
 	game.start()
