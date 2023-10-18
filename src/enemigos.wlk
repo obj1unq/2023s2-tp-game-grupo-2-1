@@ -10,16 +10,24 @@ class Guardia {
 	}
 	
 	
+//	method moverse(){
+//		game.onTick(1000, "CaminataGuardias", {self.caminar()})
+//	}
+	
 	method caminar(){
 		const proxima = ladoAMover.siguiente(position)
-		position = proxima
-		self.cambiarLadoSiCorresponde()
+		if (not self.puedeMover(proxima)){
+			self.cambiarLado()
+		}else {position = proxima}
 	}
 	
-	method cambiarLadoSiCorresponde(){
-		if (position.x() == game.width() -1 or position.x() == 0){
-			ladoAMover = ladoAMover.opuesto()
-		}
+	method cambiarLado(){
+		//position.x() == game.width() -1 or position.x() == 0 or 
+		ladoAMover = ladoAMover.opuesto()
+	}
+	
+	method puedeMover(posicion){
+		return tablero.puedeOcupar(posicion, self)
 	}
 	
 	method esSolidoPara(personaje){
@@ -33,13 +41,25 @@ class Guardia {
 	
 }
 
+object listaGuardias{
+	const property guardias = #{}
+	
+	method agregarGuardia(guardia){
+		guardias.add(guardia)
+	}
+	
+	method caminar(){
+		guardias.forEach({guardia => guardia.caminar()})
+	}
+}
+
 class CaminoInvalido{
 	const property position
 	const posicionEntrada = tunel.position()
 	
-	method image(){
-		return "nada.png"
-	}
+//	method image(){
+//		return "nada.png"
+//	}
 	
 	method colisionarCon(personaje){
 		personaje.position(self.arribaDeLaEntrada())
@@ -65,7 +85,7 @@ object tunel{
 	}
 	
 	method esSolidoPara(personaje){
-		return personaje.puedePasar(self)
+		return not personaje.puedePasar(self)
 	}
 	
 	method colisionarCon(personaje){
@@ -89,16 +109,16 @@ class Pared{
 	method colisionarCon(personaje){}
 }
 
-class AtrapaMagos{
+class ZonaDeGuardias{
 	const property position
 	
-	method image(){
-		return "nada.png"
-	}
 	
 	method colisionarCon(personaje){
-		game.say(personaje, "Me pueden ver!")
-		personaje.volverAlPrincipio()
+		personaje.entrarEnZonaGuardias()
+	}
+	
+	method esSolidoPara(personaje){
+		return false
 	}
 }
 

@@ -22,7 +22,7 @@ object nivelx {
 		 [[i], [i], [_], [_], [i], [_], [_], [_], [i], [i], [i], [i], [i], [i], [i], [p], [a], [a], [a], [a, g], [a], [a], [a], [a], [a, g], [a], [a], [a], [a], [a]],
 		 [[i], [i], [i], [_], [_], [_], [i], [_], [i], [i], [i], [i], [i], [i], [i], [p], [a], [a], [a], [a], [a, g], [a], [a], [a], [a], [a], [a], [a], [a], [a]],
 		 [[p], [p], [p], [p], [p], [p], [p], [t], [p], [p], [p], [p], [p], [p], [p], [p], [_], [_], [_], [_], [_], [_], [_], [_], [_], [_], [_], [_], [_], [_]],
-		 [[_], [_], [_], [_], [_], [_], [_], [_], [_], [_], [_], [_], [_], [_], [_], [o], [_], [_], [_], [_], [_], [_], [_], [_], [_], [_], [_], [_], [_]],
+		 [[_], [_], [_], [_], [_], [_], [_], [_], [_], [_], [_], [_], [_], [_], [_], [o], [_], [_], [_], [_], [_], [_], [_], [_], [_], [_], [_], [_], [_], [_]],
 		 [[h], [s], [_], [_], [_], [_], [_], [_], [_], [_], [_], [_], [_], [_], [_], [_], [_], [_], [_], [_], [_], [_], [_], [_], [_], [_], [_], [_], [_], [_]]
 	].reverse()
 	
@@ -97,14 +97,17 @@ object p{
 }
 
 object g{
+
 	method generar(position){
-		game.addVisual(new Guardia(position = position))
+		const guardia = new Guardia(position = position)
+		game.addVisual(guardia)
+		listaGuardias.agregarGuardia(guardia)
 	}
 }
 
 object a{
 	method generar(position){
-		game.addVisual(new AtrapaMagos(position = position))
+		game.addVisual(new ZonaDeGuardias(position = position))
 	}
 }
 

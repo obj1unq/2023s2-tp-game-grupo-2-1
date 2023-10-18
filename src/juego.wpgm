@@ -14,7 +14,7 @@ program juego {
 	
 	//game.addVisual(harry)
 	//game.addVisual(sirius)
-	//game.onTick(1000, "caminataGuardias", {guardias.caminar()})
+	game.onTick(1000, "caminataGuardias", {listaGuardias.caminar()})
 	
 	nivelx.generar()
 	keyboard.up().onPressDo({ harry.mover(arriba) })
