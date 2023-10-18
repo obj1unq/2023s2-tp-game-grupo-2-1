@@ -57,7 +57,7 @@ object nivelx {
 								self.generarCelda(x,y)})
 		})
 	}
-	
+ 	
 	method generarCelda(x,y){
 		const celda = celdas.get(y).get(x)
 		celda.forEach({objeto => objeto.generar(game.at(x,y))})
