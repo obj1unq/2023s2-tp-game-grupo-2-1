@@ -54,6 +54,7 @@ object listaGuardias{
 	}
 }
 
+
 class CaminoInvalido{
 	const property position
 	const posicionEntrada = tunel.position()
