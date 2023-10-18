@@ -10,6 +10,7 @@ class Guardia {
 	}
 	
 	
+	
 //	method moverse(){
 //		game.onTick(1000, "CaminataGuardias", {self.caminar()})
 //	}
