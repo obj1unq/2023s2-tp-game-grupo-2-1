@@ -9,7 +9,7 @@ object derecha {
 	method opuesto(){
 		return izquierda
 	}
-
+ 
 }
 
 object izquierda {

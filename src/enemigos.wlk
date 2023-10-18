@@ -1,9 +1,11 @@
 import wollok.game.*
 import direcciones.*
+import personajes.*
 
 class Guardia {
 	var property position = game.at(2,3)
 	var ladoAMover = derecha
+	
 	
 	method image(){
 		return "guardia." + ladoAMover.toString() + ".png"
@@ -86,11 +88,12 @@ object tunel{
 	}
 	
 	method esSolidoPara(personaje){
+
 		return not personaje.puedePasar(self)
 	}
 	
 	method colisionarCon(personaje){
-		
+
 	}
 	
 }
@@ -116,6 +119,10 @@ class ZonaDeGuardias{
 	
 	method colisionarCon(personaje){
 		personaje.entrarEnZonaGuardias()
+	}
+	
+	method esSolidoPara(personaje){
+		return false
 	}
 	
 	method esSolidoPara(personaje){
