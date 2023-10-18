@@ -72,6 +72,10 @@ object harry {
 	method colisionarCon(personaje){
 		
 	}
+	
+	method puedePasarCueva(){
+		return false
+	}
 
 }
 
@@ -79,12 +83,19 @@ object harryHumano {
 
 	method image() = "harry.png"
 
+	method puedePasarCueva(){
+		return false
+	}
+
 }
 
 object harryInvisible {
 
 	method image() = "harryInvisible.png"
 
+	method puedePasarCueva(){
+		return false
+	}
 }
 
 object caminando {
@@ -103,6 +114,10 @@ object siriusHumano {
 	method puedePasar(puerta){
 		return false
 	}
+	
+	method puedePasarCueva(){
+		return false
+	}
 
 }
 
@@ -113,6 +128,10 @@ object siriusPerro {
 	}
 	
 	method puedePasar(puerta){
+		return true
+	}
+	
+	method puedePasarCueva(){
 		return true
 	}
 

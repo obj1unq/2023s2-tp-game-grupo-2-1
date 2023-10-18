@@ -1,5 +1,6 @@
 import wollok.game.*
 import direcciones.*
+import personajes.*
 
 class Guardia {
 	var property position = game.at(2,3)
@@ -65,11 +66,11 @@ object tunel{
 	}
 	
 	method esSolidoPara(personaje){
-		return personaje.puedePasar(self)
+		return not (personaje.estado().image() == siriusPerro.image())
 	}
 	
 	method colisionarCon(personaje){
-		
+		personaje.puedePasarCueva()
 	}
 	
 }

@@ -11,6 +11,10 @@ class Oculto {
 	}
 	
 	method colisionarCon(personaje){}
+	
+	method esSolidoPara(personaje){
+		return false
+	}
 
 }
 
