@@ -6,6 +6,7 @@ class Guardia {
 	var property position = game.at(2,3)
 	var ladoAMover = derecha
 	
+	
 	method image(){
 		return "guardia." + ladoAMover.toString() + ".png"
 	}
