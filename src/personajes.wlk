@@ -21,6 +21,10 @@ object harry {
 	method puedePasar(puerta){
 		return false
 	}
+	
+	method entrarEnZonaGuardias(){
+		estado.entrarEnZonaGuardias(self)
+	}
 
 //	method equiparSiPuede(objetoUtil) {
 //		if (not objetoUtil.esEquipable()) {
@@ -78,12 +82,21 @@ object harry {
 object harryHumano {
 
 	method image() = "harry.png"
+	
+	method entrarEnZonaGuardias(personaje){
+		game.say(personaje, "Me pueden ver!")
+		game.schedule(1500, {personaje.volverAlPrincipio()})
+	}
 
 }
 
 object harryInvisible {
 
 	method image() = "harryInvisible.png"
+	
+	method entrarEnZonaGuardias(){
+		
+	}
 
 }
 
@@ -160,6 +173,11 @@ object sirius {
 	
 	method puedePasar(puerta){
 		return estado.puedePasar(puerta)
+	}
+	
+	method entrarEnZonaGuardias(){
+		game.say(self, "Me pueden ver!")
+		game.schedule(1500, {self.volverAlPrincipio()})
 	}
 
 	method sePuedeMover(direccion) {

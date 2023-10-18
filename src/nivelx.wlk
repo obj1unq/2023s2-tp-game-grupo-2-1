@@ -105,14 +105,17 @@ object p{
 }
 
 object g{
+
 	method generar(position){
-		game.addVisual(new Guardia(position = position))
+		const guardia = new Guardia(position = position)
+		game.addVisual(guardia)
+		listaGuardias.agregarGuardia(guardia)
 	}
 }
 
 object a{
 	method generar(position){
-		game.addVisual(new AtrapaMagos(position = position))
+		game.addVisual(new ZonaDeGuardias(position = position))
 	}
 }
 
