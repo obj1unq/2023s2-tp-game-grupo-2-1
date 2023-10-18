@@ -70,7 +70,7 @@ object tunel{
 	}
 	
 	method colisionarCon(personaje){
-		personaje.puedePasarCueva()
+
 	}
 	
 }
@@ -100,6 +100,10 @@ class AtrapaMagos{
 	method colisionarCon(personaje){
 		game.say(personaje, "Me pueden ver!")
 		personaje.volverAlPrincipio()
+	}
+	
+	method esSolidoPara(personaje){
+		return false
 	}
 }
 

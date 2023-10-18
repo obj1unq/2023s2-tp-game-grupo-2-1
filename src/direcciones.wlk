@@ -59,7 +59,7 @@ object tablero {
 	}
 	
 	method haySolido(position, personaje){
-		return game.getObjectsIn(position).any({objeto => objeto.esSolidoPara(self)})
+		return game.getObjectsIn(position).any({objeto => objeto.esSolidoPara(personaje)})
 	}
 
 }
