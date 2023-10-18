@@ -94,7 +94,7 @@ object harryInvisible {
 
 	method image() = "harryInvisible.png"
 	
-	method entrarEnZonaGuardias(){
+	method entrarEnZonaGuardias(personaje){
 		
 	}
 
