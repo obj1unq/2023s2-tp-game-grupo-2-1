@@ -116,6 +116,7 @@ object siriusHumano {
 	method puedePasar(puerta){
 		return false
 	}
+	
 
 }
 
@@ -128,6 +129,7 @@ object siriusPerro {
 	method puedePasar(puerta){
 		return true
 	}
+	
 
 }
 
