@@ -126,9 +126,6 @@ class ZonaDeGuardias{
 		return false
 	}
 	
-	method esSolidoPara(personaje){
-		return false
-	}
 }
 
 
