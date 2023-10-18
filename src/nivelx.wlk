@@ -60,7 +60,7 @@ object nivelx {
 	
 	method generarCelda(x,y){
 		const celda = celdas.get(y).get(x)
-		celda.forEach({objeto=> objeto.generar(game.at(x,y))})
+		celda.forEach({objeto => objeto.generar(game.at(x,y))})
 	}
 	
 }
