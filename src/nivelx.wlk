@@ -73,8 +73,8 @@ object _{
 }
 
 object i{
-	method generar(position){
-		game.addVisual(new CaminoInvalido(position = position))
+	method generar(_position){
+		game.addVisual(new CaminoInvalido(position = _position))
 	}
 }
 
@@ -125,14 +125,14 @@ object a{
 object h{
 	method generar(position){
 		harry.position(position)
-		game.addVisual(harryy)
+		game.addVisual(harry)
 	}
 }
 
 object s{
 	method generar(position){
 		sirius.position(position)
-		game.addVisual(sirius)
+		game.addVisual(sirius)   
 	}
 }
 

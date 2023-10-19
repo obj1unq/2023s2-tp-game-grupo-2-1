@@ -12,17 +12,17 @@ program juego {
 	game.height(18)
 	game.boardGround("background2.png")
 	
-	//game.addVisual(harryy)
+	//game.addVisual(harry)
 	//game.addVisual(sirius)
 	
 	game.onTick(1000, "caminataGuardias", {listaGuardias.caminar()})
 	
 	nivelx.generar()
 	//a
-	keyboard.up().onPressDo({ harryy.mover(arriba) })
-	keyboard.down().onPressDo({ harryy.mover(abajo) })
-	keyboard.left().onPressDo({ harryy.mover(izquierda) })
-	keyboard.right().onPressDo({ harryy.mover(derecha) })
+	keyboard.up().onPressDo({ harry.mover(arriba) })
+	keyboard.down().onPressDo({ harry.mover(abajo) })
+	keyboard.left().onPressDo({ harry.mover(izquierda) })
+	keyboard.right().onPressDo({ harry.mover(derecha) })
 	
 	keyboard.w().onPressDo({ sirius.mover(arriba) })
 	keyboard.s().onPressDo({ sirius.mover(abajo) })
@@ -31,11 +31,11 @@ program juego {
 	
 //	keyboard.q().onPressDo({ sirius.equiparSiPuede(game.uniqueCollider(sirius))})
 //	keyboard.l().onPressDo({ harry.equiparSiPuede(game.uniqueCollider(harry))})
-	game.onCollideDo(harryy, {colisionado => colisionado.colisionarCon(harryy)})
+	game.onCollideDo(harry, {colisionado => colisionado.colisionarCon(harry)})
 	game.onCollideDo(sirius, {colisionado => colisionado.colisionarCon(sirius)})
 	keyboard.space().onPressDo({ sirius.usarObjeto() })
-	keyboard.enter().onPressDo({ harryy.usarObjeto() })
-	
+	keyboard.enter().onPressDo({ harry.usarObjeto() })   
+	    
 	
 	game.start()
 }
