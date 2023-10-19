@@ -7,7 +7,7 @@ class Oculto {
 	method image() = "escondite.png"
 
 	method serUsado(personaje) {
-		personaje.ocultarse()
+		personaje.transformarse()
 	}
 	
 	method colisionarCon(personaje){}

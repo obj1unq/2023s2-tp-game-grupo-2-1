@@ -2,6 +2,7 @@ import wollok.game.*
 import enemigos.*
 import personajes.*
 import objetosUtiles.*
+import direcciones.*
 
 object nivelx {
 	
@@ -56,8 +57,10 @@ object nivelx {
 					(0..game.height() -1).forEach({y=>
 								self.generarCelda(x,y)})
 		})
+		
+		
 	}
- 	
+
 	method generarCelda(x,y){
 		const celda = celdas.get(y).get(x)
 		celda.forEach({objeto => objeto.generar(game.at(x,y))})
@@ -122,7 +125,7 @@ object a{
 object h{
 	method generar(position){
 		harry.position(position)
-		game.addVisual(harry)
+		game.addVisual(harryy)
 	}
 }
 

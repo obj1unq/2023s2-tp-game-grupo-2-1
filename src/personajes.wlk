@@ -5,13 +5,15 @@ import direcciones.*
 
 class Personaje {
 	
-	var property estado   = self.estadoHabitual()
-	var property position = game.center()
+	var property estado   = self.estadoHabitual() 
+	var property position = game.at(0,0)
 	
+	method initialize()
 	method transformacion()
 	method estadoHabitual()
 	method puedePasar(puerta)
 	method entrarEnZonaGuardias()
+	method image() = estado.image()
 	
 	method transformarse(){
 		estado = self.transformacion()
@@ -53,24 +55,26 @@ class Personaje {
 	
 }
 
-class Harry inherits Personaje{
+object harryy inherits Personaje{
+	
 	
 	override method transformacion(){
-		return harryHumano
+		return harryInvisible
 	}
 	override method estadoHabitual(){
-		return harryInvisible
+		return harryHumano
 	}
 	
 	override method puedePasar(puerta){
 		return false
 	}
+	
 	override method entrarEnZonaGuardias(){
 		estado.entrarEnZonaGuardias(self)
 	}
 }
 
-class Sirius inherits Personaje{
+object siriuss inherits Personaje{
 	
 	override method transformacion(){
 		return siriusHumano
