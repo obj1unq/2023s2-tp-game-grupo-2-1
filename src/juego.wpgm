@@ -18,7 +18,7 @@ program juego {
 	game.onTick(1000, "caminataGuardias", {listaGuardias.caminar()})
 	
 	nivelx.generar()
-	
+	//a
 	keyboard.up().onPressDo({ harryy.mover(arriba) })
 	keyboard.down().onPressDo({ harryy.mover(abajo) })
 	keyboard.left().onPressDo({ harryy.mover(izquierda) })
