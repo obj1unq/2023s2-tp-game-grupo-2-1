@@ -6,13 +6,28 @@ class Personaje {
 
 	var property estado = self.estadoHabitual()
 	var property position = game.at(0, 0)
-
+	var property vida = 100
 	method transformacion()
 	method estadoHabitual()
 	method puedePasar(puerta)
 	method entrarEnZonaGuardias()
 	method image() = estado.image() + ".png"
 	method colisionarCon(personaje) {
+	}
+	method quitarVida(vidaQuitada){
+		vida -= vidaQuitada
+		self.verSiPerdi()
+
+	}
+	
+	method verSiPerdi(){
+		if (vida <= 0) self.perder()
+		
+	}
+	
+	method perder(){
+		self.volverAlPrincipio()
+		game.say(self, "me mataron")
 	}
 
 	method transformarse() {

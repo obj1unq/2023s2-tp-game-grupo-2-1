@@ -136,3 +136,21 @@ object s{
 	}
 }
 
+
+//object nivel2{
+//	
+//		method generar(){
+//		(0..game.width() -1).forEach({x=> 
+//					(0..game.height() -1).forEach({y=>
+//								self.generarCelda(x,y)})
+//		})
+//		
+//		
+//	}
+//
+//	method generarCelda(x,y){
+//		const celda = celdas.get(y).get(x)
+//		celda.forEach({objeto => objeto.generar(game.at(x,y))})
+//	}
+//}
+
