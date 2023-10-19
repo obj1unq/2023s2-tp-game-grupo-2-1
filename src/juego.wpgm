@@ -12,13 +12,22 @@ program juego {
 	game.height(18)
 	game.boardGround("background2.png")
 	
-	//game.addVisual(harry)
-	//game.addVisual(sirius)
+	const guardia = new GuardiaPerseguidor()
+	game.addVisual(harry)
+	game.addVisual(sirius)
+	game.addVisual(guardia)
+	
+	game.onTick(500, "", {guardia.perseguir()})
 	
 	game.onTick(1000, "caminataGuardias", {listaGuardias.caminar()})
 	
-	nivelx.generar()
-	//a
+//<<<<<<< HEAD
+//	nivelx.generar()
+//	//a
+//=======
+//	//nivelx.generar()
+//	
+//>>>>>>> refs/remotes/origin/branch_mateo
 	keyboard.up().onPressDo({ harry.mover(arriba) })
 	keyboard.down().onPressDo({ harry.mover(abajo) })
 	keyboard.left().onPressDo({ harry.mover(izquierda) })
