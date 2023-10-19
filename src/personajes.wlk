@@ -2,6 +2,93 @@ import wollok.game.*
 import objetosUtiles.*
 import direcciones.*
 
+
+class Personaje {
+	
+	var property estado   = self.estadoHabitual()
+	var property position = game.center()
+	
+	method transformacion()
+	method estadoHabitual()
+	method puedePasar(puerta)
+	method entrarEnZonaGuardias()
+	
+	method transformarse(){
+		estado = self.transformacion()
+		game.schedule(10000, {self.estadoHabitual()})
+	}
+	
+	method puedeOcupar(posicion) {
+		return tablero.puedeOcupar(posicion, self)
+	}
+
+		
+	method usarObjeto() {
+		const colisiones = objetosUsables.losQuePertenecen(game.colliders(self))
+		self.validarUso(colisiones)
+		colisiones.head().serUsado(self)
+	}
+	
+	method validarUso(objetos) {
+		if (objetos.isEmpty()) {
+			self.error("No tengo nada para usar")
+		}
+	}
+	
+		method sePuedeMover(direccion) {
+		const proxima = direccion.siguiente(self.position())
+		return self.puedeOcupar(proxima)
+	}
+
+	method mover(direccion) {
+		if (self.sePuedeMover(direccion)) {
+			const proxima = direccion.siguiente(self.position())
+			self.position(proxima)
+		}
+	}
+	
+	method volverAlPrincipio(){
+		self.position(game.at(0,0))
+	}
+	
+}
+
+class Harry inherits Personaje{
+	
+	override method transformacion(){
+		return harryHumano
+	}
+	override method estadoHabitual(){
+		return harryInvisible
+	}
+	
+	override method puedePasar(puerta){
+		return false
+	}
+	override method entrarEnZonaGuardias(){
+		estado.entrarEnZonaGuardias(self)
+	}
+}
+
+class Sirius inherits Personaje{
+	
+	override method transformacion(){
+		return siriusHumano
+	}
+	override method estadoHabitual(){
+		return siriusPerro
+	}
+	
+	override method puedePasar(puerta){
+		return estado.puedePasar(puerta)
+	}
+	
+	override method entrarEnZonaGuardias(){
+		game.say(self, "Me pueden ver!")
+		game.schedule(1500, {self.volverAlPrincipio()})
+	}
+}
+
 object harry {
 
 	var property estado = harryHumano
@@ -79,59 +166,6 @@ object harry {
 
 }
 
-object harryHumano {
-
-	method image() = "harry.png"
-	
-	method entrarEnZonaGuardias(personaje){
-		game.say(personaje, "Me pueden ver!")
-		game.schedule(1500, {personaje.volverAlPrincipio()})
-	}
-
-}
-
-object harryInvisible {
-
-	method image() = "harryInvisible.png"
-	
-	method entrarEnZonaGuardias(personaje){
-		
-	}
-
-}
-
-object caminando {
-
-	method puedeMover() {
-	}
-
-}
-
-object siriusHumano {
-
-	method image() {
-		return "sirius"
-	}
-	
-	method puedePasar(puerta){
-		return false
-	}
-	
-
-}
-
-object siriusPerro {
-
-	method image() {
-		return "siriusPerro"
-	}
-	
-	method puedePasar(puerta){
-		return true
-	}
-	
-
-}
 
 object sirius {
 
@@ -205,4 +239,59 @@ object sirius {
 	}
 
 }
+
+object harryHumano {
+
+	method image() = "harry.png"
+	
+	method entrarEnZonaGuardias(personaje){
+		game.say(personaje, "Me pueden ver!")
+		game.schedule(1500, {personaje.volverAlPrincipio()})
+	}
+
+}
+
+object harryInvisible {
+
+	method image() = "harryInvisible.png"
+	
+	method entrarEnZonaGuardias(personaje){
+		
+	}
+
+}
+
+object caminando {
+
+	method puedeMover() {
+	}
+
+}
+
+object siriusHumano {
+
+	method image() {
+		return "sirius"
+	}
+	
+	method puedePasar(puerta){
+		return false
+	}
+	
+
+}
+
+object siriusPerro {
+
+	method image() {
+		return "siriusPerro"
+	}
+	
+	method puedePasar(puerta){
+		return true
+	}
+	
+
+}
+
 
