@@ -44,7 +44,7 @@ object i {
 	}
 
 }
-
+ 
 object tn {
 
 	method validarEntrada(personaje) {
