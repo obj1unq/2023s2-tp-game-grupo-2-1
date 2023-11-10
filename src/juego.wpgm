@@ -23,7 +23,7 @@ program juego {
 	
 
 //<<<<<<< HEAD
-	nivelx.generar()
+	nivel1.generar()
 //	//a
 //=======
 //	//nivelx.generar()

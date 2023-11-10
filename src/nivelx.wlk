@@ -3,10 +3,43 @@ import enemigos.*
 import personajes.*
 import objetosUtiles.*
 import direcciones.*
+import musica.*
  
-object nivelx {
+class Nivel{
+//	const property cancion
+
+	method iniciar() {
+		self.terminar()
+		self.generar()
+//		musica.reproducir(self.cancion())
+	}
 	
-	const celdas = 
+		method terminar() {
+		game.clear()
+	}
+	
+	method celdas()
+		
+	method generar(){
+		(0..game.width() -1).forEach({x=> 
+					(0..game.height() -1).forEach({y=>
+								self.generarCelda(x,y)})
+		})
+		
+		
+	}
+
+	method generarCelda(x,y){
+		const celda = self.celdas().get(y).get(x)
+		celda.generar(game.at(x,y))
+	}
+	
+}
+
+object nivel1 inherits Nivel {
+	
+	override method celdas(){
+		return 
 		[[i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, p, _, _, _, _, _, _, _, _, _, _, _, _, _, _],
 		 [i, i, i, i, i, i, i, i, i, i, i, i, i, i, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _],
 		 [i, i, i, i, i, i, i, i, i, _, _, _, i, i, _, p, a, a, a, a, a, ag, a, a, a, a, a, a, a, a],
@@ -26,23 +59,8 @@ object nivelx {
 		 [_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, o, _, _, _, _, _, _, _, _, _, _, _, _, _, _],
 		 [h, s, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _]
 	].reverse()
-	
-	
-	
-	method generar(){
-		(0..game.width() -1).forEach({x=> 
-					(0..game.height() -1).forEach({y=>
-								self.generarCelda(x,y)})
-		})
-		
-		
 	}
 
-	method generarCelda(x,y){
-		const celda = celdas.get(y).get(x)
-		celda.generar(game.at(x,y))
-	}
-	
 }
 
 object _{
@@ -103,13 +121,15 @@ object h{
 	method generar(position){
 		harry.position(position)
 		game.addVisual(harry)
+		harry.nivel(self)
 	}
 }
 
 object s{
 	method generar(position){
 		sirius.position(position)
-		game.addVisual(sirius)   
+		game.addVisual(sirius)
+		sirius.nivel(self)
 	}
 }
 
