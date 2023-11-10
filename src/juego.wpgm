@@ -20,15 +20,10 @@ program juego {
 	game.onTick(500, "", {guardia.perseguir()})
 	
 	game.onTick(1000, "caminataGuardias", {listaGuardias.caminar()})
-	
 
-//<<<<<<< HEAD
+
 	nivel1.generar()
-//	//a
-//=======
-//	//nivelx.generar()
-//	
-//>>>>>>> refs/remotes/origin/branch_mateo
+
 
 	keyboard.up().onPressDo({ harry.mover(arriba) })
 	keyboard.down().onPressDo({ harry.mover(abajo) })

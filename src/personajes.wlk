@@ -5,9 +5,9 @@ import direcciones.*
 class Personaje {
 
 	var property estado = self.estadoHabitual()
-	var property nivel
 	var property position = game.at(0, 0)
 	var property vida = 100
+//	var property nivel
 	method transformacion()
 	method estadoHabitual()
 	method puedePasar(puerta)
@@ -75,7 +75,7 @@ class Personaje {
 }
 
 object harry inherits Personaje {
-
+	
 	override method transformacion() {
 		return harryInvisible
 	}
