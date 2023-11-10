@@ -39,8 +39,8 @@ object _ {
 
 object i {
 
-	method generar(_position) {
-		game.addVisual(new CaminoInvalido(position = _position))
+	method generar(position) {
+		game.addVisual(new CaminoInvalido(position = position))
 	}
 
 }

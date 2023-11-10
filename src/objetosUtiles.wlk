@@ -4,7 +4,7 @@ class Oculto {
 
 	var property position 
 
-	method image() = "escondite.png"
+	method image() = "oculto.png"
 
 	method serUsado(personaje) {
 		personaje.transformarse()
