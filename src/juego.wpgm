@@ -13,16 +13,16 @@ program juego {
 	game.boardGround("background2.png")
 	
 	const guardia = new GuardiaPerseguidor()
-	game.addVisual(harry)
-	game.addVisual(sirius)
-	game.addVisual(guardia)
+//	game.addVisual(harry)
+//	game.addVisual(sirius)
+//	game.addVisual(guardia)
 	
 	game.onTick(500, "", {guardia.perseguir()})
 	
 	game.onTick(1000, "caminataGuardias", {listaGuardias.caminar()})
 	
 //<<<<<<< HEAD
-//	nivelx.generar()
+	nivelx.generar()
 //	//a
 //=======
 //	//nivelx.generar()
