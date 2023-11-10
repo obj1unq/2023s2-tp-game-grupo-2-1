@@ -2,6 +2,7 @@ import wollok.game.*
 import enemigos.*
 import personajes.*
 import objetosUtiles.*
+import musica.*
 
 class Nivel {
 
@@ -11,7 +12,7 @@ class Nivel {
 	method iniciar() {
 		self.terminar()
 		self.generar()
-		.cambiar(self.cancion())
+		musica.reproducir(self.cancion())
 	}
 
 	method terminar() {
