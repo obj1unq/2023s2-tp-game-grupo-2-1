@@ -3,7 +3,7 @@ import enemigos.*
 import personajes.*
 import objetosUtiles.*
 import direcciones.*
-
+ 
 object nivelx {
 	
 	const celdas = 
