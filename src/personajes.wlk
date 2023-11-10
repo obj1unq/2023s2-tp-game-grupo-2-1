@@ -19,7 +19,7 @@ class Personaje {
 		self.verSiPerdi()
 
 	}
-	
+	 
 	method verSiPerdi(){
 		if (vida <= 0) self.perder()
 		
