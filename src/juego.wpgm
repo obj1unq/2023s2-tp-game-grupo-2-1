@@ -21,7 +21,7 @@ program juego {
 	
 	game.onTick(1000, "caminataGuardias", {listaGuardias.caminar()})
 
-
+ 
 	nivel1.generar()
 
 
