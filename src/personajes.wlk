@@ -6,7 +6,6 @@ class Personaje {
 
 	var property estado = self.estadoHabitual()
 	var property position = game.at(0, 0)
-	var property vida = 100
 //	var property nivel
 	method transformacion()
 	method estadoHabitual()
@@ -14,16 +13,6 @@ class Personaje {
 	method entrarEnZonaGuardias()
 	method image() = estado.image() + ".png"
 	method colisionarCon(personaje) {
-	}
-	method quitarVida(vidaQuitada){
-		vida -= vidaQuitada
-		self.verSiPerdi()
-
-	}
-	 
-	method verSiPerdi(){
-		if (vida <= 0) self.perder()
-		
 	}
 	
 	method perder(){
@@ -70,6 +59,10 @@ class Personaje {
 	
 	method esSolidoPara(personaje) {
 		return false
+	}
+	
+	method esPerseguible(){
+		return estado.esPerseguible()
 	}
 
 }
@@ -124,6 +117,8 @@ object harryHumano {
 		game.say(personaje, "Me pueden ver!")
 		game.schedule(1500, { personaje.volverAlPrincipio()})
 	}
+	
+	method esPerseguible() = true
 
 }
 
@@ -133,7 +128,7 @@ object harryInvisible {
 
 	method entrarEnZonaGuardias(personaje) {
 	}
-
+	method esPerseguible() = false 
 }
 
 object caminando {
@@ -152,7 +147,7 @@ object siriusHumano {
 	method puedePasar(puerta) {
 		return false
 	}
-
+	method esPerseguible() = true
 }
 
 object siriusPerro {
@@ -164,6 +159,5 @@ object siriusPerro {
 	method puedePasar(puerta) {
 		return true
 	}
-
+	method esPerseguible() = false
 }
-
