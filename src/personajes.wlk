@@ -5,8 +5,8 @@ import direcciones.*
 class Personaje {
 
 	var property estado = self.estadoHabitual()
+	var property nivel = null
 	var property position = game.at(0, 0)
-//	var property nivel
 	method transformacion()
 	method estadoHabitual()
 	method puedePasar(puerta)
