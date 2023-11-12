@@ -51,8 +51,22 @@ class GuardiaPerseguidor inherits Guardia{
     
     method perseguir(){
     	if (self.veAlgunIntruso()){
-    		self.avanzarHacia(self.intrusoMasCercano().position())
+    		const destino = self.intrusoMasCercano().position()
+    		self.atraparSiEstaCerca(destino)
+    		self.darUnPaso(destino)
     	}
+    }
+    
+    method atraparSiEstaCerca(destino){
+    	if (self.estaAlLado(destino)){
+    			 position = game.at( destino.x(), destino.y())
+    	}
+    }
+    
+    method darUnPaso(destino){
+    		    position = game.at (
+            	   self.position().x() + (destino.x() - self.position().x()).div(2),
+            	   self.position().y() + (destino.y() - self.position().y()).div(2))
     }
     
     method veAlgunIntruso(){
@@ -60,47 +74,39 @@ class GuardiaPerseguidor inherits Guardia{
     }
     
     method intrusoMasCercano(){
-    	  return personajes.find({personaje => self.puedoVerlo(personaje)})
+    	  return personajes.min({personaje => self.distanciaMenorEntre(personaje) })
     }
     
-
-    
-    method verAInfiltrado(){
-        return 3
-        
-    }
-    
-    method avanzarHacia(destino){
-        position = game.at (
-            position.x() + (destino.x() - position.x()) / 2,
-            position.y() + (destino.y() - position.y()) / 2
-        )
-    }
-    
+	method estaAlLado(destino){
+		return  1 >= (self.position().x() - destino.x()).abs() and
+				1 >= (self.position().y() - destino.y()).abs()    
+  			
+	}
+   
     method puedoVerlo(personaje){
     	   
-    	   return 
-    	self.verAInfiltrado() >= self.position().x() - personaje.position().x() or  
-		self.verAInfiltrado() >= self.position().y() - personaje.position().y()    
+    	return 
+    		self.verAInfiltrado() >= self.position().x() - personaje.position().x() and  
+			self.verAInfiltrado() >= self.position().y() - personaje.position().y() and
+			personaje.esPerseguible()
   			
-    	}	
+    }	
     
-        
+     method verAInfiltrado(){
+        return 3
+    }   
     
-    method distanciaEntre(personaje){
-        return self.position().x() - personaje.position().x()
+    method distanciaMenorEntre(personaje){
+        return self.position().x() - personaje.position().x().min( self.position().y() - personaje.position().y())
     }
     
     override method colisionarCon(personaje){
-    	personaje.quitarVida(self.danio())
-		game.say(personaje, personaje.vida().toString() )
+		game.say(self, "te atrapé!")
+		personaje.volverAlPrincipio()
 	}
     
     
 }
-
-
-
 
 object listaGuardias{
 	const property guardias = #{}

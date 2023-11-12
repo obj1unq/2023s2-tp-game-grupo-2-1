@@ -4,7 +4,9 @@ import personajes.*
 import objetosUtiles.*
 import direcciones.*
 import musica.*
- 
+
+
+
 class Nivel{
 //	const property cancion
 
@@ -121,7 +123,7 @@ object h{
 	method generar(position){
 		harry.position(position)
 		game.addVisual(harry)
-		harry.nivel(self)
+//		harry.nivel(self)
 	}
 }
 
@@ -129,7 +131,7 @@ object s{
 	method generar(position){
 		sirius.position(position)
 		game.addVisual(sirius)
-		sirius.nivel(self)
+//		sirius.nivel(self)
 	}
 }
 
