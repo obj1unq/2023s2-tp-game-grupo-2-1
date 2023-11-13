@@ -9,16 +9,17 @@ class Personaje {
 	var property position = game.at(0, 0)
 	method transformacion()
 	method estadoHabitual()
+	method atrapado()
 	method puedePasar(puerta)
 	method entrarEnZonaGuardias()
 	method image() = estado.image() + ".png"
 	method colisionarCon(personaje) {
 	}
 	
-	method perder(){
-		self.volverAlPrincipio()
-		game.say(self, "me mataron")
-	}
+//	method perder(){
+//		self.volverAlPrincipio()
+//		game.say(self, "me mataron")
+//	}
 
 	method transformarse() {
 		estado = self.transformacion()
@@ -43,7 +44,7 @@ class Personaje {
 
 	method sePuedeMover(direccion) {
 		const proxima = direccion.siguiente(self.position())
-		return self.puedeOcupar(proxima)
+		return self.puedeOcupar(proxima) && estado.puedeMoverse()
 	}
 
 	method mover(direccion) {
@@ -64,7 +65,26 @@ class Personaje {
 	method esPerseguible(){
 		return estado.esPerseguible()
 	}
+	
+	method serAtrapado(){
+		estado = self.atrapado()
+		game.schedule(3000, {self.reiniciar()})
+	}
+	
+	method reiniciar(){
+		protagonistas.reiniciar()
+		estado = self.estadoHabitual()
+	}
 
+
+}
+
+object protagonistas{
+	const personajes = #{harry, sirius}
+	
+	method reiniciar(){
+		personajes.forEach({personaje => personaje.volverAlPrincipio()})
+	}
 }
 
 object harry inherits Personaje {
@@ -83,6 +103,10 @@ object harry inherits Personaje {
 
 	override method entrarEnZonaGuardias() {
 		estado.entrarEnZonaGuardias(self)
+	}
+	
+	override method atrapado(){  // La idea es poner una imagen distinta para que cuando se lo atrape no se pueda mover más.
+		return harryAtrapado
 	}
 
 }
@@ -103,7 +127,12 @@ object sirius inherits Personaje {
 
 	override method entrarEnZonaGuardias() {
 		game.say(self, "Me pueden ver!")
-		game.schedule(1500, { self.volverAlPrincipio()})
+		//game.schedule(1500, { self.volverAlPrincipio()})
+		self.serAtrapado()
+	}
+	
+		override method atrapado(){  // La idea es poner una imagen distinta para que cuando se lo atrape no se pueda mover más.
+		return siriusAtrapado
 	}
 
 }
@@ -115,10 +144,13 @@ object harryHumano {
 
 	method entrarEnZonaGuardias(personaje) {
 		game.say(personaje, "Me pueden ver!")
-		game.schedule(1500, { personaje.volverAlPrincipio()})
+		//game.schedule(1500, { personaje.volverAlPrincipio()})
+		personaje.serAtrapado()
 	}
 	
 	method esPerseguible() = true
+	
+	method puedeMoverse() = true
 
 }
 
@@ -129,6 +161,18 @@ object harryInvisible {
 	method entrarEnZonaGuardias(personaje) {
 	}
 	method esPerseguible() = false 
+	
+	method puedeMoverse() = true
+}
+
+object harryAtrapado{
+	method puedeMoverse() = false
+	
+	method image() = "harry"
+	
+	method entrarEnZonaGuardias(harry){}
+	
+	method esPerseguible() = true
 }
 
 object caminando {
@@ -148,6 +192,8 @@ object siriusHumano {
 		return false
 	}
 	method esPerseguible() = true
+	
+	method puedeMoverse() = true
 }
 
 object siriusPerro {
@@ -160,4 +206,12 @@ object siriusPerro {
 		return true
 	}
 	method esPerseguible() = false
+	
+	method puedeMoverse() = true
+}
+
+object siriusAtrapado{
+	method puedeMoverse() = false
+	
+	method image() = "sirius"
 }

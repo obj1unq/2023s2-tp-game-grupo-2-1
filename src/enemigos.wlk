@@ -11,12 +11,6 @@ class Guardia {
 		return "guardia." + ladoAMover.toString() + ".png"
 	}
 	
-	
-	
-//	method moverse(){
-//		game.onTick(1000, "CaminataGuardias" + self , {self.caminar()})
-//	}
-	
 	method caminar(){
 		const proxima = ladoAMover.siguiente(position)
 		if (not self.puedeMover(proxima)){
@@ -25,7 +19,6 @@ class Guardia {
 	}
 	
 	method cambiarLado(){
-		//position.x() == game.width() -1 or position.x() == 0 or 
 		ladoAMover = ladoAMover.opuesto()
 	}
 	
@@ -39,7 +32,7 @@ class Guardia {
 	
 	method colisionarCon(personaje){
 		game.say(self, "te atrapé!")
-		personaje.volverAlPrincipio()
+		personaje.serAtrapado()
 	}
 	
 }
@@ -124,10 +117,6 @@ object listaGuardias{
 class CaminoInvalido{
 	const property position
 	const posicionEntrada = tunel.position()
-	
-//	method image(){
-//		return "nada.png"
-//	}
 	
 	method colisionarCon(personaje){
 		personaje.position(self.arribaDeLaEntrada())
