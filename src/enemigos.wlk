@@ -69,7 +69,7 @@ class GuardiaPerseguidor inherits Guardia{
    
     
     method puedePerseguir(){
-    	return self.veAlgunIntruso() 
+    	return  self.veAlgunIntruso() 
     }
     
     method atraparSiEstaCerca(destino){
