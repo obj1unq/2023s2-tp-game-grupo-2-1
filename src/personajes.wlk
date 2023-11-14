@@ -6,6 +6,7 @@ class Personaje {
 
 	var property estado = self.estadoHabitual()
 	var property position = game.at(0, 0)
+	var property posicionPrincipio = game.at(0,0)
 //	var property nivel
 	method transformacion()
 	method estadoHabitual()
@@ -54,7 +55,7 @@ class Personaje {
 	}
 
 	method volverAlPrincipio() {
-		self.position(game.at(0, 0))
+		self.position((posicionPrincipio))
 	}
 	
 	method esSolidoPara(personaje) {
@@ -68,6 +69,8 @@ class Personaje {
 }
 
 object harry inherits Personaje {
+	
+	
 	
 	override method transformacion() {
 		return harryInvisible
