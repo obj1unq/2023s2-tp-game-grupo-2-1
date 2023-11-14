@@ -52,7 +52,7 @@ class Nivel{
 object nivelM inherits Nivel {
 	
 
-	override method fondo() = "nivelM.png"
+	override method fondo() =  "nivelM.png"
 	
 	override method celdas(){
 		return
