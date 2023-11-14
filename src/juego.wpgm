@@ -10,21 +10,19 @@ program juego {
 	game.cellSize(50)
 	game.width(30)
 	game.height(18)
-	game.boardGround("background2.png")
+//	game.boardGround("probarpared.png")
 	
 	const guardia = new GuardiaPerseguidor()
+	guardia.position(game.at(17, 6))
+	
 	game.addVisual(harry)
 	game.addVisual(sirius)
-	game.addVisual(guardia)
+
 	
-	game.onTick(500, "", {guardia.perseguir()})
-	o.generar(game.at(1,2))
 	// game.onTick(1000, "caminataGuardias", {listaGuardias.caminar()})
-
-
-	//nivel1.generar()
-
-
+	
+	nivelM.iniciar()
+	
 	keyboard.up().onPressDo({ harry.mover(arriba) })
 	keyboard.down().onPressDo({ harry.mover(abajo) })
 	keyboard.left().onPressDo({ harry.mover(izquierda) })

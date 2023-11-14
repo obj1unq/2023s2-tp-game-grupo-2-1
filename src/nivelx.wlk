@@ -9,11 +9,21 @@ import musica.*
 
 class Nivel{
 //	const property cancion
+	
 
+	method fondo()
+	
 	method iniciar() {
 		self.terminar()
+		self.configurar()
 		self.generar()
 //		musica.reproducir(self.cancion())
+	}
+	
+	method configurar() {
+		game.boardGround(self.fondo())
+		
+		
 	}
 	
 		method terminar() {
@@ -35,10 +45,48 @@ class Nivel{
 		const celda = self.celdas().get(y).get(x)
 		celda.generar(game.at(x,y))
 	}
-	
+
 }
 
+
+object nivelM inherits Nivel {
+	
+
+	override method fondo() = "nivelM.png"
+	
+	override method celdas(){
+		return
+		[[_, _, _, _, _, _, _, _, _, _, p, _, _, _, p, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _],
+		 [_, _, _, _, _, _, _, _, _, _, p, _, _, _, p, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _],
+		 [_, _, p, p, p, p, p, p, p, p, p, p, _, _, p, p, p, p, p, p, p, p, p, p, p, p, p, p, _, _],
+		 [_, _, p, p, p, p, p, p, p, p, p, p, _, _, p, p, p, p, p, p, p, p, p, p, p, p, p, p, _, _],
+		 [_, _, p, _, _, _, _, _, _, _, p, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, p, _, _],
+		 [_, _, p, _, _, _, _, _, _, _, p, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, p, _, _],
+		 [_, _, p, _, _, _, _, _, _, _, p, _, _, _, _, _, _, _, _, _, gp, _, _, _, _, _, _, p, _, _],
+		 [_, _, p, _, _, _, _, _, _, _, p, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, p, p, p],
+		 [p, p, p, p, p, _, _, p, p, p, p, _, _, _, _, _, _, gp, _, _, _, _, gp, _, _, _, _, p, p, p],
+		 [_, _, _, h, s, _, _, _, _, _, _, _, _, _, gp, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _],
+		 [_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _],
+		 [p, p, p, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, gp, _, _, _, _, _, _, p, p, p],
+		 [_, _, p, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, p, _, _],
+		 [_, _, p, _, o, _, _, _, _, _, _, _, _, _, _, _, gp, _, _, _, _, _, _, _, _, _, _, p, _, _],
+		 [_, _, p, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, gp, _, _, _, _, p, _, _],
+		 [_, _, p, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, p, _, _],
+		 [_, _, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, _, _],
+		 [_, _, p, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _]
+	].reverse()
+	}
+
+
+}
+	
+	
+
+
+
 object nivel1 inherits Nivel {
+	
+	override method fondo() = "background.png"
 	
 	override method celdas(){
 		return 
@@ -113,6 +161,18 @@ object g{
 	}
 }
 
+object gp{
+
+	method generar(position){
+		const guardia = new GuardiaPerseguidor(position = position)
+		game.addVisual(guardia)
+		game.onTick(500, "", {guardia.perseguir()})
+		
+	}
+	
+}
+
+
 object a{
 	method generar(position){
 		game.addVisual(new ZonaDeGuardias(position = position))
@@ -123,6 +183,7 @@ object h{
 	method generar(position){
 		harry.position(position)
 		game.addVisual(harry)
+		harry.posicionPrincipio(position)
 //		harry.nivel(self)
 	}
 }
@@ -131,6 +192,7 @@ object s{
 	method generar(position){
 		sirius.position(position)
 		game.addVisual(sirius)
+		sirius.posicionPrincipio(position)
 //		sirius.nivel(self)
 	}
 }

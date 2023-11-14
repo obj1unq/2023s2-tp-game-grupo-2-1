@@ -49,12 +49,19 @@ class GuardiaPerseguidor inherits Guardia{
     const personajes   = #{harry, sirius}
     var property danio = 10
     
+
     method perseguir(){
-    	if (self.veAlgunIntruso()){
-    		const destino = self.intrusoMasCercano().position()
+    	
+    	const destino = self.intrusoMasCercano().position()
+    	if (self.puedePerseguir(destino)){
+    		
     		self.atraparSiEstaCerca(destino)
     		self.darUnPaso(destino)
     	}
+    }
+    
+    method puedePerseguir(direccion){
+    	return self.veAlgunIntruso() 
     }
     
     method atraparSiEstaCerca(destino){
@@ -167,9 +174,9 @@ object tunel{
 class Pared{
 	const property position
 	
-	method image(){
-		return "pared.png"
-	}
+//	method image(){
+//		return "pared.png"
+//	}
 	
 	method esSolidoPara(personaje){
 		return true
