@@ -12,8 +12,7 @@ program juego {
 	game.height(18)
 //	game.boardGround("probarpared.png")
 	
-	const guardia = new GuardiaPerseguidor()
-	guardia.position(game.at(17, 6))
+
 	
 	game.addVisual(harry)
 	game.addVisual(sirius)
