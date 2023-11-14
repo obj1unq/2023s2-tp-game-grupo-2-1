@@ -67,12 +67,16 @@ class Personaje {
 	}
 	
 	method serAtrapado(){
+		protagonistas.perder()
+	}
+	
+	method perder(){
 		estado = self.atrapado()
 		game.schedule(3000, {self.reiniciar()})
 	}
 	
 	method reiniciar(){
-		protagonistas.reiniciar()
+		self.volverAlPrincipio()
 		estado = self.estadoHabitual()
 	}
 
@@ -82,8 +86,8 @@ class Personaje {
 object protagonistas{
 	const personajes = #{harry, sirius}
 	
-	method reiniciar(){
-		personajes.forEach({personaje => personaje.volverAlPrincipio()})
+	method perder(){
+		personajes.forEach({personaje => personaje.perder()})
 	}
 }
 
