@@ -13,19 +13,20 @@ program juego {
 //	game.boardGround("probarpared.png")
 	
 
-	
 	game.addVisual(harry)
 	game.addVisual(sirius)
 
-	
 	// game.onTick(1000, "caminataGuardias", {listaGuardias.caminar()})
 	
 	nivelM.iniciar()
-	
+
+	//nivel1.generar()
+
+
 	keyboard.up().onPressDo({ harry.mover(arriba) })
 	keyboard.down().onPressDo({ harry.mover(abajo) })
 	keyboard.left().onPressDo({ harry.mover(izquierda) })
-	keyboard.right().onPressDo({ harry.mover(derecha) } )
+	keyboard.right().onPressDo({ harry.mover(derecha) })
 	
 	keyboard.w().onPressDo({ sirius.mover(arriba) })
 	keyboard.s().onPressDo({ sirius.mover(abajo) })
