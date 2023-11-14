@@ -64,7 +64,7 @@ object nivelM inherits Nivel {
 		 [_, _, p, _, _, _, _, _, _, _, p, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, p, _, _],
 		 [_, _, p, _, _, _, _, _, _, _, p, _, _, _, _, _, _, _, _, _, gp, _, _, _, _, _, _, p, _, _],
 		 [_, _, p, _, _, _, _, _, _, _, p, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, p, p, p],
-		 [p, p, p, p, p, _, _, p, p, p, p, _, _, _, _, _, _, gp, _, _, _, _, gp, _, _, _, _, p, p, p],
+		 [p, p, p, p, p, _, _, p, tn, p, p, _, _, _, _, _, _, gp, _, _, _, _, gp, _, _, _, _, p, p, p],
 		 [_, _, _, h, s, _, _, _, _, _, _, _, _, _, gp, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _],
 		 [_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _],
 		 [p, p, p, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, gp, _, _, _, _, _, _, p, p, p],
@@ -126,16 +126,16 @@ object i{
 object tn{
 	
 	method validarEntrada(personaje){
-		if  (not personaje.puedePasarCueva()){
+		if  (not personaje.puedePasar(self)){
 			self.error("No puedo entrar ahi!")
 		}
 	}
 	
 	method generar(position){
-		game.addVisual(tunel)
 		tunel.position(position)
-		
 	}
+	
+	
 }
 
 object o{
@@ -164,10 +164,9 @@ object g{
 object gp{
 
 	method generar(position){
-		const guardia = new GuardiaPerseguidor(position = position)
-		game.addVisual(guardia)
+		const guardia = new GuardiaPerseguidor(position = position, posicionDeCustodia = position)
+		game.addVisual(guardia)   
 		game.onTick(500, "", {guardia.perseguir()})
-		
 	}
 	
 }

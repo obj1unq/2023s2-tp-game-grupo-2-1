@@ -47,20 +47,28 @@ class Guardia {
 class GuardiaPerseguidor inherits Guardia{
     
     const personajes   = #{harry, sirius}
-    var property danio = 10
-    
+    const property posicionDeCustodia
 
     method perseguir(){
     	
-    	const destino = self.intrusoMasCercano().position()
-    	if (self.puedePerseguir(destino)){
-    		
+    	
+    	if (self.puedePerseguir()){
+    		const destino = self.intrusoMasCercano().position()	
     		self.atraparSiEstaCerca(destino)
     		self.darUnPaso(destino)
+    	}else{
+    		self.volverPosicionCustodia()
     	}
     }
     
-    method puedePerseguir(direccion){
+    method volverPosicionCustodia(){
+    	if (self.position() != self.posicionDeCustodia()){
+    		self.darUnPaso(self.posicionDeCustodia())
+    	}
+    }
+   
+    
+    method puedePerseguir(){
     	return self.veAlgunIntruso() 
     }
     
@@ -92,10 +100,10 @@ class GuardiaPerseguidor inherits Guardia{
    
     method puedoVerlo(personaje){
     	   
-    	return 
+    	return personaje.esPerseguible() and
     		self.verAInfiltrado() >= self.position().x() - personaje.position().x() and  
-			self.verAInfiltrado() >= self.position().y() - personaje.position().y() and
-			personaje.esPerseguible()
+			self.verAInfiltrado() >= self.position().y() - personaje.position().y() 
+			
   			
     }	
     
