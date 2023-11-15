@@ -1,6 +1,7 @@
 import wollok.game.*
 import objetosUtiles.*
 import direcciones.*
+import enemigos.*
 
 class Personaje {
 
@@ -115,7 +116,7 @@ object protagonistas{
 }
 
 object harry inherits Personaje {
-	
+	var property patronus = 1
 	
 	
 	override method transformacion() {
@@ -138,6 +139,12 @@ object harry inherits Personaje {
 		return harryCongelado
 	}
 	
+	method estaticos(){
+		if (patronus == 1){
+			guardiasNoPerseguidores.estaticos()
+			patronus = 0
+		}
+	}
 
 }
 
