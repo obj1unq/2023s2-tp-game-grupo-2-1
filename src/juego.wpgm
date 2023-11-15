@@ -13,11 +13,10 @@ program juego {
 //	game.boardGround("probarpared.png")
 	
 	
-	nivelM.iniciar()
+	//nivelM.iniciar()
 
-	//nivel1.iniciar()
-	
-	game.schedule (5000, {if(game.hasVisual(tunel)){harry.position(game.at(18,4))}})
+	nivel1.iniciar()
+
 
 	keyboard.up().onPressDo({ harry.mover(arriba) })
 	keyboard.down().onPressDo({ harry.mover(abajo) })

@@ -7,6 +7,11 @@ import musica.*
 
 object nivelActual{ // hago directamente un obj nivel que se acuerde en donde esta.
 	var property nivelActual = nivel1
+	
+	method pasarDeNivel(){
+		nivelActual = nivelActual.siguiente()
+		nivelActual.iniciar()
+	}
 }
 
 class Nivel{
@@ -15,6 +20,7 @@ class Nivel{
 
 	method fondo()
 	method accionDeGuardias()
+	method siguiente()
 	
 	method iniciar() {
 		self.terminar()
@@ -50,6 +56,10 @@ class Nivel{
 	method generarCelda(x,y){
 		const celda = self.celdas().get(y).get(x)
 		celda.generar(game.at(x,y))
+	}
+	
+	method pasarDeNivel(){
+		
 	}
 
 }
@@ -87,6 +97,7 @@ object nivelM inherits Nivel {
 		game.onTick(500, "caminataGuardias", {guardiasPerseguidores.perseguir()})
 	}
 
+	override method siguiente(){} // hay que agregarle que nivle le sigue
 
 }
 	
@@ -95,12 +106,12 @@ object nivelM inherits Nivel {
 
 
 object nivel1 inherits Nivel {
-	
+
 	override method fondo() = "background2.png"
 	
 	override method celdas(){
 		return 
-		[[i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, p, _, _, _, _, _, _, _, _, _, _, _, _, _, _],
+		[[i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, p, _, _, _, _, _, _, _, _, _, _, _, _, _, f],
 		 [i, i, i, i, i, i, i, i, i, i, i, i, i, i, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _],
 		 [i, i, i, i, i, i, i, i, i, _, _, _, i, i, _, p, a, a, a, a, a, ag, a, a, a, a, a, a, a, a],
 		 [i, i, i, i, i, i, i, i, i, _, i, _, _, i, _, p, a, a, a, a, a, a, a, a, a, a, a, ag, a, a],
@@ -124,7 +135,17 @@ object nivel1 inherits Nivel {
 	override method accionDeGuardias(){
 		game.onTick(1000, "caminataGuardias", {guardiasNoPerseguidores.perseguir()})
 	}
-
+	
+	override method generar(){
+		tunel.position(game.at(7, 2))
+		super()
+		sirius.position(game.at(17,17))
+	}
+	
+	override method siguiente(){
+		return nivelM
+	}
+	
 }
 
 object _{
@@ -133,7 +154,9 @@ object _{
 
 object i{
 	method generar(_position){
-		game.addVisual(new CaminoInvalido(position = _position))
+		const camino = new CaminoInvalido(position = _position)
+		game.addVisual(camino)
+		caminosInvalidos.agregarCamino(self)
 	}
 }
 
@@ -229,20 +252,10 @@ object ao{
 	}
 }
 
-//object nivel2{
-//	
-//		method generar(){
-//		(0..game.width() -1).forEach({x=> 
-//					(0..game.height() -1).forEach({y=>
-//								self.generarCelda(x,y)})
-//		})
-//		
-//		
-//	}
-//
-//	method generarCelda(x,y){
-//		const celda = celdas.get(y).get(x)
-//		celda.forEach({objeto => objeto.generar(game.at(x,y))})
-//	}
-//}
+object f{
+	method generar(position){
+		puertaANivel.position(position)
+		game.addVisual(puertaANivel)
+	}
+}
 
