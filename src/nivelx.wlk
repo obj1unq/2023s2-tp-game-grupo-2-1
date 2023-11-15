@@ -5,29 +5,42 @@ import objetosUtiles.*
 import direcciones.*
 import musica.*
 
-
+object nivelActual{ // hago directamente un obj nivel que se acuerde en donde esta.
+	var property nivelActual = nivel1
+	
+	method pasarDeNivel(){
+		nivelActual = nivelActual.siguiente()
+		nivelActual.iniciar()
+	}
+}
 
 class Nivel{
 //	const property cancion
 	
 
 	method fondo()
+	method accionDeGuardias()
+	method siguiente()
 	
 	method iniciar() {
 		self.terminar()
 		self.configurar()
 		self.generar()
+		nivelActual.nivelActual(self)
+		self.accionDeGuardias()
 //		musica.reproducir(self.cancion())
 	}
 	
+
 	method configurar() {
 		game.boardGround(self.fondo())
 		
 		
 	}
 	
-		method terminar() {
-		game.clear()
+	method terminar() { // En vez de hacer un clear, que borra tambíen los datos del tablero, solo saco los visuals
+		game.allVisuals().forEach({visual => game.removeVisual(visual)})
+		//game.removeTickEvent("caminataGuardias")
 	}
 	
 	method celdas()
@@ -38,12 +51,15 @@ class Nivel{
 								self.generarCelda(x,y)})
 		})
 		
-		
 	}
 
 	method generarCelda(x,y){
 		const celda = self.celdas().get(y).get(x)
 		celda.generar(game.at(x,y))
+	}
+	
+	method pasarDeNivel(){
+		
 	}
 
 }
@@ -52,7 +68,7 @@ class Nivel{
 object nivelM inherits Nivel {
 	
 
-	override method fondo() = "nivelM.png"
+	override method fondo() =  "nivelM.png"
 	
 	override method celdas(){
 		return
@@ -76,7 +92,12 @@ object nivelM inherits Nivel {
 		 [_, _, p, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _]
 	].reverse()
 	}
+	
+	override method accionDeGuardias(){
+		game.onTick(500, "caminataGuardias", {guardiasPerseguidores.perseguir()})
+	}
 
+	override method siguiente(){} // hay que agregarle que nivle le sigue
 
 }
 	
@@ -85,12 +106,12 @@ object nivelM inherits Nivel {
 
 
 object nivel1 inherits Nivel {
-	
-	override method fondo() = "background.png"
+
+	override method fondo() = "background2.png"
 	
 	override method celdas(){
 		return 
-		[[i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, p, _, _, _, _, _, _, _, _, _, _, _, _, _, _],
+		[[i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, p, _, _, _, _, _, _, _, _, _, _, _, _, _, f],
 		 [i, i, i, i, i, i, i, i, i, i, i, i, i, i, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _],
 		 [i, i, i, i, i, i, i, i, i, _, _, _, i, i, _, p, a, a, a, a, a, ag, a, a, a, a, a, a, a, a],
 		 [i, i, i, i, i, i, i, i, i, _, i, _, _, i, _, p, a, a, a, a, a, a, a, a, a, a, a, ag, a, a],
@@ -110,7 +131,21 @@ object nivel1 inherits Nivel {
 		 [h, s, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _]
 	].reverse()
 	}
-
+	
+	override method accionDeGuardias(){
+		game.onTick(1000, "caminataGuardias", {guardiasNoPerseguidores.perseguir()})
+	}
+	
+	override method generar(){
+		tunel.position(game.at(7, 2))
+		super()
+		sirius.position(game.at(17,17))
+	}
+	
+	override method siguiente(){
+		return nivelM
+	}
+	
 }
 
 object _{
@@ -119,20 +154,23 @@ object _{
 
 object i{
 	method generar(_position){
-		game.addVisual(new CaminoInvalido(position = _position))
+		const camino = new CaminoInvalido(position = _position)
+		game.addVisual(camino)
+		caminosInvalidos.agregarCamino(self)
 	}
 }
 
 object tn{
 	
-	method validarEntrada(personaje){
-		if  (not personaje.puedePasar(self)){
-			self.error("No puedo entrar ahi!")
-		}
-	}
+//	method validarEntrada(personaje){
+//		if  (not personaje.puedePasar(self)){
+//			self.error("No puedo entrar ahi!")
+//		}
+//	}
 	
 	method generar(position){
 		tunel.position(position)
+		game.addVisual(tunel)
 	}
 	
 	
@@ -157,7 +195,7 @@ object g{
 	method generar(position){
 		const guardia = new Guardia(position = position)
 		game.addVisual(guardia)
-		listaGuardias.agregarGuardia(guardia)
+		guardiasNoPerseguidores.agregarGuardia(guardia)
 	}
 }
 
@@ -166,7 +204,7 @@ object gp{
 	method generar(position){
 		const guardia = new GuardiaPerseguidor(position = position, posicionDeCustodia = position)
 		game.addVisual(guardia)   
-		game.onTick(500, "", {guardia.perseguir()})
+		guardiasPerseguidores.agregarGuardia(guardia)
 	}
 	
 }
@@ -179,20 +217,24 @@ object a{
 }
 
 object h{
+	
+	
 	method generar(position){
 		harry.position(position)
 		game.addVisual(harry)
 		harry.posicionPrincipio(position)
-//		harry.nivel(self)
+//		harry.nivel(nivel)
+
 	}
 }
 
 object s{
+	
 	method generar(position){
 		sirius.position(position)
 		game.addVisual(sirius)
 		sirius.posicionPrincipio(position)
-//		sirius.nivel(self)
+//		sirius.nivel(nivel)
 	}
 }
 
@@ -210,20 +252,10 @@ object ao{
 	}
 }
 
-//object nivel2{
-//	
-//		method generar(){
-//		(0..game.width() -1).forEach({x=> 
-//					(0..game.height() -1).forEach({y=>
-//								self.generarCelda(x,y)})
-//		})
-//		
-//		
-//	}
-//
-//	method generarCelda(x,y){
-//		const celda = celdas.get(y).get(x)
-//		celda.forEach({objeto => objeto.generar(game.at(x,y))})
-//	}
-//}
+object f{
+	method generar(position){
+		puertaANivel.position(position)
+		game.addVisual(puertaANivel)
+	}
+}
 

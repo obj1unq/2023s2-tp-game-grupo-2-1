@@ -12,16 +12,24 @@ program juego {
 	game.height(18)
 //	game.boardGround("probarpared.png")
 	
-
 	
-	game.addVisual( harry)
-	game.addVisual(sirius)
+
+	//nivelM.iniciar()
+
+	nivel1.iniciar()
+
+
 
 	
 	// game.onTick(1000, "caminataGuardias", {listaGuardias.caminar()})
+
 	
 	nivelM.iniciar()
+
+	//nivel1.iniciar()
 	
+
+
 	keyboard.up().onPressDo({ harry.mover(arriba) })
 	keyboard.down().onPressDo({ harry.mover(abajo) })
 	keyboard.left().onPressDo({ harry.mover(izquierda) })

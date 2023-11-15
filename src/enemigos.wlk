@@ -1,6 +1,7 @@
 import wollok.game.*
 import direcciones.*
 import personajes.*
+import nivelx.*
 
 class Guardia {
 
@@ -11,10 +12,7 @@ class Guardia {
 		return "guardia." + ladoAMover.toString() + ".png"
 	}
 
-//	method moverse(){
-//		game.onTick(1000, "CaminataGuardias" + self , {self.caminar()})
-//	}
-	method caminar() {
+	method perseguir(){
 		const proxima = ladoAMover.siguiente(position)
 		if (not self.puedeMover(proxima)) {
 			self.cambiarLado()
@@ -22,9 +20,12 @@ class Guardia {
 			position = proxima
 		}
 	}
+method puedePisarGuardia(){
+		return false 
+	}
 
-	method cambiarLado() {
-		// position.x() == game.width() -1 or position.x() == 0 or 
+	method cambiarLado(){
+
 		ladoAMover = ladoAMover.opuesto()
 	}
 
@@ -38,7 +39,7 @@ class Guardia {
 
 	method colisionarCon(personaje) {
 		game.say(self, "te atrapé!")
-		personaje.volverAlPrincipio()
+		personaje.serAtrapado()
 	}
 
 }
@@ -48,7 +49,7 @@ class GuardiaPerseguidor inherits Guardia {
 	const personajes = #{ harry, sirius }
 	const property posicionDeCustodia
 
-	method perseguir() {
+	override method perseguir() {
 		const intrusoCercano = self.intrusoMasCercano()
 		if (self.puedePerseguir(intrusoCercano)) {
 			self.irHacia(intrusoCercano.position())
@@ -94,9 +95,7 @@ class GuardiaPerseguidor inherits Guardia {
 		return personaje.puedePisarGuardia() 
 	}
 	
-	method puedePisarGuardia(){
-		return false 
-	}
+	
 
 	method intrusoMasCercano() {
 		return personajes.min({ personaje => self.distanciaMenorEntre(personaje) })
@@ -121,6 +120,78 @@ class GuardiaPerseguidor inherits Guardia {
 	}
 
 	override method colisionarCon(personaje) {
+	}
+  
+  }
+class GuardiaPerseguidor inherits Guardia{
+    
+    const property posicionDeCustodia
+
+   	override method perseguir(){
+    	if (self.puedePerseguir()){
+    		const destino = self.intrusoMasCercano().position()	
+    		self.atraparSiEstaCerca(destino)
+    		self.darUnPaso(destino)
+    	}else{
+    		self.volverPosicionCustodia()
+    	}
+    }
+    
+    method volverPosicionCustodia(){
+    	if (self.position() != self.posicionDeCustodia()){
+    		self.darUnPaso(self.posicionDeCustodia())
+    	}
+    }
+   
+    
+    method puedePerseguir(){
+    	return   self.veAlgunIntruso() 
+    }
+    
+    method atraparSiEstaCerca(destino){
+    	if (self.estaAlLado(destino)){
+    			 position = game.at( destino.x(), destino.y())
+    	}
+    }
+    
+    method darUnPaso(destino){
+    		    position = game.at (
+            	   self.position().x() + (destino.x() - self.position().x()).div(2),
+            	   self.position().y() + (destino.y() - self.position().y()).div(2))
+    }
+    
+    method veAlgunIntruso(){
+    	  return protagonistas.personajes().any({personaje => self.puedoVerlo(personaje)})
+    }
+    
+    method intrusoMasCercano(){
+    	  return protagonistas.personajes().min({personaje => self.distanciaMenorEntre(personaje) })
+    }
+    
+	method estaAlLado(destino){
+		return  1 >= (self.position().x() - destino.x()).abs() and
+				1 >= (self.position().y() - destino.y()).abs()    
+  			
+	}
+   
+    method puedoVerlo(personaje){
+    	   
+    	return personaje.esPerseguible() and
+    		self.verAInfiltrado() >= self.position().x() - personaje.position().x() and  
+			self.verAInfiltrado() >= self.position().y() - personaje.position().y() 
+			
+  			
+    }	
+    
+     method verAInfiltrado(){
+        return 3
+    }   
+    
+    method distanciaMenorEntre(personaje){
+        return self.position().x() - personaje.position().x().min( self.position().y() - personaje.position().y())
+    }
+    
+    override method colisionarCon(personaje){
 		game.say(self, "te atrapé!")
 		personaje.volverAlPrincipio()
 		self.volverPosicionCustodia()
@@ -128,29 +199,36 @@ class GuardiaPerseguidor inherits Guardia {
 
 }
 
-object listaGuardias {
+
+
+
+
+class ListaGuardias{
 
 	const property guardias = #{}
 
 	method agregarGuardia(guardia) {
 		guardias.add(guardia)
 	}
-
-	method caminar() {
-		guardias.forEach({ guardia => guardia.caminar()})
+		method perseguir(){
+		guardias.forEach({guardia => guardia.perseguir()})
 	}
 
+}
+
+object guardiasNoPerseguidores inherits ListaGuardias{
+
+}
+
+object guardiasPerseguidores inherits ListaGuardias{
 }
 
 class CaminoInvalido {
 
 	const property position
-	const posicionEntrada = tunel.position()
-
-//	method image(){
-//		return "nada.png"
-//	}
-	method colisionarCon(personaje) {
+	var property posicionEntrada = tunel.position()
+	
+	method colisionarCon(personaje){
 		personaje.position(self.arribaDeLaEntrada())
 	}
 
@@ -163,6 +241,15 @@ class CaminoInvalido {
 	}
 
 }
+
+object caminosInvalidos{
+	const property caminos = #{}
+	
+	method agregarCamino(camino){
+		caminos.add(camino)
+	}
+}
+
 
 object tunel {
 
@@ -185,10 +272,8 @@ class Pared {
 
 	const property position
 
-//	method image(){
-//		return "pared.png"
-//	}
-	method esSolidoPara(personaje) {
+
+	method esSolidoPara(personaje){
 		return true
 	}
 
@@ -209,5 +294,32 @@ class ZonaDeGuardias {
 		return false
 	}
 
+
 }
+
+object puertaANivel{
+	var property position = game.at(0,0)
+	
+	method image()= "tunel.png"
+	
+	method esSolidoPara(personaje){
+		return false
+	}
+	
+	method colisionarCon(personaje){
+		if (self.estanHarryYSirius()){
+			protagonistas.congelar()
+			game.schedule(100, {protagonistas.descongelar()})
+			nivelActual.pasarDeNivel()
+		}
+	}
+	
+	method estanHarryYSirius(){ // se fija si estan los dos para cambiar de nivel
+		return harry.position() == position && sirius.position() == position
+	}
+}
+
+
+
+
 
