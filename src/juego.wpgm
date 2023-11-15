@@ -12,22 +12,16 @@ program juego {
 	game.height(18)
 //	game.boardGround("probarpared.png")
 	
-<<<<<<< HEAD
-=======
-
 	
-	game.addVisual( harry)
-	game.addVisual(sirius)
 
 	
 	// game.onTick(1000, "caminataGuardias", {listaGuardias.caminar()})
->>>>>>> refs/remotes/origin/mateoOficial
+
 	
 	nivelM.iniciar()
 
 	//nivel1.iniciar()
 	
-	game.schedule (5000, {if(game.hasVisual(tunel)){harry.position(game.at(18,4))}})
 
 	keyboard.up().onPressDo({ harry.mover(arriba) })
 	keyboard.down().onPressDo({ harry.mover(abajo) })
