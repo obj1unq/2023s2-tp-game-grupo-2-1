@@ -14,7 +14,7 @@ program juego {
 	
 
 	
-	game.addVisual(harry)
+	game.addVisual( harry)
 	game.addVisual(sirius)
 
 	
