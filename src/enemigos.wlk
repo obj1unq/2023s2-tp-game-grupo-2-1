@@ -1,6 +1,7 @@
 import wollok.game.*
 import direcciones.*
 import personajes.*
+import nivelx.*
 
 class Guardia {
 	var property position = game.at(2,3)
@@ -39,7 +40,6 @@ class Guardia {
 
 class GuardiaPerseguidor inherits Guardia{
     
-    const personajes   = #{harry, sirius}
     const property posicionDeCustodia
 
    	override method perseguir(){
@@ -76,11 +76,11 @@ class GuardiaPerseguidor inherits Guardia{
     }
     
     method veAlgunIntruso(){
-    	  return personajes.any({personaje => self.puedoVerlo(personaje)})
+    	  return protagonistas.personajes().any({personaje => self.puedoVerlo(personaje)})
     }
     
     method intrusoMasCercano(){
-    	  return personajes.min({personaje => self.distanciaMenorEntre(personaje) })
+    	  return protagonistas.personajes().min({personaje => self.distanciaMenorEntre(personaje) })
     }
     
 	method estaAlLado(destino){
@@ -136,7 +136,7 @@ object guardiasPerseguidores inherits ListaGuardias{
 
 class CaminoInvalido{
 	const property position
-	const posicionEntrada = tunel.position()
+	var property posicionEntrada = tunel.position()
 	
 	method colisionarCon(personaje){
 		personaje.position(self.arribaDeLaEntrada())
@@ -151,6 +151,13 @@ class CaminoInvalido{
 	}
 }
 
+object caminosInvalidos{
+	const property caminos = #{}
+	
+	method agregarCamino(camino){
+		caminos.add(camino)
+	}
+}
 
 
 object tunel{
@@ -200,5 +207,29 @@ class ZonaDeGuardias{
 	}
 	
 }
+
+object puertaANivel{
+	var property position = game.at(0,0)
+	
+	method image()= "tunel.png"
+	
+	method esSolidoPara(personaje){
+		return false
+	}
+	
+	method colisionarCon(personaje){
+		if (self.estanHarryYSirius()){
+			protagonistas.congelar()
+			game.schedule(100, {protagonistas.descongelar()})
+			nivelActual.pasarDeNivel()
+		}
+	}
+	
+	method estanHarryYSirius(){ // se fija si estan los dos para cambiar de nivel
+		return harry.position() == position && sirius.position() == position
+	}
+}
+
+
 
 
