@@ -11,7 +11,7 @@ class Guardia {
 		return "guardia." + ladoAMover.toString() + ".png"
 	}
 	
-	method caminar(){
+	method perseguir(){
 		const proxima = ladoAMover.siguiente(position)
 		if (not self.puedeMover(proxima)){
 			self.cambiarLado()
@@ -42,7 +42,7 @@ class GuardiaPerseguidor inherits Guardia{
     const personajes   = #{harry, sirius}
     const property posicionDeCustodia
 
-    method perseguir(){
+    override method perseguir(){
     	
     	
     	if (self.puedePerseguir()){
@@ -116,16 +116,23 @@ class GuardiaPerseguidor inherits Guardia{
     
 }
 
-object listaGuardias{
+class ListaGuardias{
 	const property guardias = #{}
 	
 	method agregarGuardia(guardia){
 		guardias.add(guardia)
 	}
 	
-	method caminar(){
-		guardias.forEach({guardia => guardia.caminar()})
+		method perseguir(){
+		guardias.forEach({guardia => guardia.perseguir()})
 	}
+}
+
+object guardiasNoPerseguidores inherits ListaGuardias{
+
+}
+
+object guardiasPerseguidores inherits ListaGuardias{
 }
 
 
@@ -171,9 +178,9 @@ object tunel{
 class Pared{
 	const property position
 	
-//	method image(){
-//		return "pared.png"
-//	}
+	method image(){ //Lo habian comentado no se por que, si alguien lo necesita invisible avise o haga una clase distinta!
+		return "pared.png"
+	}
 	
 	method esSolidoPara(personaje){
 		return true

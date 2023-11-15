@@ -83,7 +83,7 @@ object g {
 	method generar(position) {
 		const guardia = new Guardia(position = position)
 		game.addVisual(guardia)
-		listaGuardias.agregarGuardia(guardia)
+		guardiasNoPerseguidores.agregarGuardia(guardia)
 	}
 
 }

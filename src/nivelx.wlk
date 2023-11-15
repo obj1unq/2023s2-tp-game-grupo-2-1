@@ -5,18 +5,23 @@ import objetosUtiles.*
 import direcciones.*
 import musica.*
 
-
+object nivelActual{ // hago directamente un obj nivel que se acuerde en donde esta.
+	var property nivelActual = nivel1
+}
 
 class Nivel{
 //	const property cancion
 	
 
 	method fondo()
+	method accionDeGuardias()
 	
 	method iniciar() {
 		self.terminar()
 		self.configurar()
 		self.generar()
+		nivelActual.nivelActual(self)
+		self.accionDeGuardias()
 //		musica.reproducir(self.cancion())
 	}
 	
@@ -29,6 +34,7 @@ class Nivel{
 	
 	method terminar() { // En vez de hacer un clear, que borra tambíen los datos del tablero, solo saco los visuals
 		game.allVisuals().forEach({visual => game.removeVisual(visual)})
+		//game.removeTickEvent("caminataGuardias")
 	}
 	
 	method celdas()
@@ -39,12 +45,11 @@ class Nivel{
 								self.generarCelda(x,y)})
 		})
 		
-		
 	}
 
 	method generarCelda(x,y){
 		const celda = self.celdas().get(y).get(x)
-		celda.generar(game.at(x,y), self)
+		celda.generar(game.at(x,y))
 	}
 
 }
@@ -77,6 +82,10 @@ object nivelM inherits Nivel {
 		 [_, _, p, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _]
 	].reverse()
 	}
+	
+	override method accionDeGuardias(){
+		game.onTick(500, "caminataGuardias", {guardiasPerseguidores.perseguir()})
+	}
 
 
 }
@@ -87,7 +96,7 @@ object nivelM inherits Nivel {
 
 object nivel1 inherits Nivel {
 	
-	override method fondo() = "background.png"
+	override method fondo() = "background2.png"
 	
 	override method celdas(){
 		return 
@@ -111,36 +120,41 @@ object nivel1 inherits Nivel {
 		 [h, s, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _]
 	].reverse()
 	}
+	
+	override method accionDeGuardias(){
+		game.onTick(1000, "caminataGuardias", {guardiasNoPerseguidores.perseguir()})
+	}
 
 }
 
 object _{
-	method generar(position, nivel){}
+	method generar(position){}
 }
 
 object i{
-	method generar(_position, nivel){
+	method generar(_position){
 		game.addVisual(new CaminoInvalido(position = _position))
 	}
 }
 
 object tn{
 	
-	method validarEntrada(personaje){
-		if  (not personaje.puedePasar(self)){
-			self.error("No puedo entrar ahi!")
-		}
-	}
+//	method validarEntrada(personaje){
+//		if  (not personaje.puedePasar(self)){
+//			self.error("No puedo entrar ahi!")
+//		}
+//	}
 	
-	method generar(position, nivel){
+	method generar(position){
 		tunel.position(position)
+		game.addVisual(tunel)
 	}
 	
 	
 }
 
 object o{
-	method generar(position, nivel){
+	method generar(position){
 		const oculto = new Oculto(position = position)
 		game.addVisual(oculto)
 		objetosUsables.agregarObjeto(oculto)
@@ -148,17 +162,17 @@ object o{
 }
 
 object p{
-	method generar(position, nivel){
+	method generar(position){
 		game.addVisual(new Pared(position = position))
 	}
 }
 
 object g{
 
-	method generar(position, nivel){
+	method generar(position){
 		const guardia = new Guardia(position = position)
 		game.addVisual(guardia)
-		listaGuardias.agregarGuardia(guardia)
+		guardiasNoPerseguidores.agregarGuardia(guardia)
 	}
 }
 
@@ -167,14 +181,14 @@ object gp{
 	method generar(position){
 		const guardia = new GuardiaPerseguidor(position = position, posicionDeCustodia = position)
 		game.addVisual(guardia)   
-		game.onTick(500, "", {guardia.perseguir()})
+		guardiasPerseguidores.agregarGuardia(guardia)
 	}
 	
 }
 
 
 object a{
-	method generar(position, nivel){
+	method generar(position){
 		game.addVisual(new ZonaDeGuardias(position = position))
 	}
 }
@@ -182,36 +196,36 @@ object a{
 object h{
 	
 	
-	method generar(position, nivel){
+	method generar(position){
 		harry.position(position)
 		game.addVisual(harry)
 		harry.posicionPrincipio(position)
-		harry.nivel(nivel)
+//		harry.nivel(nivel)
 
 	}
 }
 
 object s{
 	
-	method generar(position, nivel){
+	method generar(position){
 		sirius.position(position)
 		game.addVisual(sirius)
 		sirius.posicionPrincipio(position)
-		sirius.nivel(nivel)
+//		sirius.nivel(nivel)
 	}
 }
 
 object ag{
-	method generar(position, nivel){
-		a.generar(position, nivel)
-		g.generar(position, nivel)
+	method generar(position){
+		a.generar(position)
+		g.generar(position)
 	}
 }
 
 object ao{
-	method generar(position, nivel){
-		a.generar(position, nivel)
-		o.generar(position, nivel)
+	method generar(position){
+		a.generar(position)
+		o.generar(position)
 	}
 }
 
