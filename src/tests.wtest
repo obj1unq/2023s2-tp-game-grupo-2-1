@@ -3,7 +3,7 @@ import wollok.game.*
 import personajes.*
 import enemigos.*
 import direcciones.*
-
+//
 //describe "nivel1" {
 //	
 //	method initialize(){
@@ -27,5 +27,13 @@ import direcciones.*
 //		assert.that(harry.puedeOcupar(game.at(17,4)))
 //		assert.that(harry.sePuedeMover(arriba))
 //		assert.that(sirius.sePuedeMover(arriba))
+//	}
+//	
+//	test "harry choca contra una pared"{
+//		harry.position(game.at(2, 2))
+//		sirius.position(game.at(2,2))
+//		harry.mover(arriba)
+//		assert.notThat(harry.sePuedeMover(arriba))
+//		assert.notThat(sirius.sePuedeMover(arriba))
 //	}
 //}
