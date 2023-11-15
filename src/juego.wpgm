@@ -13,7 +13,7 @@ program juego {
 //	game.boardGround("probarpared.png")
 	
 	
-	nivelM.iniciar()
+	nivelC.iniciar()
 
 	//nivel1.iniciar()
 	
@@ -34,7 +34,8 @@ program juego {
 	game.onCollideDo(harry, {colisionado => colisionado.colisionarCon(harry)})
 	game.onCollideDo(sirius, {colisionado => colisionado.colisionarCon(sirius)})
 	keyboard.space().onPressDo({ sirius.usarObjeto() })
-	keyboard.enter().onPressDo({ harry.usarObjeto() })   
+	keyboard.enter().onPressDo({ harry.usarObjeto() })
+	keyboard.p().onPressDo({ harry.estaticos()})   
 	    
 	
 	game.start()

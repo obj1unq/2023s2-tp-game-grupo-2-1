@@ -1,6 +1,7 @@
 import wollok.game.*
 import objetosUtiles.*
 import direcciones.*
+import enemigos.*
 
 class Personaje {
 
@@ -96,7 +97,7 @@ object protagonistas{
 }
 
 object harry inherits Personaje {
-	
+	var property patronus = 1
 	
 	
 	override method transformacion() {
@@ -117,6 +118,13 @@ object harry inherits Personaje {
 	
 	override method atrapado(){  // La idea es poner una imagen distinta para que cuando se lo atrape no se pueda mover más.
 		return harryAtrapado
+	}
+	
+	method estaticos(){
+		if (patronus == 1){
+			guardiasNoPerseguidores.estaticos()
+			patronus = 0
+		}
 	}
 
 }

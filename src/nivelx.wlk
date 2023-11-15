@@ -128,7 +128,8 @@ object nivel1 inherits Nivel {
 }
 
 object nivelC inherits Nivel{
-	override method fondo() = "backgroud.png"
+	
+	override method fondo() = "background2.png"
 
 	override method celdas(){
 		return 
@@ -154,7 +155,7 @@ object nivelC inherits Nivel{
 	}
 	
 	override method accionDeGuardias(){
-		game.onTick(15000, "caminataGuardias", {guardiasNoPerseguidores.perseguir()})
+		game.onTick(1000, "caminataGuardias", {guardiasNoPerseguidores.perseguir()})
 	}
 	
 }

@@ -5,6 +5,7 @@ import personajes.*
 class Guardia {
 	var property position = game.at(2,3)
 	var ladoAMover = derecha
+	var property estado = guardiaHabitual
 	
 	
 	method image(){
@@ -23,7 +24,9 @@ class Guardia {
 	}
 	
 	method puedeMover(posicion){
-		return tablero.puedeOcupar(posicion, self)
+		return estado.puedeMover(posicion)
+		
+		//return tablero.puedeOcupar(posicion, self)
 	}
 	
 	method esSolidoPara(personaje){
@@ -34,7 +37,25 @@ class Guardia {
 		game.say(self, "te atrapé!")
 		personaje.serAtrapado()
 	}
+
+	method estatico(){
+		estado = guardiaEstatico
+		game.schedule(5000, {estado = guardiaHabitual})
+	}
+
 	
+}
+
+object guardiaHabitual {
+	method puedeMover(posicion){
+		return tablero.puedeOcupar(posicion, self)
+	}
+}
+
+object guardiaEstatico {
+	method puedeMover(posicion){
+		return false
+	}
 }
 
 class GuardiaPerseguidor inherits Guardia{
@@ -126,10 +147,17 @@ class ListaGuardias{
 		method perseguir(){
 		guardias.forEach({guardia => guardia.perseguir()})
 	}
+	
+	method estaticos(){
+			guardias.forEach({guardia => guardia.estatico()})
+		}
+	/*
+	guardia.morite
+*/
 }
 
 object guardiasNoPerseguidores inherits ListaGuardias{
-
+	
 }
 
 object guardiasPerseguidores inherits ListaGuardias{

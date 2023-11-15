@@ -3,37 +3,38 @@ import wollok.game.*
 import personajes.*
 import enemigos.*
 import direcciones.*
-//
-//describe "nivel1" {
-//	
-//	method initialize(){
-//		nivel1.iniciar()
-//	}
-//	
-//	test "harry entra a la zona guardias y no pueden moverse ni el ni sirius"{
-//		harry.position(game.at(17, 2))
-//		harry.mover(arriba)
-//		assert.notThat(harry.sePuedeMover(derecha))
-//		assert.notThat(sirius.sePuedeMover(izquierda))
-//	}
-//	
-//	test "harry entra a la zona invisible. Los dos pueden moverse"{
-//		harry.reiniciar()
-//		sirius.reiniciar()
-//		harry.transformarse()
-//		assert.equals(harryInvisible, harry.estado())
-//		harry.position(game.at(17,2))
-//		harry.mover(arriba)
-//		assert.that(harry.puedeOcupar(game.at(17,4)))
-//		assert.that(harry.sePuedeMover(arriba))
-//		assert.that(sirius.sePuedeMover(arriba))
-//	}
-//	
-//	test "harry choca contra una pared"{
-//		harry.position(game.at(2, 2))
-//		sirius.position(game.at(2,2))
-//		harry.mover(arriba)
-//		assert.notThat(harry.sePuedeMover(arriba))
-//		assert.notThat(sirius.sePuedeMover(arriba))
-//	}
-//}
+
+describe "nivel1" {
+	
+	method initialize(){
+		nivel1.iniciar()
+	}
+	
+	test "harry entra a la zona guardias y no pueden moverse ni el ni sirius"{
+		harry.position(game.at(17, 2))
+		harry.mover(arriba)
+		assert.notThat(harry.sePuedeMover(derecha))
+		assert.notThat(sirius.sePuedeMover(izquierda))
+	}
+	
+	test "harry entra a la zona invisible. Los dos pueden moverse"{
+		harry.reiniciar()
+		sirius.reiniciar()
+		harry.transformarse()
+		assert.equals(harryInvisible, harry.estado())
+		harry.position(game.at(17,2))
+		harry.mover(arriba)
+		assert.that(harry.puedeOcupar(game.at(17,4)))
+		assert.that(harry.sePuedeMover(arriba))
+		assert.that(sirius.sePuedeMover(arriba))
+	}
+	
+	test "harry choca contra una pared"{
+		harry.position(game.at(2, 2))
+		sirius.position(game.at(2,2))
+		harry.mover(arriba)
+		sirius.mover(arriba)
+		assert.notThat(harry.sePuedeMover(arriba))
+		assert.notThat(sirius.sePuedeMover(arriba))
+	}
+}
