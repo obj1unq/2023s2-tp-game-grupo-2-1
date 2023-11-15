@@ -13,9 +13,21 @@ program juego {
 //	game.boardGround("probarpared.png")
 	
 	
+
 	//nivelM.iniciar()
 
 	nivel1.iniciar()
+
+
+
+	
+	// game.onTick(1000, "caminataGuardias", {listaGuardias.caminar()})
+
+	
+	nivelM.iniciar()
+
+	//nivel1.iniciar()
+	
 
 
 	keyboard.up().onPressDo({ harry.mover(arriba) })

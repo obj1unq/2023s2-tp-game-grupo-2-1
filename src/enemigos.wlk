@@ -42,9 +42,7 @@ class GuardiaPerseguidor inherits Guardia{
     
     const property posicionDeCustodia
 
-    override method perseguir(){
-    	
-    	
+   	override method perseguir(){
     	if (self.puedePerseguir()){
     		const destino = self.intrusoMasCercano().position()	
     		self.atraparSiEstaCerca(destino)
@@ -62,7 +60,7 @@ class GuardiaPerseguidor inherits Guardia{
    
     
     method puedePerseguir(){
-    	return  self.veAlgunIntruso() 
+    	return   self.veAlgunIntruso() 
     }
     
     method atraparSiEstaCerca(destino){
