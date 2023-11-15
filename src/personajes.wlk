@@ -26,9 +26,7 @@ class Personaje {
 		game.schedule(10000, { self.estado(self.estadoHabitual())})
 	}
 
-	method puedeOcupar(posicion) {
-		return tablero.puedeOcupar(posicion, self)
-	}
+
 
 	method usarObjeto() {
 		const colisiones = objetosUsables.losQuePertenecen(game.colliders(self))
@@ -45,6 +43,10 @@ class Personaje {
 	method sePuedeMover(direccion) {
 		const proxima = direccion.siguiente(self.position())
 		return self.puedeOcupar(proxima)
+	}
+	
+	method puedeOcupar(posicion) {
+		return tablero.puedeOcupar(posicion, self)
 	}
 
 	method mover(direccion) {
@@ -65,7 +67,9 @@ class Personaje {
 	method esPerseguible(){
 		return estado.esPerseguible()
 	}
-
+	method puedePisarGuardia(){
+		return true 
+	}
 }
 
 object harry inherits Personaje {
