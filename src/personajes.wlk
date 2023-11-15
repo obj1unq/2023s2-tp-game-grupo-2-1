@@ -14,7 +14,7 @@ class Personaje {
 
 	method transformacion()
 	method estadoHabitual()
-	method atrapado()
+	method congelado()
 	method puedePasar(puerta)
 	method entrarEnZonaGuardias()
 	method image() = estado.image() + ".png"
@@ -31,9 +31,7 @@ class Personaje {
 		game.schedule(10000, { self.estado(self.estadoHabitual())})
 	}
 
-	method puedeOcupar(posicion) {
-		return tablero.puedeOcupar(posicion, self)
-	}
+
 
 	method usarObjeto() {  
 		const colisiones = objetosUsables.losQuePertenecen(game.colliders(self))
@@ -50,6 +48,10 @@ class Personaje {
 	method sePuedeMover(direccion) {
 		const proxima = direccion.siguiente(self.position())
 		return self.puedeOcupar(proxima) && estado.puedeMoverse()
+	}
+	
+	method puedeOcupar(posicion) {
+		return tablero.puedeOcupar(posicion, self)
 	}
 
 	method mover(direccion) {
@@ -70,13 +72,18 @@ class Personaje {
 	method esPerseguible(){
 		return estado.esPerseguible()
 	}
+
+	method puedePisarGuardia(){
+		return true 
+	}
+
 	
 	method serAtrapado(){
 		protagonistas.perder()
 	}
 	
 	method perder(){
-		estado = self.atrapado()
+		self.congelar()
 		game.schedule(3000, {self.reiniciar()})
 	}
 	
@@ -84,15 +91,27 @@ class Personaje {
 		self.volverAlPrincipio()
 		estado = self.estadoHabitual()
 	}
+	
+	method congelar(){
+		estado = self.congelado()
+	}
 
 
 }
 
 object protagonistas{
-	const personajes = #{harry, sirius}
+	const property personajes = #{harry, sirius}
 	
 	method perder(){
 		personajes.forEach({personaje => personaje.perder()})
+	}
+	
+	method congelar(){
+		personajes.forEach({personaje => personaje.congelar()})
+	}
+	
+	method descongelar(){
+		personajes.forEach({personaje => personaje.estado(personaje.estadoHabitual())})
 	}
 }
 
@@ -116,8 +135,8 @@ object harry inherits Personaje {
 		estado.entrarEnZonaGuardias(self)
 	}
 	
-	override method atrapado(){  // La idea es poner una imagen distinta para que cuando se lo atrape no se pueda mover más.
-		return harryAtrapado
+	override method congelado(){  // La idea es poner una imagen distinta para que cuando se lo atrape no se pueda mover más.
+		return harryCongelado
 	}
 	
 	method estaticos(){
@@ -149,8 +168,8 @@ object sirius inherits Personaje {
 		self.serAtrapado()
 	}
 	
-		override method atrapado(){  // La idea es poner una imagen distinta para que cuando se lo atrape no se pueda mover más.
-		return siriusAtrapado
+		override method congelado(){  // La idea es poner una imagen distinta para que cuando se lo atrape no se pueda mover más.
+		return siriusCongelado
 	}
 
 }
@@ -183,7 +202,7 @@ object harryInvisible {
 	method puedeMoverse() = true
 }
 
-object harryAtrapado{
+object harryCongelado{
 	method puedeMoverse() = false
 	
 	method image() = "harry"
@@ -228,8 +247,10 @@ object siriusPerro {
 	method puedeMoverse() = true
 }
 
-object siriusAtrapado{
+object siriusCongelado{
 	method puedeMoverse() = false
 	
 	method image() = "sirius"
+	
+	method esPerseguible() = true
 }

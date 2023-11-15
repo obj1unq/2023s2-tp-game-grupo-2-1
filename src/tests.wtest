@@ -11,8 +11,10 @@ describe "nivel1" {
 	}
 	
 	test "harry entra a la zona guardias y no pueden moverse ni el ni sirius"{
-		harry.position(game.at(17, 2))
+
+		harry.position(game.at(17, 3))
 		harry.mover(arriba)
+		assert.equals(harryCongelado, harry.estado())
 		assert.notThat(harry.sePuedeMover(derecha))
 		assert.notThat(sirius.sePuedeMover(izquierda))
 	}
