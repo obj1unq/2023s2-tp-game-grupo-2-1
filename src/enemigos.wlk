@@ -42,9 +42,13 @@ class GuardiaPerseguidor inherits Guardia{
     const personajes   = #{harry, sirius}
     const property posicionDeCustodia
 
+<<<<<<< HEAD
     override method perseguir(){
     	
     	
+=======
+    method perseguir(){
+>>>>>>> refs/remotes/origin/mateoOficial
     	if (self.puedePerseguir()){
     		const destino = self.intrusoMasCercano().position()	
     		self.atraparSiEstaCerca(destino)
