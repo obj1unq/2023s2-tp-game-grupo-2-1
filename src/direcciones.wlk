@@ -61,6 +61,14 @@ object tablero {
 	method haySolido(position, personaje){
 		return game.getObjectsIn(position).any({objeto => objeto.esSolidoPara(personaje)})
 	}
+	
+	method hayLlave(position){
+		return game.getObjectsIn(position).any({objeto => objeto.esLlave()})
+	}
+	method llaveCercana(position){
+		return game.getObjectsIn(position).find({objeto => objeto.esLlave()})
+	}
+	
 
 }
 

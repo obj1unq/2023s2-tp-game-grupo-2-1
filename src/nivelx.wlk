@@ -11,7 +11,7 @@ object nivelActual{ // hago directamente un obj nivel que se acuerde en donde es
 	method pasarDeNivel(){
 		nivelActual = nivelActual.siguiente()
 		nivelActual.iniciar()
-	}
+	} 
 }
 
 class Nivel{
@@ -68,7 +68,7 @@ class Nivel{
 object nivelM inherits Nivel {
 	
 
-	override method fondo() =  "nivelM.png"
+	override method fondo() =   "nivelM.png"
 	
 	override method celdas(){
 		return
@@ -78,15 +78,15 @@ object nivelM inherits Nivel {
 		 [_, _, p, p, p, p, p, p, p, p, p, p, _, _, p, p, p, p, p, p, p, p, p, p, p, p, p, p, _, _],
 		 [_, _, p, _, _, _, _, _, _, _, p, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, p, _, _],
 		 [_, _, p, _, _, _, _, _, _, _, p, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, p, _, _],
-		 [_, _, p, _, _, _, _, _, _, _, p, _, _, _, _, _, _, _, _, _, gp, _, _, _, _, _, _, p, _, _],
-		 [_, _, p, _, _, _, _, _, _, _, p, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, p, p, p],
-		 [p, p, p, p, p, _, _, p, tn, p, p, _, _, _, _, _, _, gp, _, _, _, _, gp, _, _, _, _, p, p, p],
-		 [_, _, _, h, s, _, _, _, _, _, _, _, _, _, gp, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _],
-		 [_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _],
-		 [p, p, p, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, gp, _, _, _, _, _, _, p, p, p],
+		 [_, _, p, _, _, _, _, _, _, _, p, _, _, _, _, _, _, _, _, _, gp, _, _, lr6, _, _, _, p, _, _],
+		 [_, _, p, p, p, _, _, p, _, p, p, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, p, p, p],
+		 [p, p, p, p, p, dr, dr, p, tn, p, p, _, _, _, _, _, _, gp, _, _, _, _, gp, _, _, _, _, p, p, p],
+		 [_, _, _, h, s, _, _, _,   _, _, _, _, _, _, gp, _, _, lr1, _, _, _, _, _, _, _, _, _, _, _, _],
+		 [_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, gp, _, _, _, lr5, _, _, _, _, _],
+		 [p, p, p, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, lr3, _, _, _, _, _, _, p, p, p],
 		 [_, _, p, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, p, _, _],
 		 [_, _, p, _, o, _, _, _, _, _, _, _, _, _, _, _, gp, _, _, _, _, _, _, _, _, _, _, p, _, _],
-		 [_, _, p, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, gp, _, _, _, _, p, _, _],
+		 [_, _, p, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, lr2, _, _, gp, lr4, _, _, _, p, _, _],
 		 [_, _, p, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, p, _, _],
 		 [_, _, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, _, _],
 		 [_, _, p, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _]
@@ -100,9 +100,40 @@ object nivelM inherits Nivel {
 	override method siguiente(){} // hay que agregarle que nivle le sigue
 
 }
-	
-	
 
+object lr1 inherits LlaveRota{
+	
+	override method image() = "LR1.png"
+
+}
+
+object lr2 inherits LlaveRota{
+	
+	override method image() = "LR2.png"
+
+}
+	
+object lr3 inherits LlaveRota{
+	
+	override method image() = "LR3.png"
+
+}
+
+object lr4 inherits LlaveRota{
+	
+	override method image() = "LR4.png"
+
+}
+object lr5 inherits LlaveRota{
+	
+	override method image() = "LR5.png"
+
+}
+object lr6 inherits LlaveRota{
+	
+	override method image() = "LR6.png"
+
+}	
 
 
 object nivel1 inherits Nivel {
@@ -161,12 +192,7 @@ object i{
 }
 
 object tn{
-	
-//	method validarEntrada(personaje){
-//		if  (not personaje.puedePasar(self)){
-//			self.error("No puedo entrar ahi!")
-//		}
-//	}
+
 	
 	method generar(position){
 		tunel.position(position)
@@ -175,6 +201,9 @@ object tn{
 	
 	
 }
+
+
+
 
 object o{
 	method generar(position){
@@ -188,7 +217,17 @@ object p{
 	method generar(position){
 		game.addVisual(new Pared(position = position))
 	}
+	
+
 }
+
+object dr{
+	
+	method generar(position){
+		game.addVisual(new Puerta(position = position))
+	}
+}
+
 
 object g{
 
@@ -208,6 +247,8 @@ object gp{
 	}
 	
 }
+
+
 
 
 object a{
@@ -254,8 +295,9 @@ object ao{
 
 object f{
 	method generar(position){
-		puertaANivel.position(position)
-		game.addVisual(puertaANivel)
+		puertaNivel.position(position)
+		game.addVisual(puertaNivel)
 	}
 }
+
 

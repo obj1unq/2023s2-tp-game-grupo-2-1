@@ -1,38 +1,40 @@
 import wollok.game.*
 import objetosUtiles.*
 import direcciones.*
+import nivelx.*
 
 class Personaje {
 
 	var property estado = self.estadoHabitual()
 	var property nivel = null
 	var property position = game.at(0, 0)
-
-	var property posicionPrincipio = game.at(0,0)
-//	var property nivel
-
+	var property posicionPrincipio = game.at(0, 0)
+	const property llavesRotas = #{}
+	var tieneVarita = false
+	
 	method transformacion()
+
 	method estadoHabitual()
+
+	method llaveEnMano()
+
 	method congelado()
-	method puedePasar(puerta)
+
 	method entrarEnZonaGuardias()
+
 	method image() = estado.image() + ".png"
+
+	method varitaEnMano()
+
 	method colisionarCon(personaje) {
 	}
-	
-//	method perder(){
-//		self.volverAlPrincipio()
-//		game.say(self, "me mataron")
-//	}
 
 	method transformarse() {
 		estado = self.transformacion()
 		game.schedule(10000, { self.estado(self.estadoHabitual())})
 	}
 
-
-
-	method usarObjeto() {  
+	method usarObjeto() {
 		const colisiones = objetosUsables.losQuePertenecen(game.colliders(self))
 		self.validarUso(colisiones)
 		colisiones.head().serUsado(self)
@@ -48,7 +50,7 @@ class Personaje {
 		const proxima = direccion.siguiente(self.position())
 		return self.puedeOcupar(proxima) && estado.puedeMoverse()
 	}
-	
+
 	method puedeOcupar(posicion) {
 		return tablero.puedeOcupar(posicion, self)
 	}
@@ -63,61 +65,91 @@ class Personaje {
 	method volverAlPrincipio() {
 		self.position((posicionPrincipio))
 	}
-	
+
 	method esSolidoPara(personaje) {
 		return false
 	}
-	
-	method esPerseguible(){
+
+	method esPerseguible() {
 		return estado.esPerseguible()
 	}
 
-	method puedePisarGuardia(){
-		return true 
+	method puedePasar(puerta) {
+		return estado.puedePasar(puerta)
 	}
 
-	
-	method serAtrapado(){
+	method serAtrapado() {
 		protagonistas.perder()
 	}
-	
-	method perder(){
+
+	method perder() {
 		self.congelar()
-		game.schedule(3000, {self.reiniciar()})
+		game.schedule(3000, { self.reiniciar()})
 	}
-	
-	method reiniciar(){
+
+	method reiniciar() {
 		self.volverAlPrincipio()
 		estado = self.estadoHabitual()
 	}
-	
-	method congelar(){
+
+	method congelar() {
 		estado = self.congelado()
 	}
 
+	method repararLlave() {
+		self.validarReparar()
+		estado = self.llaveEnMano()
+		llavesRotas.clear()
+		estado.tieneLlave()
+	}
 
-}
+	method validarReparar() {
+		if (not self.sePuedeRepararLlave() and not self.tieneVarita()) {
+			self.error("¡Me faltan pedazos de llave!")
+		}
+	}
 
-object protagonistas{
-	const property personajes = #{harry, sirius}
-	
-	method perder(){
-		personajes.forEach({personaje => personaje.perder()})
+	method sePuedeRepararLlave() {
+		return self.llavesRotas() == #{ lr1, lr2, lr3, lr4, lr5, lr6 }
 	}
-	
-	method congelar(){
-		personajes.forEach({personaje => personaje.congelar()})
+
+	method guardarLlaveRota(objeto) {
+		if (objeto.position() == position) {
+			llavesRotas.add(objeto)
+		}
 	}
-	
-	method descongelar(){
-		personajes.forEach({personaje => personaje.estado(personaje.estadoHabitual())})
+
+	method abrirPuertaCerrada(puerta) {
+		self.validarAbrirPuerta(puerta)
+		puerta.seAbre(self)
+		self.estado(self.estadoHabitual())
 	}
+
+	method validarAbrirPuerta(puerta) {
+		if (not estado.tieneLlave()) {
+			self.error("No puedo abrirla")
+		}
+	}
+
+	
+	method llevarVarita(){
+		tieneVarita = true
+		self.estado(self.varitaEnMano())
+	}
+
 }
 
 object harry inherits Personaje {
+
+	override method llaveEnMano() {
+		return harryConLlave
+	}
 	
+	override method varitaEnMano() {
+		return harryConVarita
+	}
 	
-	
+
 	override method transformacion() {
 		return harryInvisible
 	}
@@ -126,22 +158,25 @@ object harry inherits Personaje {
 		return harryHumano
 	}
 
-	override method puedePasar(puerta) {
-		return false
-	}
-
 	override method entrarEnZonaGuardias() {
 		estado.entrarEnZonaGuardias(self)
 	}
-	
-	override method congelado(){  // La idea es poner una imagen distinta para que cuando se lo atrape no se pueda mover más.
+
+	override method congelado() { // La idea es poner una imagen distinta para que cuando se lo atrape no se pueda mover más.
 		return harryCongelado
 	}
-	
 
 }
 
 object sirius inherits Personaje {
+
+	override method varitaEnMano() {
+		return siriusConVarita
+	}
+
+	override method llaveEnMano() {
+		return siriusConLlave
+	}
 
 	override method transformacion() {
 		return siriusPerro
@@ -151,22 +186,74 @@ object sirius inherits Personaje {
 		return siriusHumano
 	}
 
-	override method puedePasar(puerta) {
-		return estado.puedePasar(puerta)
-	}
-
 	override method entrarEnZonaGuardias() {
 		game.say(self, "Me pueden ver!")
-		//game.schedule(1500, { self.volverAlPrincipio()})
+			// game.schedule(1500, { self.volverAlPrincipio()})
 		self.serAtrapado()
 	}
-	
-		override method congelado(){  // La idea es poner una imagen distinta para que cuando se lo atrape no se pueda mover más.
+
+	override method congelado() { // La idea es poner una imagen distinta para que cuando se lo atrape no se pueda mover más.
 		return siriusCongelado
 	}
 
 }
 
+object protagonistas {
+
+	const property personajes = #{ harry, sirius }
+
+	method perder() {
+		personajes.forEach({ personaje => personaje.perder()})
+	}
+
+	method congelar() {
+		personajes.forEach({ personaje => personaje.congelar()})
+	}
+
+	method descongelar() {
+		personajes.forEach({ personaje => personaje.estado(personaje.estadoHabitual())})
+	}
+
+	method puedenPasarPuerta(puerta) {
+		return personajes.all({ personaje => personaje.puedePasar(puerta) })
+	}
+
+}
+
+object siriusConLlave {
+
+	method image() = "sirius"
+
+	method puedePasar(puerta) = false
+
+	method esPerseguible() = true
+
+	method tieneLlave() = true
+
+	method puedeMoverse() = true
+
+}
+
+object siriusConVarita{
+	
+}
+object harryConVarita{
+	
+}
+
+object harryConLlave {
+
+	method image() = "harry"
+
+	method tieneLlave() = true
+
+	method esPerseguible() = true
+
+	method puedePasar(puerta) = false
+
+	method puedeMoverse() = true
+
+}
 
 object harryHumano {
 
@@ -174,13 +261,17 @@ object harryHumano {
 
 	method entrarEnZonaGuardias(personaje) {
 		game.say(personaje, "Me pueden ver!")
-		//game.schedule(1500, { personaje.volverAlPrincipio()})
+			// game.schedule(1500, { personaje.volverAlPrincipio()})
 		personaje.serAtrapado()
 	}
-	
+
 	method esPerseguible() = true
-	
+
+	method puedePasar(puerta) = false
+
 	method puedeMoverse() = true
+
+	method tieneLlave() = false
 
 }
 
@@ -190,19 +281,32 @@ object harryInvisible {
 
 	method entrarEnZonaGuardias(personaje) {
 	}
-	method esPerseguible() = false 
-	
+
+	method esPerseguible() = false
+
+	method puedePasar(puerta) = false
+
 	method puedeMoverse() = true
+
+	method tieneLlave() = false
+
 }
 
-object harryCongelado{
+object harryCongelado {
+
 	method puedeMoverse() = false
-	
+
+	method puedePasar(puerta) = false
+
 	method image() = "harry"
-	
-	method entrarEnZonaGuardias(harry){}
-	
+
+	method entrarEnZonaGuardias(harry) {
+	}
+
+	method tieneLlave() = false
+
 	method esPerseguible() = true
+
 }
 
 object caminando {
@@ -214,36 +318,55 @@ object caminando {
 
 object siriusHumano {
 
-	method image() {
-		return "sirius"
-	}
-
-	method puedePasar(puerta) {
-		return false
-	}
-	method esPerseguible() = true
+	method image() = "sirius"
 	
+	method puedePasar(puerta) = false
+
+	method esPerseguible() = true
+
+	method tieneLlave() = false
+
 	method puedeMoverse() = true
+
 }
 
 object siriusPerro {
 
-	method image() {
-		return "siriusPerro"
-	}
+	method image() = "siriusPerro"
 
-	method puedePasar(puerta) {
-		return true
-	}
+	method puedePasar(puerta) = true
+
 	method esPerseguible() = false
-	
+
+	method tieneLlave() = false
+
 	method puedeMoverse() = true
+
 }
 
-object siriusCongelado{
-	method puedeMoverse() = false
-	
-	method image() = "sirius"
-	
+object siriusPerroLadrando {
+
+	method image() = "siriusPerro"
+
+	method puedePasar(puerta) = true
+
 	method esPerseguible() = true
+
+	method tieneLlave() = false
+
+	method puedeMoverse() = true
+
 }
+
+object siriusCongelado {
+
+	method puedeMoverse() = false
+
+	method image() = "sirius"
+
+	method puedePasar(puerta) = false
+
+	method esPerseguible() = true
+
+}
+

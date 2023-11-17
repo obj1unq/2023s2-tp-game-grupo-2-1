@@ -10,30 +10,13 @@ program juego {
 	game.cellSize(50)
 	game.width(30)
 	game.height(18)
-//	game.boardGround("probarpared.png")
-	
-	
-
-	//nivelM.iniciar()
-
-	nivel1.iniciar()
-
-
-
-	
-	// game.onTick(1000, "caminataGuardias", {listaGuardias.caminar()})
-
 	
 	nivelM.iniciar()
 
-	//nivel1.iniciar()
-	
-
-
-	keyboard.up().onPressDo({ harry.mover(arriba) })
-	keyboard.down().onPressDo({ harry.mover(abajo) })
-	keyboard.left().onPressDo({ harry.mover(izquierda) })
-	keyboard.right().onPressDo({ harry.mover(derecha) })
+	keyboard.up().onPressDo({ harry.mover(arriba)})
+	keyboard.down().onPressDo({ harry.mover(abajo)})
+	keyboard.left().onPressDo({ harry.mover(izquierda)})
+	keyboard.right().onPressDo({ harry.mover(derecha)})
 	
 	keyboard.w().onPressDo({ sirius.mover(arriba) })
 	keyboard.s().onPressDo({ sirius.mover(abajo) })
@@ -46,7 +29,7 @@ program juego {
 	game.onCollideDo(sirius, {colisionado => colisionado.colisionarCon(sirius)})
 	keyboard.space().onPressDo({ sirius.usarObjeto() })
 	keyboard.enter().onPressDo({ harry.usarObjeto() })   
-	    
+
 	
 	game.start()
 }
