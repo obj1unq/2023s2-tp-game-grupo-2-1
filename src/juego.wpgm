@@ -11,7 +11,7 @@ program juego {
 	game.width(30)
 	game.height(18)
 
-	nivelM.iniciar()	
+	nivel1.iniciar()	
 
 	keyboard.up().onPressDo({ harry.mover(arriba) })
 	keyboard.down().onPressDo({ harry.mover(abajo) })
