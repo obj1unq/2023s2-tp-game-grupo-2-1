@@ -310,3 +310,68 @@ object cerrada{
 	method esSolidoPara(personaje) = true
 	method estaAbierta() = false
 }
+
+
+class ListaDePuas {
+	
+	const property puas = #{}
+
+	method agregarPua(pua) {
+		puas.add(pua)
+	}
+	
+	method activar(){
+	puas.forEach({ pua => pua.activar()})
+	}
+}
+
+object caminoDePuas inherits ListaDePuas{}
+
+class Pua {
+	
+	var property position
+	var property estado = puaInactiva
+	
+	method colisionarCon(personaje) {
+		estado.colisionarCon(personaje)
+	}
+
+	method esSolidoPara(personaje) {
+		return false
+	}
+	
+	method puedePasar(personaje) = true
+	
+	method activar(){
+		estado = self.sacarPuas()
+		game.schedule(500, { self.estado(puaInactiva)})
+	}
+	
+	method sacarPuas(){
+		return puaActiva
+	}
+	
+}
+
+object puaInactiva{
+	
+	method image(){
+		return "puas adentro.png"
+	}
+	
+	method colisionarCon(personaje){
+		
+	}
+
+}
+
+object puaActiva{
+	
+	method image(){
+		return "puas.png"
+	}
+	
+	method colisionarCon(personaje){
+		personaje.perder()
+	}
+}

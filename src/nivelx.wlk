@@ -239,7 +239,9 @@ object nivelB inherits Nivel{
 		].reverse()
 	}
 	
-	override method accionDeGuardias(){}
+	override method accionDeGuardias(){
+		game.onTick(1000, "movimientoPuas", {caminoDePuas.activar()})
+	}
 	
 	override method siguiente(){
 		return nivelM
@@ -368,4 +370,11 @@ object f{
 	}
 }
 
+object pu {
+	method generar(position){
+		const pua = new Pua(position = position)
+		game.addVisual(pua)   
+		caminoDePuas.agregarPua(pua)
+	}
+}
 
