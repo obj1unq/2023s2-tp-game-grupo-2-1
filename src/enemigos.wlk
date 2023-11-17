@@ -267,6 +267,20 @@ object puertaANivel{
 	}
 }
 
+class Pinches {
+	var property position = game.at(0, 0)
+
+	method image() {
+		return "tunel.png"
+	}
+
+	method esSolidoPara(personaje) {
+		return not personaje.puedePasar(self)
+	}
+
+	method colisionarCon(personaje) {
+	}
+}
 
 
 
