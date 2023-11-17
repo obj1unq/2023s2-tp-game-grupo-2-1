@@ -176,9 +176,14 @@ class CaminoInvalido {
 
 	const property position
 	var property posicionEntrada = tunel.position()
+	
+	method image(){
+		return "pisoNormal.png"
+	}
 
 	method colisionarCon(personaje) {
 		personaje.position(self.arribaDeLaEntrada())
+		caminosValidos.iluminar()
 	}
 
 	method arribaDeLaEntrada() {
@@ -188,23 +193,73 @@ class CaminoInvalido {
 	method esSolidoPara(personaje) {
 		return false
 	}
+	
 
 }
 
-object caminosInvalidos {
+//object caminosInvalidos {
+//
+//	const property caminos = #{}
+//
+//	method agregarCamino(camino) {
+//		caminos.add(camino)
+//	}
+//	
+//	method iluminar(){
+//		caminos.forEach({camino=> camino.iluminar()})
+//	}
+//
+//}
 
-	const property caminos = #{}
+class CaminoValido{
+	const property position
+	var estado = caminoNormal
+	
+	method image(){
+		return estado.image()
+	}
+	
+	method iluminar(){
+		estado = caminoIluminado
+		game.schedule(3000, {estado = caminoNormal})
+	}
+	
+	method esSolidoPara(personaje) {
+		return false
+	}
+	
+	method colisionarCon(personaje){}
+}
 
+object caminosValidos{
+	const caminos = #{}
+	
+	method iluminar(){
+		caminos.forEach({camino => camino.iluminar()})
+	}
+	
 	method agregarCamino(camino) {
 		caminos.add(camino)
 	}
+}
 
+object caminoNormal{
+	method image(){
+		return "pisoNormal.png"
+	}
+}
+
+object caminoIluminado{
+	method image(){
+		return "baldozaAzul.png"
+	}
 }
 
 object tunel {
 
 	var property position = game.at(0, 0)
-
+	
+	method image() = return "tunel.png"
 
 	method esSolidoPara(personaje) {
 		return not personaje.puedePasar(self)
@@ -226,6 +281,10 @@ class Pared {
 	method colisionarCon(personaje) {
 	}
    
+}
+
+class ParedVisible inherits Pared{
+	method image() = "pared.png"
 }
 
 class ZonaDeGuardias {
