@@ -320,8 +320,8 @@ class ListaDePuas {
 		puas.add(pua)
 	}
 	
-	method activar(){
-	puas.forEach({ pua => pua.activar()})
+	method funcionar(){
+	puas.forEach({ pua => pua.funcionar()})
 	}
 }
 
@@ -332,8 +332,13 @@ class Pua {
 	var property position
 	var property estado = puaInactiva
 	
+	method image(){
+		return estado.image()
+	}
+	
 	method colisionarCon(personaje) {
-		estado.colisionarCon(personaje)
+		if(position == personaje.position() and estado.haceDanio())
+		personaje.perder()
 	}
 
 	method esSolidoPara(personaje) {
@@ -342,13 +347,8 @@ class Pua {
 	
 	method puedePasar(personaje) = true
 	
-	method activar(){
-		estado = self.sacarPuas()
-		game.schedule(500, { self.estado(puaInactiva)})
-	}
-	
-	method sacarPuas(){
-		return puaActiva
+	method funcionar(){
+		estado = estado.serCambiado()
 	}
 	
 }
@@ -359,8 +359,16 @@ object puaInactiva{
 		return "puas adentro.png"
 	}
 	
+	method haceDanio(){
+		return false
+	}
+	
 	method colisionarCon(personaje){
 		
+	}
+	
+	method serCambiado(){
+		return puaActiva
 	}
 
 }
@@ -371,7 +379,15 @@ object puaActiva{
 		return "puas.png"
 	}
 	
+	method haceDanio(){
+		return true
+	}
+	
 	method colisionarCon(personaje){
 		personaje.perder()
+ }
+	
+	method serCambiado(){
+		return puaInactiva
 	}
 }
