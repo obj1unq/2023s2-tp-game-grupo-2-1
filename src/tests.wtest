@@ -12,8 +12,7 @@ describe "nivel1" {
 	
 	test "harry entra a la zona guardias y no pueden moverse ni el ni sirius"{
 
-		harry.position(game.at(17, 3))
-		harry.mover(arriba)
+		harry.entrarEnZonaGuardias()
 		assert.equals(harryCongelado, harry.estado())
 		assert.notThat(harry.sePuedeMover(derecha))
 		assert.notThat(sirius.sePuedeMover(izquierda))
@@ -24,16 +23,14 @@ describe "nivel1" {
 		sirius.reiniciar()
 		harry.transformarse()
 		assert.equals(harryInvisible, harry.estado())
-		harry.position(game.at(17,2))
-		harry.mover(arriba)
-		assert.that(harry.puedeOcupar(game.at(17,4)))
+		harry.entrarEnZonaGuardias()
 		assert.that(harry.sePuedeMover(arriba))
 		assert.that(sirius.sePuedeMover(arriba))
 	}
 	
 	test "harry choca contra una pared"{
-		harry.position(game.at(2, 2))
-		sirius.position(game.at(2,2))
+		harry.position(game.at(2, 1))
+		sirius.position(game.at(2,1))
 		harry.mover(arriba)
 		sirius.mover(arriba)
 		assert.notThat(harry.sePuedeMover(arriba))
