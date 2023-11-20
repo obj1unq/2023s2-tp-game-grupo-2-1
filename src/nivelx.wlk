@@ -145,6 +145,7 @@ object nivel1 inherits Nivel {
 		sirius.position(game.at(1,0))
 	}
 	
+	
 	override method siguiente(){
 		return nivelM
 	}
