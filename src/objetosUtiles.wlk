@@ -1,24 +1,21 @@
 import wollok.game.*
-
+import personajes.*
 class Objeto {
 
 	var property position = game.at(0,0) 
 
 	method image() 
 
-	method serUsado(personaje) {
-	}
-	
+	method serUsado(personaje) {}
+	method abrir(personaje){}
 	method colisionarCon(personaje){}
 	
 	method esSolidoPara(personaje){
 		return false
 	}
-
+	
 
 }
-
-
 
 
 class Oculto inherits Objeto{
@@ -62,20 +59,76 @@ class LlaveRota inherits Objeto{
 			game.removeVisual(self)
 	}
 
-	
 }
 
 object varita inherits Objeto{
-	
-	override method image() = "varita"
+	 
+	method esLlave() = false
+	method esVarita() = true
+
+	override method image() = "varita.png"
 	override method serUsado(personaje){
 		personaje.llevaVarita()
 		game.removeVisual(self)
 	}
 }
 
+class Cofre inherits Objeto{
+	
+	var property estado = cerrado
+	override method image() = "cofre" + self.estado() + ".png"
+
+	override method abrir(personaje){
+		personaje.contenidoPermitido()
+		self.estado(estado.estadoContrario())
+	}
+	
+	method estaEnFrente(personaje){
+		return personaje.position().y() == (position.y() - 1)
+	}
+		
+	
+	override method esSolidoPara(personaje){
+		return true
+	}
+	method estaAbierto(){
+		return estado.estaAbierto()
+	}
+}
 
 
+
+object cerrado{
+	
+	var property contenido = varita
+	method estadoContrario() = "" + abierto + self.contenido() + ""
+	method estaAbierto() = false
+
+}
+
+object abierto{
+	
+	method estadoContrario() = cerrado
+	method estaAbierto() = true
+}
+
+object cofre inherits Cofre{}
+
+class SensorCofre {
+	
+	var property position 
+	method colisionarCon(personaje){}
+	method esSolidoPara(personaje) = false
+	method abrir(personaje){
+			cofre.abrir(personaje)
+	}
+	method serUsado(personaje){
+		personaje.obtenerVarita()
+		cerrado.contenido(vacio)
+	}
+}
+
+object vacio{}
 
 
 

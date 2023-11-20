@@ -2,6 +2,8 @@ import wollok.game.*
 import direcciones.*
 import personajes.*
 import nivelx.*
+import objetosUtiles.*
+
 
 class Guardia {
 
@@ -12,7 +14,7 @@ class Guardia {
 
 	method image() {
 
-		return "guardia." + ladoAMover.toString() + ".png"
+		return "dementor_" + ladoAMover.toString() + ".png"
 	}
 
 	method perseguir() {
@@ -242,10 +244,10 @@ class ZonaDeGuardias {
 
 }
 
-class PuertaNivel{
+object puertaNivel{
 
 	var property position = game.at(0, 0)
-	var property estado = abierta
+	var property estado = abierto
 	
 	method puedePasar(){
 		
@@ -265,48 +267,14 @@ class PuertaNivel{
 	}
 	
 	method sePuedePasarNivel(){
-		return self.estanHarryYSirius() and protagonistas.puedenPasarPuerta(self)
+		return self.estanHarryYSirius() and protagonistas.puedenPasarPuerta(self) and estado.estaAbierta()
 	}
 	
 	method estanHarryYSirius() { // se fija si estan los dos para cambiar de nivel
 		return harry.position() == position && sirius.position() == position
 	}
 
-
-}
-
-object puertaNivel inherits PuertaNivel{
-
-}
-
-class Puerta {
-	
-	var property position = game.at(0, 0)
-	var property estado = cerrada
-	
-	method colisionarCon(personaje){}
-	
-	method esSolidoPara(personaje){
-		// La puerta sabe si esta abierta o no segun el estado que posea.
-		return estado.esSolidoPara(personaje)
-	} 
-	method seAbre(){
-		estado = abierta
-	}
-	
-
 }
 
 
 
-object abierta{
-	// no importa el personaje, si esta abierta NO es solida
-	method esSolidoPara(personaje) = false
-	method estaAbierta() = true
-}
-
-object cerrada{
-	// no importa el personaje, si esta cerrada SI es solida
-	method esSolidoPara(personaje) = true
-	method estaAbierta() = false
-}

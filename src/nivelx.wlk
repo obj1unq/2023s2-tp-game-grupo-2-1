@@ -6,12 +6,16 @@ import direcciones.*
 import musica.*
 
 object nivelActual{ // hago directamente un obj nivel que se acuerde en donde esta.
-	var property nivelActual = nivel1
+	var property nivelActual = nivelM
 	
 	method pasarDeNivel(){
 		nivelActual = nivelActual.siguiente()
 		nivelActual.iniciar()
 	} 
+	
+	method reiniciar(){
+		nivelActual.iniciar()
+	}
 }
 
 class Nivel{
@@ -76,11 +80,11 @@ object nivelM inherits Nivel {
 		 [_, _, _, _, _, _, _, _, _, _, p, _, _, _, p, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _],
 		 [_, _, p, p, p, p, p, p, p, p, p, p, _, _, p, p, p, p, p, p, p, p, p, p, p, p, p, p, _, _],
 		 [_, _, p, p, p, p, p, p, p, p, p, p, _, _, p, p, p, p, p, p, p, p, p, p, p, p, p, p, _, _],
-		 [_, _, p, _, _, _, _, _, _, _, p, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, p, _, _],
-		 [_, _, p, _, _, _, _, _, _, _, p, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, p, _, _],
-		 [_, _, p, _, _, _, _, _, _, _, p, _, _, _, _, _, _, _, _, _, gp, _, _, lr6, _, _, _, p, _, _],
+		 [_, _, p, _, _, p, p, _, _, _, p, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, p, _, _],
+		 [_, _, p, _, _, c, p, _, _, _, p, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, p, _, _],
+		 [_, _, p, _, _, ss, ss, _, _, _, p, _, _, _, _, _, _, _, _, _, gp, _, _, lr6, _, _, _, p, _, _],
 		 [_, _, p, p, p, _, _, p, _, p, p, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, p, p, p],
-		 [p, p, p, p, p, dr, dr, p, tn, p, p, _, _, _, _, _, _, gp, _, _, _, _, gp, _, _, _, _, p, p, p],
+		 [p, p, p, p, p, p, p, p, tn, p, p, _, _, _, _, _, _, gp, _, _, _, _, gp, _, _, _, _, p, p, p],
 		 [_, _, _, h, s, _, _, _,   _, _, _, _, _, _, gp, _, _, lr1, _, _, _, _, _, _, _, _, _, _, _, _],
 		 [_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, gp, _, _, _, lr5, _, _, _, _, _],
 		 [p, p, p, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, lr3, _, _, _, _, _, _, p, p, p],
@@ -101,39 +105,6 @@ object nivelM inherits Nivel {
 
 }
 
-object lr1 inherits LlaveRota{
-	
-	override method image() = "LR1.png"
-
-}
-
-object lr2 inherits LlaveRota{
-	
-	override method image() = "LR2.png"
-
-}
-	
-object lr3 inherits LlaveRota{
-	
-	override method image() = "LR3.png"
-
-}
-
-object lr4 inherits LlaveRota{
-	
-	override method image() = "LR4.png"
-
-}
-object lr5 inherits LlaveRota{
-	
-	override method image() = "LR5.png"
-
-}
-object lr6 inherits LlaveRota{
-	
-	override method image() = "LR6.png"
-
-}	
 
 
 object nivel1 inherits Nivel {
@@ -216,6 +187,7 @@ object _{
 	method generar(position){}
 }
 
+
 object i{
 	method generar(_position){
 		const camino = new CaminoInvalido(position = _position)
@@ -254,13 +226,6 @@ object p{
 
 }
 
-object dr{
-	
-	method generar(position){
-		game.addVisual(new Puerta(position = position))
-	}
-}
-
 
 object g{
 
@@ -282,6 +247,41 @@ object gp{
 }
 
 
+object c{
+		
+	method generar (_position){
+		cofre.position(_position)
+		game.addVisual(cofre)
+		objetosUsables.agregarObjeto(cofre)
+	}	
+	
+}
+
+
+object ss{
+
+	method generar(position){
+		const sensor = new SensorCofre(position = position)
+		game.addVisual(sensor)
+		objetosUsables.agregarObjeto(sensor)
+	}
+}
+
+
+object v{
+	method generar (_position){
+		varita.position(_position)
+		game.addVisual(varita)
+		objetosUsables.agregarObjeto(varita)
+	}
+}
+
+object lr1 inherits LlaveRota{override method image() = "LR1.png"}
+object lr2 inherits LlaveRota{override method image() = "LR2.png"}
+object lr3 inherits LlaveRota{override method image() = "LR3.png"}
+object lr4 inherits LlaveRota{override method image() = "LR4.png"}
+object lr5 inherits LlaveRota{override method image() = "LR5.png"}
+object lr6 inherits LlaveRota{override method image() = "LR6.png"}	
 
 
 object a{

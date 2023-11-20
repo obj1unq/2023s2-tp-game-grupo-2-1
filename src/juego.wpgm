@@ -30,7 +30,9 @@ program juego {
 	keyboard.space().onPressDo({ sirius.usarObjeto() })
 	keyboard.enter().onPressDo({ harry.usarObjeto() })
 	//keyboard.p().onPressDo({ harry.estaticos()})   
-	    
-
+	keyboard.o().onPressDo({ harry.abrir() })
+	keyboard.e().onPressDo({ sirius.abrir() })    
+	keyboard.q().onPressDo({ sirius.soltar() }) 
+	
 	game.start()
 }
