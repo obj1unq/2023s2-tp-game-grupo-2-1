@@ -329,6 +329,7 @@ object s{
 	}
 }
 
+
 object ag{
 	method generar(position){
 		a.generar(position)
