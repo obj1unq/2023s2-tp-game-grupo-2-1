@@ -135,7 +135,7 @@ object nivel1 inherits Nivel {
 	}
 	
 	override method accionDeGuardias(){
-		game.onTick(1000, "caminataGuardias", {guardiasNoPerseguidores.perseguir()})
+		game.onTick(500, "caminataGuardias", {guardiasNoPerseguidores.perseguir()})
 	}
 	
 	override method generar(){
