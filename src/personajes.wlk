@@ -254,7 +254,7 @@ class Estado {
 	method image() = "" + self + "Con" + self.objeto() + ""
 	method esPerseguible() = true
 	method puedeMoverse() = true
-	method puedePasar(puerta) = false
+	method puedePasar(puerta) = true
 	
 	method tieneLlave() = objeto.esLlave() // o objeto == llave 
 	method tieneVarita() = objeto.esVarita()

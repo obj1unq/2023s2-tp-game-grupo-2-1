@@ -6,9 +6,10 @@ import direcciones.*
 import musica.*
 
 object nivelActual{ // hago directamente un obj nivel que se acuerde en donde esta.
-	var property nivelActual = nivelM
+	var property nivelActual = menu
 	
 	method pasarDeNivel(){
+		nivelActual.terminar()
 		nivelActual = nivelActual.siguiente()
 		nivelActual.iniciar()
 	} 
@@ -21,31 +22,36 @@ object nivelActual{ // hago directamente un obj nivel que se acuerde en donde es
 class Nivel{
 //	const property cancion
 	
-
-	method fondo()
-	method accionDeGuardias()
+	var property position= game.origin()
+	method image()
 	method siguiente()
-	
-	method iniciar() {
-		self.terminar()
+
+	method iniciar(){
 		self.configurar()
-		self.generar()
 		nivelActual.nivelActual(self)
-		self.accionDeGuardias()
-//		musica.reproducir(self.cancion())
+		
 	}
-	
 
 	method configurar() {
-		game.boardGround(self.fondo())
-		
-		
+		game.addVisual(self)
 	}
 	
 	method terminar() { // En vez de hacer un clear, que borra tambíen los datos del tablero, solo saco los visuals
 		game.allVisuals().forEach({visual => game.removeVisual(visual)})
-		//game.removeTickEvent("caminataGuardias")
 	}
+	
+	method esSolidoPara(personaje){
+		return false
+	}
+	
+	method colisionarCon(personaje){}
+	
+}
+
+class NivelDeJuego inherits Nivel{
+	
+	method accionDeNivel(){}
+	method terminarAccionNivel(){}
 	
 	method celdas()
 		
@@ -62,17 +68,52 @@ class Nivel{
 		celda.generar(game.at(x,y))
 	}
 	
-	method pasarDeNivel(){
-		
+	override method terminar() { // En vez de hacer un clear, que borra tambíen los datos del tablero, solo saco los visuals
+		game.allVisuals().forEach({visual => game.removeVisual(visual)})
+		self.terminarAccionNivel()
 	}
-
+	
+	override method iniciar() {
+		nivelActual.nivelActual(self)
+		self.generar()
+		self.configurar()
+		self.accionDeNivel()
+//		musica.reproducir(self.cancion())
+	}
 }
 
 
-object nivelM inherits Nivel {
+object menu inherits Nivel{
+	override method image() = "background2.png"
+	
+	
+	override method siguiente(){
+		return reglas
+	}
+	
+	override method configurar(){
+		game.clear()
+		super()
+		keyboard.enter().onPressDo({ nivelActual.pasarDeNivel() })
+	}
+}
+
+object reglas inherits Nivel{
+	override method image() = "background.png"
+	
+	override method terminar(){
+		game.clear()
+	}
+	
+	override method siguiente(){
+		return nivel1
+	}
+}
+
+object nivelM inherits NivelDeJuego {
 	
 
-	override method fondo() =   "nivelM.png"
+	override method image() =   "nivelM.png"
 	
 	override method celdas(){
 		return
@@ -97,19 +138,23 @@ object nivelM inherits Nivel {
 	].reverse()
 	}
 	
-	override method accionDeGuardias(){
+	override method accionDeNivel(){
 		game.onTick(500, "caminataGuardias", {guardiasPerseguidores.perseguir()})
 	}
 
 	override method siguiente(){} // hay que agregarle que nivle le sigue
+	
+	override method terminarAccionNivel(){
+		game.removeTickEvent("caminataGuardias")
+	}
 
 }
 
 
 
-object nivel1 inherits Nivel {
+object nivel1 inherits NivelDeJuego {
 
-	override method fondo() = "background2.png"
+	override method image() = "background2.png"
 	
 	override method celdas(){
 		return 
@@ -134,20 +179,47 @@ object nivel1 inherits Nivel {
 	].reverse()
 	}
 	
-	override method accionDeGuardias(){
+	override method accionDeNivel(){
 		game.onTick(500, "caminataGuardias", {guardiasNoPerseguidores.perseguir()})
 	}
 	
+	override method configurar(){
+		nivelActual.nivelActual(self)
+		self.accionDeNivel()
+		keyboard.up().onPressDo({ harry.mover(arriba) })
+		keyboard.down().onPressDo({ harry.mover(abajo) })
+		keyboard.left().onPressDo({ harry.mover(izquierda) })
+		keyboard.right().onPressDo({ harry.mover(derecha) })
+
+		keyboard.w().onPressDo({ sirius.mover(arriba) })
+		keyboard.s().onPressDo({ sirius.mover(abajo) })
+		keyboard.a().onPressDo({ sirius.mover(izquierda) })
+		keyboard.d().onPressDo({ sirius.mover(derecha) })
+		
+		game.onCollideDo(harry, {colisionado => colisionado.colisionarCon(harry)})
+		game.onCollideDo(sirius, {colisionado => colisionado.colisionarCon(sirius)})
+		keyboard.space().onPressDo({ sirius.usarObjeto() })
+		keyboard.enter().onPressDo({ harry.usarObjeto() })
+		
+		keyboard.o().onPressDo({ harry.abrir() })
+		keyboard.e().onPressDo({ sirius.abrir() })    
+		keyboard.q().onPressDo({ sirius.soltar() })
+	}
+	
 	override method generar(){
+		game.addVisual(self)
 		super()
 		tunel.position(game.at(7, 2))
 		game.addVisual(sirius)
 		sirius.position(game.at(1,0))
 	}
 	
-	
 	override method siguiente(){
 		return nivelM
+	}
+	
+	override method terminarAccionNivel(){
+		game.removeTickEvent("caminataGuardias")
 	}
 	
 }

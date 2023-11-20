@@ -110,6 +110,9 @@ object abierto{
 	
 	method estadoContrario() = cerrado
 	method estaAbierto() = true
+	method esSolidoPara(personaje){
+		return false
+	}
 }
 
 object cofre inherits Cofre{}

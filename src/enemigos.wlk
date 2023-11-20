@@ -180,7 +180,7 @@ class CaminoInvalido {
 	var property posicionEntrada = tunel.position()
 	
 	method image(){
-		return "pisoNormal.png"
+		return "baldoza.png"
 	}
 
 	method colisionarCon(personaje) {
@@ -326,7 +326,7 @@ object puertaNivel{
 	}
 	
 	method sePuedePasarNivel(){
-		return self.estanHarryYSirius() and protagonistas.puedenPasarPuerta(self) and estado.estaAbierta()
+		return self.estanHarryYSirius() and protagonistas.puedenPasarPuerta(self) and estado.estaAbierto()
 	}
 	
 	method estanHarryYSirius() { // se fija si estan los dos para cambiar de nivel
