@@ -7,17 +7,16 @@ import enemigos.*
 class Personaje {
 
 	var property estado = self.estadoHabitual()
-	var property nivel = null
 	var property position = game.at(0, 0)
 	var property posicionPrincipio = game.at(0, 0)
 	const property llavesRotas = #{}
 	var property tieneVarita = false
+	var property nivel = nivelActual
+	var property puedeAgarrarVarita = false
 	
 	method transformacion()
 
 	method estadoHabitual()
-
-	method llaveEnMano()
 
 	method congelado()
 
@@ -25,10 +24,9 @@ class Personaje {
 
 	method image() = estado.image() + ".png"
 
-	method varitaEnMano()
-
 	method colisionarCon(personaje) {
 	}
+	
 
 	method transformarse() {
 		estado = self.transformacion()
@@ -40,7 +38,19 @@ class Personaje {
 		self.validarUso(colisiones)
 		colisiones.head().serUsado(self)
 	}
-
+	
+	method abrir(){
+		const colisiones = objetosUsables.losQuePertenecen(game.colliders(self))
+		self.validarAbrir(colisiones)
+		colisiones.head().abrir(self)
+	}
+	
+	method validarAbrir(objetos) {
+		if (objetos.isEmpty()) {
+			self.error("No tengo nada para abrir")
+		}
+	}
+	
 	method validarUso(objetos) {
 		if (objetos.isEmpty()) {
 			self.error("No tengo nada para usar")
@@ -99,13 +109,12 @@ class Personaje {
 
 	method repararLlave() {
 		self.validarReparar()
-		estado = self.llaveEnMano()
+		estado.objeto(llave)
 		llavesRotas.clear()
-		estado.tieneLlave()
 	}
 
 	method validarReparar() {
-		if (not self.sePuedeRepararLlave() and not self.tieneVarita()) {
+		if (not self.sePuedeRepararLlave() or not self.tieneVarita()) {
 			self.error("¡No puedo reparar la llave todavia!")
 		}
 	}
@@ -120,96 +129,26 @@ class Personaje {
 		}
 	}
 
-	method abrirPuertaCerrada(puerta) {
-		self.validarAbrirPuerta(puerta)
-		puerta.seAbre(self)
-		self.estado(self.estadoHabitual())
+	method contenidoPermitido(){
+			puedeAgarrarVarita = true
 	}
-
-	method validarAbrirPuerta(puerta) {
-		if (not estado.tieneLlave()) {
-			self.error("No puedo abrirla")
+	
+	method obtenerVarita(){
+		if (self.puedeAgarrarVarita()){
+			tieneVarita = true
+			estado.objeto(varita)
 		}
 	}
 
 	
-	method llevarVarita(){
-		tieneVarita = true
-		self.estado(self.varitaEnMano())
-	}
-
-}
-
-object harry inherits Personaje {
-
-	var property patronus = 1
-
-
-	override method llaveEnMano() {
-		return harryConLlave
-	}
 	
-	override method varitaEnMano() {
-		return harryConVarita
-	}
-
-	
-
-	override method transformacion() {
-		return harryInvisible
-	}
-
-	override method estadoHabitual() {
-		return harryHumano
-	}
-
-	override method entrarEnZonaGuardias() {
-		estado.entrarEnZonaGuardias(self)
-	}
-
-	override method congelado() { // La idea es poner una imagen distinta para que cuando se lo atrape no se pueda mover más.
-		return harryCongelado
-	}
-
-	
-//	method estaticos(){
-//		if (patronus == 1){
-//			guardiasNoPerseguidores.estaticos()
-//			patronus = 0
+//	method usarLlave(puerta){
+//		if (self.estaEnLaPuerta(puerta)){
+//			puerta.seAbre()
 //		}
 //	}
-
-
-}
-
-object sirius inherits Personaje {
-
-	override method varitaEnMano() {
-		return siriusConVarita
-	}
-
-	override method llaveEnMano() {
-		return siriusConLlave
-	}
-
-	override method transformacion() {
-		return siriusPerro
-	}
-
-	override method estadoHabitual() {
-		return siriusHumano
-	}
-
-	override method entrarEnZonaGuardias() {
-		game.say(self, "Me pueden ver!")
-			// game.schedule(1500, { self.volverAlPrincipio()})
-		self.serAtrapado()
-	}
-
-	override method congelado() { // La idea es poner una imagen distinta para que cuando se lo atrape no se pueda mover más.
-		return siriusCongelado
-	}
-
+	
+	
 }
 
 object protagonistas {
@@ -234,93 +173,155 @@ object protagonistas {
 
 }
 
-object siriusConLlave {
+object harry inherits Personaje {
 
-	method image() = "sirius"
+	var property patronus = 1
 
-	method puedePasar(puerta) = false
 
-	method esPerseguible() = true
+	override method transformacion() {
+		return harryInvisible
+	}
 
-	method tieneLlave() = true
+	override method estadoHabitual() {
+		return harryHumano
+	}
 
-	method puedeMoverse() = true
+	override method entrarEnZonaGuardias() {
+		estado.entrarEnZonaGuardias(self)
+	}
+
+	override method congelado() { // La idea es poner una imagen distinta para que cuando se lo atrape no se pueda mover más.
+		return harryCongelado
+	}
+
+
 
 }
 
-object siriusConVarita{
+object sirius inherits Personaje {
+	
+	
+	
+//	override method varitaEnMano() {
+//		return siriusConVarita
+//	}
+//
+//	override method llaveEnMano() {
+//		return siriusConLlave
+//	}
+
+	method soltar(){
+		const colisiones = objetosUsables.losQuePertenecen(game.colliders(self))
+		self.validarAbrir(colisiones)
+		colisiones.head().tirar(self)
+	}
+	
+	method validarSoltar(objetos) {
+		if (objetos.isEmpty() ) {
+			self.error("No tengo nada para abrir")
+		}
+	}
+
+	method tirar(){
+		estado.objeto().position(position)
+	}
+
+	override method transformacion() {
+		return siriusPerro
+	}
+
+	override method estadoHabitual() {
+		return siriusHumano
+	}
+
+	override method entrarEnZonaGuardias() {
+		game.say(self, "Me pueden ver!")
+			// game.schedule(1500, { self.volverAlPrincipio()})
+		self.serAtrapado()
+	}
+
+	override method congelado() { // La idea es poner una imagen distinta para que cuando se lo atrape no se pueda mover más.
+		return siriusCongelado
+	}
+
+}
+
+// estados normal 
+
+class Estado {
+	var property objeto  = nada
+
+	method image() = "" + self + "Con" + self.objeto() + ""
+	method esPerseguible() = true
+	method puedeMoverse() = true
+	method puedePasar(puerta) = false
+	
+	method tieneLlave() = objeto.esLlave() // o objeto == llave 
+	method tieneVarita() = objeto.esVarita()
+	
+	method entrarEnZonaGuardias(personaje){}
+
+//	
 	
 }
-object harryConVarita{
+
+
+object harryHumano inherits Estado {
 	
-}
-
-object harryConLlave {
-
-	method image() = "harry"
-
-	method tieneLlave() = true
-
-	method esPerseguible() = true
-
-	method puedePasar(puerta) = false
-
-	method puedeMoverse() = true
-
-}
-
-object harryHumano {
-
-	method image() = "harry"
-
-	method entrarEnZonaGuardias(personaje) {
+	override method entrarEnZonaGuardias(personaje) {
 		game.say(personaje, "Me pueden ver!")
 			// game.schedule(1500, { personaje.volverAlPrincipio()})
 		personaje.serAtrapado()
 	}
 
-	method esPerseguible() = true
+}
 
-	method puedePasar(puerta) = false
 
-	method puedeMoverse() = true
+object harryInvisible inherits Estado {
+	override method image() = "harryInvisible"
+	override method esPerseguible() = false
+}
 
-	method tieneLlave() = false
+object harryCongelado inherits Estado{
+	override method puedeMoverse() = false
+}
+
+object siriusHumano inherits Estado {}
+
+object siriusPerro  inherits Estado{
+
+	var property accion = ninguna
+	override method puedePasar(puerta) = true
+	override method esPerseguible() = accion.esPerseguible()
+
 
 }
 
-object harryInvisible {
+object siriusCongelado inherits Estado{
+	
+	override method puedeMoverse() = false
+}
 
-	method image() = "harryInvisible"
 
-	method entrarEnZonaGuardias(personaje) {
-	}
-
+object ninguna{
 	method esPerseguible() = false
+}
+object ladrido{
+	method esPerseguible() = true
+}
 
-	method puedePasar(puerta) = false
-
-	method puedeMoverse() = true
-
-	method tieneLlave() = false
+object nada inherits Objeto{
+	
+	override method image(){}
+	method esLlave() = false
+	method esVarita() = false
 
 }
 
-object harryCongelado {
-
-	method puedeMoverse() = false
-
-	method puedePasar(puerta) = false
-
-	method image() = "harry"
-
-	method entrarEnZonaGuardias(harry) {
-	}
-
-	method tieneLlave() = false
-
-	method esPerseguible() = true
-
+object llave inherits Objeto{
+	override method image(){}
+	method esLlave() = true 
+	method esVarita() = false
 }
 
 object caminando {
@@ -330,57 +331,209 @@ object caminando {
 
 }
 
-object siriusHumano {
 
-	method image() = "sirius"
-	
-	method puedePasar(puerta) = false
 
-	method esPerseguible() = true
-
-	method tieneLlave() = false
-
-	method puedeMoverse() = true
-
-}
-
-object siriusPerro {
-
-	method image() = "siriusPerro"
-
-	method puedePasar(puerta) = true
-
-	method esPerseguible() = false
-
-	method tieneLlave() = false
-
-	method puedeMoverse() = true
-
-}
-
-object siriusPerroLadrando {
-
-	method image() = "siriusPerro"
-
-	method puedePasar(puerta) = true
-
-	method esPerseguible() = true
-
-	method tieneLlave() = false
-
-	method puedeMoverse() = true
-
-}
-
-object siriusCongelado {
-
-	method puedeMoverse() = false
-
-	method image() = "sirius"
-
-	method puedePasar(puerta) = false
-
-	method esPerseguible() = true
-
-}
-
+//
+//object harryHumano {
+//
+//	override method personajeCon() = "harryCon"
+//	
+//	method estadoConVarita() = harryConLlave
+//
+//	method entrarEnZonaGuardias(personaje) {
+//		game.say(personaje, "Me pueden ver!")
+//			// game.schedule(1500, { personaje.volverAlPrincipio()})
+//		personaje.serAtrapado()
+//	}
+//
+//	method esPerseguible() = true
+//
+//	method puedePasar(puerta) = false
+//
+//	method puedeMoverse() = true
+//
+//	method tieneLlave() = false
+//
+//}
+//
+//object harryInvisible {
+//
+//	method image() = "harryInvisible"
+//
+//	method entrarEnZonaGuardias(personaje) {
+//	}
+//	
+//	method estadoConVarita() = self
+//
+//	method esPerseguible() = false
+//
+//	method puedePasar(puerta) = false
+//
+//	method puedeMoverse() = true
+//
+//	method tieneLlave() = false
+//
+//}
+//
+//object harryCongelado {
+//
+//	method puedeMoverse() = false
+//
+//	method puedePasar(puerta) = false
+//
+//	method image() = "harry"
+//
+//	method entrarEnZonaGuardias(harry) {
+//	}
+//	
+//	method estadoConVarita() = self
+//	
+//	method tieneLlave() = false
+//
+//	method esPerseguible() = true
+//
+//}
+//
+//object siriusCongelado {
+//
+//	method puedeMoverse() = false
+//
+//	method image() = "sirius"
+//
+//	method puedePasar(puerta) = false
+//
+//	method esPerseguible() = true
+//	method estadoConVarita() = siriusConVarita
+//
+//}
+//
+//
+//
+//object siriusHumano {
+//
+//	method image() = "sirius"
+//	
+//	method puedePasar(puerta) = false
+//
+//	method esPerseguible() = true
+//
+//	method tieneLlave() = false
+//
+//	method puedeMoverse() = true
+//	
+//	method estadoConVarita() = siriusConVarita
+//
+//}
+//
+//object siriusPerro {
+//
+//	method image() = "siriusPerro"
+//
+//	method puedePasar(puerta) = true
+//
+//	method esPerseguible() = false
+//
+//	method tieneLlave() = false
+//
+//	method puedeMoverse() = true
+//	
+//	method estadoConVarita() = siriusPerroConVarita
+//
+//}
+//
+//object caminando {
+//
+//	method puedeMover() {
+//	}
+//
+//}
+//
+//
+//
+//
+//
+//// estadosConObjetos
+//
+//object siriusConLlave {
+//
+//	method image() = "sirius"
+//
+//	method puedePasar(puerta) = false
+//
+//	method esPerseguible() = true
+//
+//	method tieneLlave() = true
+//	method estadoConVarita() = siriusConVarita
+//	method puedeMoverse() = true
+//
+//}
+//
+//object siriusConVarita{
+//	method image() = "siriusConVarita"
+//
+//	method tieneLlave() = true
+//
+//	method esPerseguible() = true
+//
+//	method puedePasar(puerta) = false
+//
+//	method puedeMoverse() = true
+//	method estadoConVarita() = self
+//}
+//
+//object harryConVarita{
+//	
+//	method image() = "harryConVarita"
+//
+//	method tieneLlave() = true
+//
+//	method esPerseguible() = true
+//
+//	method puedePasar(puerta) = false
+//	method estadoConVarita() = self
+//	method puedeMoverse() = true
+//}
+//
+//object harryConLlave {
+//
+//	method image() = "harry"
+//
+//	method tieneLlave() = true
+//
+//	method esPerseguible() = true
+//
+//	method puedePasar(puerta) = false
+//
+//	method puedeMoverse() = true
+//	
+//	method estadoConVarita() = harryConVarita
+//
+//}
+//
+//
+//object siriusPerroLadrando {
+//
+//	method image() = "siriusPerro"
+//
+//	method puedePasar(puerta) = true
+//
+//	method esPerseguible() = true
+//
+//	method tieneLlave() = false
+//	method estadoConVarita() = siriusPerroConVarita
+//	method puedeMoverse() = true
+//
+//}
+//object siriusPerroConVarita {
+//	
+//	method estadoConVarita() = self	
+//	method image() = "siriusPerroConVarita"
+//	method puedePasar(puerta) = true
+//	method esPerseguible()	  = false
+//	method tieneLlave() 	  = false
+//	method puedeMoverse() 	  = true
+//}
+//
+//
+//
+//
