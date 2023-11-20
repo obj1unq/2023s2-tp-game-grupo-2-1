@@ -247,7 +247,7 @@ object caminosValidos{
 
 object caminoNormal{
 	method image(){
-		return "pisoNormal.png"
+		return "baldoza.png"
 	}
 }
 
