@@ -16,6 +16,7 @@ describe "nivel1" {
 		assert.equals(harryCongelado, harry.estado())
 		assert.notThat(harry.sePuedeMover(derecha))
 		assert.notThat(sirius.sePuedeMover(izquierda))
+		
 	}
 	
 	test "harry entra a la zona invisible. Los dos pueden moverse"{
