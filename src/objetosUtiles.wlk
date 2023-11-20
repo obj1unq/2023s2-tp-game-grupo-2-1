@@ -96,8 +96,6 @@ class Cofre inherits Objeto{
 	}
 }
 
-
-
 object cerrado{
 	
 	var property contenido = varita
@@ -130,5 +128,24 @@ class SensorCofre {
 
 object vacio{}
 
+object palanca {
 
-
+	var property position = game.at(0,0)
+	
+	method image(){
+		return "palanca off.png"
+	}
+	
+	method colisionarCon(personaje){
+	}
+	
+ 	method esSolidoPara(personaje) {
+		return true
+	}
+	
+	method puedePasar(personaje) = false
+	
+	method serUsado(){
+		
+	}
+}

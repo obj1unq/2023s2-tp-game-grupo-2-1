@@ -118,6 +118,10 @@ class GuardiaPerseguidor inherits Guardia {
 		return personajes.min({ personaje => self.distanciaMenorEntre(personaje) })
 	}
 	
+	method distanciaMenorEntre(personaje) {
+		return self.position().x() - personaje.position().x().min(self.position().y() - personaje.position().y())
+	}
+	
 	method puedePerseguir(intrusoCercano) {
 		return self.puedeVerlo(intrusoCercano)
 	}
@@ -136,9 +140,7 @@ class GuardiaPerseguidor inherits Guardia {
 		return 5
 	}
 
-	method distanciaMenorEntre(personaje) {
-		return self.position().x() - personaje.position().x().min(self.position().y() - personaje.position().y())
-	}
+	
 
 	override method colisionarCon(personaje) {
 			game.say(self, "¡TE ATRAPE!")
@@ -335,5 +337,85 @@ object puertaNivel{
 
 }
 
+class ListaDePuas {
+	
+	const property puas = #{}
 
+	method agregarPua(pua) {
+		puas.add(pua)
+	}
+	
+	method activarMovimiento(){
+	puas.forEach({ pua => pua.activarMovimiento()})
+	}
+}
+
+object caminoDePuas inherits ListaDePuas{}
+
+class Pua {
+	
+	var property position
+	var property estado = puaInactiva
+
+	method image(){
+		return estado.image()
+	}
+	
+	method colisionarCon(personaje) {
+		estado.colisionarCon(personaje)
+	}
+
+	method esSolidoPara(personaje) {
+		return false
+	}
+	
+	method puedePasar(personaje) = true
+	
+	method activarMovimiento(){
+		estado = estado.serCambiado()	
+		if(protagonistas.hayAlgunoEnLaMismaPosicionQue(self)){
+				estado.colisionarCon(protagonistas)
+		}
+	}
+	
+}
+
+object puaInactiva{
+	
+	method image(){
+		return "puas adentro.png"
+	}
+	
+	method haceDanio(){
+		return false
+	}
+	
+	method colisionarCon(personaje){
+		
+	}
+	
+	method serCambiado(){
+		return puaActiva
+	}
+
+}
+
+object puaActiva{
+	
+	method image(){
+		return "puas.png"
+	}
+	
+	method haceDanio(){
+		return true
+	}
+	
+	method colisionarCon(personaje){
+		personaje.perder()
+ }
+	
+	method serCambiado(){
+		return puaInactiva
+	}
+}
 
