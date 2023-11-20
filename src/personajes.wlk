@@ -85,7 +85,7 @@ class Personaje {
 
 	method perder() {
 		self.congelar()
-		game.schedule(3000, { self.reiniciar()})
+		game.schedule(1500, { self.reiniciar()})
 	}
 
 	method reiniciar() {
@@ -136,6 +136,10 @@ class Personaje {
 	method llevarVarita(){
 		tieneVarita = true
 		self.estado(self.varitaEnMano())
+	}
+	
+	method estaEnLaMismaPosicionQue(obstaculo){
+		return self.position() == obstaculo.position()
 	}
 
 }
@@ -218,6 +222,10 @@ object protagonistas {
 
 	method perder() {
 		personajes.forEach({ personaje => personaje.perder()})
+	}
+	
+	method hayAlgunoEnLaMismaPosicionQue(obstaculo){
+		return personajes.any({ personaje => personaje.estaEnLaMismaPosicionQue(obstaculo)})
 	}
 
 	method congelar() {

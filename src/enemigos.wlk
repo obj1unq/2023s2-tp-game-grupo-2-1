@@ -116,6 +116,10 @@ class GuardiaPerseguidor inherits Guardia {
 		return personajes.min({ personaje => self.distanciaMenorEntre(personaje) })
 	}
 	
+	method distanciaMenorEntre(personaje) {
+		return self.position().x() - personaje.position().x().min(self.position().y() - personaje.position().y())
+	}
+	
 	method puedePerseguir(intrusoCercano) {
 		return self.puedeVerlo(intrusoCercano)
 	}
@@ -134,9 +138,7 @@ class GuardiaPerseguidor inherits Guardia {
 		return 5
 	}
 
-	method distanciaMenorEntre(personaje) {
-		return self.position().x() - personaje.position().x().min(self.position().y() - personaje.position().y())
-	}
+	
 
 	override method colisionarCon(personaje) {
 			game.say(self, "¡TE ATRAPE!")
@@ -320,8 +322,8 @@ class ListaDePuas {
 		puas.add(pua)
 	}
 	
-	method funcionar(){
-	puas.forEach({ pua => pua.funcionar()})
+	method activarMovimiento(){
+	puas.forEach({ pua => pua.activarMovimiento()})
 	}
 }
 
@@ -331,14 +333,13 @@ class Pua {
 	
 	var property position
 	var property estado = puaInactiva
-	
+
 	method image(){
 		return estado.image()
 	}
 	
 	method colisionarCon(personaje) {
-		if(position == personaje.position() and estado.haceDanio())
-		personaje.perder()
+		estado.colisionarCon(personaje)
 	}
 
 	method esSolidoPara(personaje) {
@@ -347,8 +348,11 @@ class Pua {
 	
 	method puedePasar(personaje) = true
 	
-	method funcionar(){
-		estado = estado.serCambiado()
+	method activarMovimiento(){
+		estado = estado.serCambiado()	
+		if(protagonistas.hayAlgunoEnLaMismaPosicionQue(self)){
+				estado.colisionarCon(protagonistas)
+		}
 	}
 	
 }
