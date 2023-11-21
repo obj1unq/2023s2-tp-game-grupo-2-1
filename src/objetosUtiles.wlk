@@ -12,7 +12,11 @@ class Objeto {
 	method serUsado(personaje) {}
 	method abrir(personaje){}
 	method colisionarCon(personaje){}
+
 	method esSolidoPara(personaje) = false
+
+
+
 
 	
 }
@@ -81,7 +85,6 @@ class Varita inherits Objeto{
 		objetosUsables.agregarObjeto(self)
 	}
 
-	
 }
 
 object cerrado{
@@ -98,8 +101,6 @@ object abierto{
 	method estaAbierto() = true
 	method esSolidoPara(personaje) = false
 }
-
-
 
 
 class Sensor{
@@ -124,4 +125,131 @@ class SensorPuertaM inherits Sensor(objetoApuntado = puertaNivelM){}
 
 object varita inherits Varita{} 
 
+
+object palanca inherits Palanca{}
+object cofre inherits Cofre{}
+object vacio{}
+object puerta inherits Puerta{}
+
+class Palanca {
+
+	var property position = game.at(0,0)
+	var property estado = palancaApagada
+	
+	method image(){
+		return estado.image()
+	}
+	
+	method colisionarCon(personaje){
+	}
+	
+ 	method esSolidoPara(personaje) = true
+	
+	method puedePasar(personaje) = false
+	
+	method serUsado(personaje){
+		estado.serUsado()
+	}
+	
+	method cambiarEstado(){
+		estado = estado.serCambiado()
+
+	}
+	method abrir(personaje){
+			objetoApuntado.abrir(personaje)
+	}
+	
+}
+
+
+object palancaPrendida{
+	
+	method image(){
+		return "palancag.gif"
+	}
+	
+	method serUsado(){
+
+	}
+	
+	method serCambiado(){
+		return palancaApagada
+	}
+}
+
+object palancaApagada{
+	
+	method image(){
+		return "palanca off.png"
+	}
+	
+	method serUsado(){
+		palanca.cambiarEstado()
+		puerta.abrir()
+	}
+	
+	method prenderse(){
+		palanca.cambiarEstado()
+	}
+	
+	method serCambiado(){
+		return palancaPrendida
+	}
+	
+}
+
+class Puerta {
+	
+	var property position = game.at(0,0)
+	var property estado = puertaCerrada
+	
+	method image(){
+		return estado.image()
+	}
+	
+	method colisionarCon(personaje){
+	}
+	
+ 	method esSolidoPara(personaje) = estado.esSolidoPara(personaje)
+	
+	method puedePasar(personaje) = estado.puedePasar()
+	
+	method serUsado(personaje){
+		estado.serUsado()
+	}
+	
+	method cambiarEstado(){
+		estado = estado.serCambiado()
+	}
+	
+	method abrir(){
+		self.cambiarEstado()
+	}
+}
+
+object puertaCerrada{
+	
+	method image(){
+		return "puerta.png"
+	}
+	
+	method serUsado(){
+		puerta.abrir()
+	}
+	
+	method serCambiado(){
+		return puertaAbierta
+	}
+}
+
+object puertaAbierta{
+
+	method serUsado(){
+
+	}
+	
+	method serCambiado(){
+		return puertaCerrada
+	}
+}
 

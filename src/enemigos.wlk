@@ -118,6 +118,10 @@ class GuardiaPerseguidor inherits Guardia {
 		return personajes.min({ personaje => self.distanciaMenorEntre(personaje) })
 	}
 	
+	method distanciaMenorEntre(personaje) {
+		return self.position().x() - personaje.position().x().min(self.position().y() - personaje.position().y())
+	}
+	
 	method puedePerseguir(intrusoCercano) {
 		return self.puedeVerlo(intrusoCercano)
 	}
@@ -136,9 +140,7 @@ class GuardiaPerseguidor inherits Guardia {
 		return 5
 	}
 
-	method distanciaMenorEntre(personaje) {
-		return self.position().x() - personaje.position().x().min(self.position().y() - personaje.position().y())
-	}
+	
 
 	override method colisionarCon(personaje) {
 			game.say(self, "¡TE ATRAPE!")
@@ -178,9 +180,14 @@ class CaminoInvalido {
 
 	const property position
 	var property posicionEntrada = tunel.position()
+	
+	method image(){
+		return "baldoza.png"
+	}
 
 	method colisionarCon(personaje) {
 		personaje.position(self.arribaDeLaEntrada())
+		caminosValidos.iluminar()
 	}
 
 	method arribaDeLaEntrada() {
@@ -190,23 +197,73 @@ class CaminoInvalido {
 	method esSolidoPara(personaje) {
 		return false
 	}
+	
 
 }
 
-object caminosInvalidos {
+//object caminosInvalidos {
+//
+//	const property caminos = #{}
+//
+//	method agregarCamino(camino) {
+//		caminos.add(camino)
+//	}
+//	
+//	method iluminar(){
+//		caminos.forEach({camino=> camino.iluminar()})
+//	}
+//
+//}
 
-	const property caminos = #{}
+class CaminoValido{
+	const property position
+	var estado = caminoNormal
+	
+	method image(){
+		return estado.image()
+	}
+	
+	method iluminar(){
+		estado = caminoIluminado
+		game.schedule(3000, {estado = caminoNormal})
+	}
+	
+	method esSolidoPara(personaje) {
+		return false
+	}
+	
+	method colisionarCon(personaje){}
+}
 
+object caminosValidos{
+	const caminos = #{}
+	
+	method iluminar(){
+		caminos.forEach({camino => camino.iluminar()})
+	}
+	
 	method agregarCamino(camino) {
 		caminos.add(camino)
 	}
+}
 
+object caminoNormal{
+	method image(){
+		return "baldoza.png"
+	}
+}
+
+object caminoIluminado{
+	method image(){
+		return "baldozaAzul.png"
+	}
 }
 
 class Tunel {
 
 	var property position = game.at(0, 0)
-
+	
+	method image() = return "tunel.png"
 
 	method esSolidoPara(personaje) {
 		return not personaje.puedePasar(self)
@@ -232,6 +289,10 @@ class Pared {
    
 }
 
+class ParedVisible inherits Pared{
+	method image() = "pared.png"
+}
+
 class ZonaDeGuardias {
 
 	const property position
@@ -249,7 +310,7 @@ class ZonaDeGuardias {
 class PuertaNivel{
 
 	var property position = game.at(0, 0)
-	var property estado = cerrado
+	var property estado 
 	var property sensor = null
 	
 	method puedePasar(){
@@ -271,15 +332,17 @@ class PuertaNivel{
 	
 	method colisionarCon(personaje) {
 		if (self.sePuedePasarNivel()) {
-//			protagonistas.congelar()
-//			game.schedule(100, { protagonistas.descongelar()})
-//			nivelActual.pasarDeNivel()
-			harry.error("se paso el nivel")
+			protagonistas.congelar()
+			game.schedule(100, { protagonistas.descongelar()})
+			nivelActual.pasarDeNivel()
+			
 		}
 	}
 	
 	method sePuedePasarNivel(){
-		return self.estanHarryYSirius() 
+
+	return self.estanHarryYSirius() 
+
 	}
 	
 	method estanHarryYSirius() { // se fija si estan los dos para cambiar de nivel
@@ -288,8 +351,90 @@ class PuertaNivel{
 
 }
 
+class ListaDePuas {
+	
+	const property puas = #{}
 
-object puertaNivel inherits PuertaNivel{}
-object puertaNivelM inherits PuertaNivel{
-		override method estado () = cerrado
+	method agregarPua(pua) {
+		puas.add(pua)
+	}
+	
+	method activarMovimiento(){
+	puas.forEach({ pua => pua.activarMovimiento()})
+	}
 }
+
+
+object puertaNivel inherits PuertaNivel(estado = abierto){}
+object puertaNivelM inherits PuertaNivel (estado = cerrado){}
+
+object caminoDePuas inherits ListaDePuas{}
+
+class Pua {
+	
+	var property position
+	var property estado = puaInactiva
+
+	method image(){
+		return estado.image()
+	}
+	
+	method colisionarCon(personaje) {
+		estado.colisionarCon(personaje)
+	}
+
+	method esSolidoPara(personaje) {
+		return false
+	}
+	
+	method puedePasar(personaje) = true
+	
+	method activarMovimiento(){
+		estado = estado.serCambiado()	
+		if(protagonistas.hayAlgunoEnLaMismaPosicionQue(self)){
+				estado.colisionarCon(protagonistas)
+		}
+	}
+	
+}
+
+object puaInactiva{
+	
+	method image(){
+		return "puas adentro.png"
+	}
+	
+	method haceDanio(){
+		return false
+	}
+	
+	method colisionarCon(personaje){
+		
+	}
+	
+	method serCambiado(){
+		return puaActiva
+	}
+
+}
+
+object puaActiva{
+	
+	method image(){
+		return "puas.png"
+	}
+	
+	method haceDanio(){
+		return true
+	}
+	
+	method colisionarCon(personaje){
+		personaje.perder()
+ }
+	
+	method serCambiado(){
+		return puaInactiva
+	}
+}
+
+

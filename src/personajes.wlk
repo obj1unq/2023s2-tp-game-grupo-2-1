@@ -150,7 +150,7 @@ class Personaje {
 
 	method perder() {
 		self.congelar()
-		game.schedule(3000, { self.reiniciar()})
+		game.schedule(1500, { self.reiniciar()})
 	}
 
 	method reiniciar() {
@@ -184,13 +184,32 @@ class Personaje {
 		return estado.tieneLlave()
 	}
 
+	method llevarVarita(){
+		tieneVarita = true
+		self.estado(self.varitaEnMano())
+	}
 	
+	method estaEnLaMismaPosicionQue(obstaculo){
+		return self.position() == obstaculo.position()
+	}
+
+}
+
+object harry inherits Personaje {
+
+	var property patronus = 1
+
+
+	override method llaveEnMano() {
+		return harryConLlave
+	}
+
 	
-//	method usarLlave(puerta){
-//		if (self.estaEnLaPuerta(puerta)){
-//			puerta.seAbre()
-//		}
-//	}
+	method usarLlave(puerta){
+		if (self.estaEnLaPuerta(puerta)){
+			puerta.seAbre()
+		}
+	}
 	
 	
 }
@@ -201,6 +220,10 @@ object protagonistas {
 
 	method perder() {
 		personajes.forEach({ personaje => personaje.perder()})
+	}
+	
+	method hayAlgunoEnLaMismaPosicionQue(obstaculo){
+		return personajes.any({ personaje => personaje.estaEnLaMismaPosicionQue(obstaculo)})
 	}
 
 	method congelar() {
@@ -213,30 +236,30 @@ object protagonistas {
 
 }
 
-object harry inherits Personaje {
+//object harry inherits Personaje {
+//
+//	var property patronus = 1
+//
+//
+//	override method transformacion() {
+//		return harryInvisible
+//	}
+//
+//	override method estadoHabitual() {
+//		return harryHumano
+//	}
+//
+//	override method entrarEnZonaGuardias() {
+//		estado.entrarEnZonaGuardias(self)
+//	}
+//
+//	override method congelado() { // La idea es poner una imagen distinta para que cuando se lo atrape no se pueda mover más.
+//		return harryCongelado
+//	}
 
-	var property patronus = 1
 
 
-	override method transformacion() {
-		return harryInvisible
-	}
-
-	override method estadoHabitual() {
-		return harryHumano
-	}
-
-	override method entrarEnZonaGuardias() {
-		estado.entrarEnZonaGuardias(self)
-	}
-
-	override method congelado() { // La idea es poner una imagen distinta para que cuando se lo atrape no se pueda mover más.
-		return harryCongelado
-	}
-
-
-
-}
+//}
 
 object sirius inherits Personaje {
 	
@@ -288,7 +311,6 @@ class Estado {
 	method llevaVarita() {
 		objeto = varita
 	}
-
 
 	method tieneLlave() = objeto.esLlave() // o objeto == llave 
 	method tieneVarita() = objeto.esVarita()
