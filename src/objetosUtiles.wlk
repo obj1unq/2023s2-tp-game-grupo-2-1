@@ -135,6 +135,7 @@ class SensorPuerta inherits Sensor{
 class SensorPalanca inherits Sensor{
     
     override method serUsado(personaje){
+    	palanca.serUsado(personaje)
     }
     
 }
@@ -160,7 +161,7 @@ class Palanca {
 	
 	method puedePasar(personaje) = false
 	
-	method serUsado(){
+	method serUsado(personaje){
 		estado.serUsado()
 	}
 	
@@ -221,7 +222,7 @@ class Puerta {
 	
 	method puedePasar(personaje) = estado.puedePasar()
 	
-	method serUsado(){
+	method serUsado(personaje){
 		estado.serUsado()
 	}
 	
