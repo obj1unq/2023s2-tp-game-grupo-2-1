@@ -27,12 +27,11 @@ class Nivel{
 	method siguiente()
 
 	method iniciar(){
-		self.configurar()
+		self.generar()
 		nivelActual.nivelActual(self)
-		
 	}
 
-	method configurar() {
+	method generar() {
 		game.addVisual(self)
 	}
 	
@@ -51,11 +50,11 @@ class Nivel{
 class NivelDeJuego inherits Nivel{
 	
 	method accionDeNivel(){}
-	method terminarAccionNivel(){}
 	
 	method celdas()
 		
-	method generar(){
+	override method generar(){
+		super()
 		(0..game.width() -1).forEach({x=> 
 					(0..game.height() -1).forEach({y=>
 								self.generarCelda(x,y)})
@@ -73,6 +72,10 @@ class NivelDeJuego inherits Nivel{
 		self.terminarAccionNivel()
 	}
 	
+	method terminarAccionNivel(){
+		game.removeTickEvent("caminataGuardias")
+	}
+	
 	override method iniciar() {
 		nivelActual.nivelActual(self)
 		self.generar()
@@ -80,6 +83,8 @@ class NivelDeJuego inherits Nivel{
 		self.accionDeNivel()
 //		musica.reproducir(self.cancion())
 	}
+	
+	method configurar(){}
 }
 
 
@@ -91,7 +96,7 @@ object menu inherits Nivel{
 		return reglas
 	}
 	
-	override method configurar(){
+	override method generar(){
 		game.clear()
 		super()
 		keyboard.enter().onPressDo({ nivelActual.pasarDeNivel() })
@@ -144,9 +149,6 @@ object nivelM inherits NivelDeJuego {
 
 	override method siguiente(){} // hay que agregarle que nivle le sigue
 	
-	override method terminarAccionNivel(){
-		game.removeTickEvent("caminataGuardias")
-	}
 
 }
 
@@ -184,8 +186,6 @@ object nivel1 inherits NivelDeJuego {
 	}
 	
 	override method configurar(){
-		nivelActual.nivelActual(self)
-		self.accionDeNivel()
 		keyboard.up().onPressDo({ harry.mover(arriba) })
 		keyboard.down().onPressDo({ harry.mover(abajo) })
 		keyboard.left().onPressDo({ harry.mover(izquierda) })
@@ -207,7 +207,6 @@ object nivel1 inherits NivelDeJuego {
 	}
 	
 	override method generar(){
-		game.addVisual(self)
 		super()
 		tunel.position(game.at(7, 2))
 		game.addVisual(sirius)
@@ -218,15 +217,11 @@ object nivel1 inherits NivelDeJuego {
 		return nivelM
 	}
 	
-	override method terminarAccionNivel(){
-		game.removeTickEvent("caminataGuardias")
-	}
-	
 }
 
-object nivelC inherits Nivel{
+object nivelC inherits NivelDeJuego{
 	
-	override method fondo() = "background2.png"
+	override method image() = "background2.png"
 
 	override method celdas(){
 		return 
@@ -251,7 +246,7 @@ object nivelC inherits Nivel{
 		].reverse()
 	}
 	
-	override method accionDeGuardias(){
+	override method accionDeNivel(){
 		game.onTick(1000, "caminataGuardias", {guardiasNoPerseguidores.perseguir()})
 	  }
 	
@@ -259,11 +254,13 @@ object nivelC inherits Nivel{
 	override method siguiente(){
 		return nivelM
 	}
+	
+	
 }
 
-object nivelB inherits Nivel{
+object nivelB inherits NivelDeJuego{
 	
-	override method fondo() = "fondoB.png"
+	override method image() = "fondoB.png"
 
 	override method celdas(){
 		return
@@ -288,12 +285,16 @@ object nivelB inherits Nivel{
 	].reverse()
 	}
 	
-	override method accionDeGuardias(){
+	override method accionDeNivel(){
 		game.onTick(800, "movimientoPuas", {caminoDePuas.activarMovimiento()})
 	}
 	
 	override method siguiente(){
 		return nivelM
+	}
+	
+	override method terminarAccionNivel(){
+		game.removeTickEvent("movimientoPuas")
 	}
 }
 
