@@ -62,9 +62,10 @@ class Nivel{
 		celda.generar(game.at(x,y))
 	}
 	
-	method pasarDeNivel(){
-		
-	}
+	method pasarDeNivel(){}
+	
+	method hechizoNivel(personaje){}
+	
 
 }
 
@@ -74,28 +75,33 @@ object nivelM inherits Nivel {
 
 	override method fondo() =   "nivelM.png"
 	
-	override method celdas(){
-		return
-		[[_, _, _, _, _, _, _, _, _, _, p, _, _, _, p, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _],
-		 [_, _, _, _, _, _, _, _, _, _, p, _, _, _, p, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _],
-		 [_, _, p, p, p, p, p, p, p, p, p, p, _, _, p, p, p, p, p, p, p, p, p, p, p, p, p, p, _, _],
-		 [_, _, p, p, p, p, p, p, p, p, p, p, _, _, p, p, p, p, p, p, p, p, p, p, p, p, p, p, _, _],
-		 [_, _, p, _, _, p, p, _, _, _, p, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, p, _, _],
-		 [_, _, p, _, _, c, p, _, _, _, p, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, p, _, _],
-		 [_, _, p, _, _, ss, ss, _, _, _, p, _, _, _, _, _, _, _, _, _, gp, _, _, lr6, _, _, _, p, _, _],
-		 [_, _, p, p, p, _, _, p, _, p, p, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, p, p, p],
-		 [p, p, p, p, p, p, p, p, tn, p, p, _, _, _, _, _, _, gp, _, _, _, _, gp, _, _, _, _, p, p, p],
-		 [_, _, _, h, s, _, _, _,   _, _, _, _, _, _, gp, _, _, lr1, _, _, _, _, _, _, _, _, _, _, _, _],
-		 [_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, gp, _, _, _, lr5, _, _, _, _, _],
-		 [p, p, p, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, lr3, _, _, _, _, _, _, p, p, p],
-		 [_, _, p, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, p, _, _],
-		 [_, _, p, _, o, _, _, _, _, _, _, _, _, _, _, _, gp, _, _, _, _, _, _, _, _, _, _, p, _, _],
-		 [_, _, p, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, lr2, _, _, gp, lr4, _, _, _, p, _, _],
-		 [_, _, p, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, p, _, _],
-		 [_, _, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, _, _],
-		 [_, _, p, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _]
-	].reverse()
+    override method celdas(){
+        return
+        [[_, _, _, _, _, _, _, _, _, _, p, _, _, _, p, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _],
+         [_, _, _, _, _, _, _, _, _, _, p, _, _, _, p, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _],
+         [_, _, p, p, p, p, p, p, p, p, p, p, _, _, p, p, p, p, p, p, p, p, p, p, p, p, p, p, _, _],
+         [_, _, p, p, p, p, p, p, p, p, p, p, _, _, p, p, p, p, p, p, p, p, p, p, p, p, p, p, _, _],
+         [_, _, p, _, _, p, p, _, _, _, p, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, p, _, _],
+         [_, _, p, _, _, v, _, _, _, _, p, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, p, _, _],
+         [_, _, p, _, _, _, _, _, _, _, p, _, _, _, _, _, _, _, _, _, gp, _, _, lr6, _, _, _, p, _, _],
+         [_, _, p, p, p, _, _, p, tn, p, p, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, p, p, p],
+         [p, p, p, p, p, p, p, p, tn, p, p, _, _, _, _, _, _, gp, _, _, _, _, gp, _, _, _, _, p, p, p],
+         [_, _, _, h, s, _, _, _,   _, _, _, _, _, _, gp, _, _, lr1, _, _, _, _, _, _, _, _, _, sp, p, _],
+         [_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, gp, _, _, _, lr5, _, _, _, sp, pn],
+         [p, p, p, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, lr3, _, _, _, _, _, _, p, p, p],
+         [_, _, p, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, p, _, _],
+         [_, _, p, _, o, _, _, _, _, _, _, _, _, _, _, _, gp, _, _, _, _, _, _, _, _, _, _, p, _, _],
+         [_, _, p, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, lr2, _, _, gp, lr4, _, _, _, p, _, _],
+         [_, _, p, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, p, _, _],
+         [_, _, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, _, _],
+         [_, _, p, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _]
+    ].reverse()
+    }
+	
+	override method hechizoNivel(personaje){
+		personaje.repararLlave()
 	}
+	
 	
 	override method accionDeGuardias(){
 		game.onTick(500, "caminataGuardias", {guardiasPerseguidores.perseguir()})
@@ -104,7 +110,6 @@ object nivelM inherits Nivel {
 	override method siguiente(){} // hay que agregarle que nivle le sigue
 
 }
-
 
 
 object nivel1 inherits Nivel {
@@ -138,11 +143,12 @@ object nivel1 inherits Nivel {
 		game.onTick(1000, "caminataGuardias", {guardiasNoPerseguidores.perseguir()})
 	}
 	
-	override method generar(){
-		tunel.position(game.at(7, 2))
-		super()
-		sirius.position(game.at(17,17))
-	}
+//	override method generar(){
+//		tunel.position(game.at(7, 2))
+//		super()
+//		sirius.position(game.at(17,17))
+//	}
+//	
 	
 	override method siguiente(){
 		return nivelM
@@ -198,12 +204,10 @@ object i{
 
 object tn{
 
-	
-	method generar(position){
-		tunel.position(position)
-		game.addVisual(tunel)
+	method generar(_position){
+		const tunell = new Tunel (position = _position)
+		game.addVisual(tunell)
 	}
-	
 	
 }
 
@@ -219,14 +223,29 @@ object o{
 } 
 
 object p{
+	
 	method generar(position){
 		game.addVisual(new Pared(position = position))
 	}
 	
-
 }
 
+object sp{
+	
+	method generar(position){
+		const sensor = new SensorPuertaM(position = position, objetoApuntado = puertaNivelM)
+		game.addVisual(sensor) 
+		objetosUsables.agregarObjeto(sensor)
+	}
+}
 
+object pn{
+	method generar(position){
+		puertaNivelM.position(position)
+		game.addVisual(puertaNivelM)
+	}
+	
+}
 object g{
 
 	method generar(position){
@@ -247,30 +266,12 @@ object gp{
 }
 
 
-object c{
-		
-	method generar (_position){
-		cofre.position(_position)
-		game.addVisual(cofre)
-		objetosUsables.agregarObjeto(cofre)
-	}	
-	
-}
 
-
-object ss{
-
-	method generar(position){
-		const sensor = new SensorCofre(position = position)
-		game.addVisual(sensor)
-		objetosUsables.agregarObjeto(sensor)
-	}
-}
 
 
 object v{
-	method generar (_position){
-		varita.position(_position)
+	method generar (position){
+		varita.position(position)
 		game.addVisual(varita)
 		objetosUsables.agregarObjeto(varita)
 	}
@@ -328,9 +329,14 @@ object ao{
 
 object f{
 	method generar(position){
-		puertaNivel.position(position)
 		game.addVisual(puertaNivel)
 	}
 }
 
+object fm{
+	method generar(position){
+		puertaNivelM.position(position)
+		game.addVisual(puertaNivelM)
+	}
+}
 

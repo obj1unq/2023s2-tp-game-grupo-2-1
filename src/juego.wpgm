@@ -29,10 +29,16 @@ program juego {
 	game.onCollideDo(sirius, {colisionado => colisionado.colisionarCon(sirius)})
 	keyboard.space().onPressDo({ sirius.usarObjeto() })
 	keyboard.enter().onPressDo({ harry.usarObjeto() })
-	//keyboard.p().onPressDo({ harry.estaticos()})   
+	//keyboard.p().onPressDo({ harry.estaticos()})  
+	 
 	keyboard.o().onPressDo({ harry.abrir() })
 	keyboard.e().onPressDo({ sirius.abrir() })    
+	
 	keyboard.q().onPressDo({ sirius.soltar() }) 
+	keyboard.l().onPressDo({ harry.soltar() }) 
+	
+	keyboard.p().onPressDo({ harry.usarHechizo()}) 
+	keyboard.z().onPressDo({ sirius.usarHechizo()}) 
 	
 	game.start()
 }

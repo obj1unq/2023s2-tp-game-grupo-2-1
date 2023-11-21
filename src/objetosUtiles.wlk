@@ -1,24 +1,25 @@
 import wollok.game.*
 import personajes.*
+import nivelx.*
+import enemigos.*
+
 class Objeto {
 
 	var property position = game.at(0,0) 
 
 	method image() 
-
+	method esVacio() = false
 	method serUsado(personaje) {}
 	method abrir(personaje){}
 	method colisionarCon(personaje){}
-	
-	method esSolidoPara(personaje){
-		return false
-	}
-	
+	method esSolidoPara(personaje) = false
 
+	
 }
 
 
 class Oculto inherits Objeto{
+	
 	override method image() = "ocultoo.png"
 	
 	override method serUsado(personaje) {
@@ -26,7 +27,6 @@ class Oculto inherits Objeto{
 	}
 	
 }
-
 
 object objetosUsables {
 
@@ -61,74 +61,67 @@ class LlaveRota inherits Objeto{
 
 }
 
-object varita inherits Objeto{
+class Varita inherits Objeto{
 	 
+	override method image() = "varita.png"
+	
 	method esLlave() = false
 	method esVarita() = true
-
-	override method image() = "varita.png"
+	method esNada()  = false
+	
 	override method serUsado(personaje){
-		personaje.llevaVarita()
-		game.removeVisual(self)
+			personaje.llevaVarita()
+			game.removeVisual(self)
 	}
+	
+
+	method generar(posicion){
+		position = posicion
+		game.addVisual(self)
+		objetosUsables.agregarObjeto(self)
+	}
+
+	
 }
-
-class Cofre inherits Objeto{
-	
-	var property estado = cerrado
-	override method image() = "cofre" + self.estado() + ".png"
-
-	override method abrir(personaje){
-		personaje.contenidoPermitido()
-		self.estado(estado.estadoContrario())
-	}
-	
-	method estaEnFrente(personaje){
-		return personaje.position().y() == (position.y() - 1)
-	}
-		
-	
-	override method esSolidoPara(personaje){
-		return true
-	}
-	method estaAbierto(){
-		return estado.estaAbierto()
-	}
-}
-
-
 
 object cerrado{
 	
-	var property contenido = varita
-	method estadoContrario() = "" + abierto + self.contenido() + ""
+	method estadoContrario() = abierto 
 	method estaAbierto() = false
-
+	method esSolidoPara(personaje) = true
 }
 
 object abierto{
 	
+	var property contenido = ""
 	method estadoContrario() = cerrado
 	method estaAbierto() = true
+	method esSolidoPara(personaje) = false
 }
 
-object cofre inherits Cofre{}
 
-class SensorCofre {
+
+
+class Sensor{
 	
-	var property position 
+	const objetoApuntado 
+	var property position = game.at(0,0)
 	method colisionarCon(personaje){}
 	method esSolidoPara(personaje) = false
-	method abrir(personaje){
-			cofre.abrir(personaje)
-	}
+	
 	method serUsado(personaje){
-		personaje.obtenerVarita()
-		cerrado.contenido(vacio)
+			objetoApuntado.serUsado(personaje)
+	
 	}
+	method abrir(personaje){
+			objetoApuntado.abrir(personaje)
+	}
+	
 }
 
-object vacio{}
+class SensorPuertaM inherits Sensor(objetoApuntado = puertaNivelM){}
 
+
+object varita inherits Varita{} 
 
 
