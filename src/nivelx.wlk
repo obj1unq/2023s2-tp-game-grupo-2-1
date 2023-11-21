@@ -418,18 +418,6 @@ object gp{
 
 
 
-
-object sp{
-    
-    method generar(position){
-        const sensor = new SensorPuerta(position = position, objetoApuntado = puertaNivelM)
-        game.addVisual(sensor) 
-       objetosUsables.agregarObjeto(sensor)
-  }
-}
-
-
-
 object v{
 	method generar (position){
 		varita.position(position)
@@ -513,7 +501,7 @@ object dn {
 object pa {
 	
 	method generar(position){
-		const palanc = new Palanca (position = position)
+		const palanc = new Palanca (position = position, objetoApuntado = puerta)
 		game.addVisual(palanc)
 	}
 }

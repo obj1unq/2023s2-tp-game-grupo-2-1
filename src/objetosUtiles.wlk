@@ -126,8 +126,8 @@ class SensorPuertaM inherits Sensor(objetoApuntado = puertaNivelM){}
 object varita inherits Varita{} 
 
 
-object palanca inherits Palanca{}
-object cofre inherits Cofre{}
+object palanca inherits Palanca(objetoApuntado = puerta){}
+
 object vacio{}
 object puerta inherits Puerta{}
 
@@ -135,6 +135,7 @@ class Palanca {
 
 	var property position = game.at(0,0)
 	var property estado = palancaApagada
+	var property objetoApuntado
 	
 	method image(){
 		return estado.image()
@@ -156,7 +157,7 @@ class Palanca {
 
 	}
 	method abrir(personaje){
-			objetoApuntado.abrir(personaje)
+		objetoApuntado.abrir(personaje)
 	}
 	
 }
