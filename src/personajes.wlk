@@ -184,10 +184,6 @@ class Personaje {
 		return estado.tieneLlave()
 	}
 
-	method llevarVarita(){
-		tieneVarita = true
-		self.estado(self.varitaEnMano())
-	}
 	
 	method estaEnLaMismaPosicionQue(obstaculo){
 		return self.position() == obstaculo.position()
@@ -195,24 +191,24 @@ class Personaje {
 
 }
 
-object harry inherits Personaje {
-
-	var property patronus = 1
-
-
-	override method llaveEnMano() {
-		return harryConLlave
-	}
-
-	
-	method usarLlave(puerta){
-		if (self.estaEnLaPuerta(puerta)){
-			puerta.seAbre()
-		}
-	}
-	
-	
-}
+//object harry inherits Personaje {
+//
+//	var property patronus = 1
+//
+//
+//	override method llaveEnMano() {
+//		return harryConLlave
+//	}
+//
+//	
+//	method usarLlave(puerta){
+//		if (self.estaEnLaPuerta(puerta)){
+//			puerta.seAbre()
+//		}
+//	}
+//	
+//	
+//}
 
 object protagonistas {
 
@@ -236,30 +232,27 @@ object protagonistas {
 
 }
 
-//object harry inherits Personaje {
-//
-//	var property patronus = 1
-//
-//
-//	override method transformacion() {
-//		return harryInvisible
-//	}
-//
-//	override method estadoHabitual() {
-//		return harryHumano
-//	}
-//
-//	override method entrarEnZonaGuardias() {
-//		estado.entrarEnZonaGuardias(self)
-//	}
-//
-//	override method congelado() { // La idea es poner una imagen distinta para que cuando se lo atrape no se pueda mover más.
-//		return harryCongelado
-//	}
+object harry inherits Personaje {
+
+	var property patronus = 1
 
 
+	override method transformacion() {
+		return harryInvisible
+	}
 
-//}
+	override method estadoHabitual() {
+		return harryHumano
+	}
+
+	override method entrarEnZonaGuardias() {
+		estado.entrarEnZonaGuardias(self)
+	}
+
+	override method congelado() { // La idea es poner una imagen distinta para que cuando se lo atrape no se pueda mover más.
+		return harryCongelado
+	}
+}
 
 object sirius inherits Personaje {
 	
