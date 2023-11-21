@@ -67,6 +67,12 @@ class NivelDeJuego inherits Nivel{
 		celda.generar(game.at(x,y))
 	}
 	
+
+
+	
+	method hechizoNivel(personaje){}
+	
+
 	override method terminar() { // En vez de hacer un clear, que borra tambíen los datos del tablero, solo saco los visuals
 		game.allVisuals().forEach({visual => game.removeVisual(visual)})
 		self.terminarAccionNivel()
@@ -86,6 +92,7 @@ class NivelDeJuego inherits Nivel{
 	
 	method configurar(){}
 }
+
 
 
 object menu inherits Nivel{
@@ -120,29 +127,35 @@ object nivelM inherits NivelDeJuego {
 
 	override method image() =   "nivelM.png"
 	
-	override method celdas(){
-		return
-		[[_, _, _, _, _, _, _, _, _, _, p, _, _, _, p, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _],
-		 [_, _, _, _, _, _, _, _, _, _, p, _, _, _, p, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _],
-		 [_, _, p, p, p, p, p, p, p, p, p, p, _, _, p, p, p, p, p, p, p, p, p, p, p, p, p, p, _, _],
-		 [_, _, p, p, p, p, p, p, p, p, p, p, _, _, p, p, p, p, p, p, p, p, p, p, p, p, p, p, _, _],
-		 [_, _, p, _, _, p, p, _, _, _, p, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, p, _, _],
-		 [_, _, p, _, _, cf, p, _, _, _, p, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, p, _, _],
-		 [_, _, p, _, _, ss, ss, _, _, _, p, _, _, _, _, _, _, _, _, _, gp, _, _, lr6, _, _, _, p, _, _],
-		 [_, _, p, p, p, _, _, p, _, p, p, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, p, p, p],
-		 [p, p, p, p, p, p, p, p, tn, p, p, _, _, _, _, _, _, gp, _, _, _, _, gp, _, _, _, _, p, p, p],
-		 [_, _, _, h, s, _, _, _,   _, _, _, _, _, _, gp, _, _, lr1, _, _, _, _, _, _, _, _, _, _, _, _],
-		 [_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, gp, _, _, _, lr5, _, _, _, _, _],
-		 [p, p, p, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, lr3, _, _, _, _, _, _, p, p, p],
-		 [_, _, p, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, p, _, _],
-		 [_, _, p, _, o, _, _, _, _, _, _, _, _, _, _, _, gp, _, _, _, _, _, _, _, _, _, _, p, _, _],
-		 [_, _, p, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, lr2, _, _, gp, lr4, _, _, _, p, _, _],
-		 [_, _, p, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, p, _, _],
-		 [_, _, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, _, _],
-		 [_, _, p, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _]
-	].reverse()
+
+    override method celdas(){
+        return
+        [[_, _, _, _, _, _, _, _, _, _, p, _, _, _, p, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _],
+         [_, _, _, _, _, _, _, _, _, _, p, _, _, _, p, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _],
+         [_, _, p, p, p, p, p, p, p, p, p, p, _, _, p, p, p, p, p, p, p, p, p, p, p, p, p, p, _, _],
+         [_, _, p, p, p, p, p, p, p, p, p, p, _, _, p, p, p, p, p, p, p, p, p, p, p, p, p, p, _, _],
+         [_, _, p, _, _, p, p, _, _, _, p, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, p, _, _],
+         [_, _, p, _, _, v, _, _, _, _, p, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, p, _, _],
+         [_, _, p, _, _, _, _, _, _, _, p, _, _, _, _, _, _, _, _, _, gp, _, _, lr6, _, _, _, p, _, _],
+         [_, _, p, p, p, _, _, p, tn, p, p, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, p, p, p],
+         [p, p, p, p, p, p, p, p, tn, p, p, _, _, _, _, _, _, gp, _, _, _, _, gp, _, _, _, _, p, p, p],
+         [_, _, _, h, s, _, _, _,   _, _, _, _, _, _, gp, _, _, lr1, _, _, _, _, _, _, _, _, _, sp, p, _],
+         [_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, gp, _, _, _, lr5, _, _, _, sp, pn],
+         [p, p, p, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, lr3, _, _, _, _, _, _, p, p, p],
+         [_, _, p, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, p, _, _],
+         [_, _, p, _, o, _, _, _, _, _, _, _, _, _, _, _, gp, _, _, _, _, _, _, _, _, _, _, p, _, _],
+         [_, _, p, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, lr2, _, _, gp, lr4, _, _, _, p, _, _],
+         [_, _, p, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, p, _, _],
+         [_, _, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, _, _],
+         [_, _, p, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _]
+    ].reverse()
+    }
+	
+	override method hechizoNivel(personaje){
+		personaje.repararLlave()
 	}
 	
+
 	override method accionDeNivel(){
 		game.onTick(500, "caminataGuardias", {guardiasPerseguidores.perseguir()})
 	}
@@ -156,7 +169,9 @@ object nivelM inherits NivelDeJuego {
 
 
 
+
 object nivel1 inherits NivelDeJuego {
+
 
 	override method image() = "background2.png"
 	
@@ -208,12 +223,15 @@ object nivel1 inherits NivelDeJuego {
 		keyboard.q().onPressDo({ sirius.soltar() })
 	}
 	
+
+
 	override method generar(){
 		super()
 		tunel.position(game.at(7, 2))
 		game.addVisual(sirius)
 		sirius.position(game.at(1,0))
 	}
+
 	
 	override method siguiente(){
 		return nivelM
@@ -332,12 +350,10 @@ object c{
 
 object tn{
 
-	
-	method generar(position){
-		tunel.position(position)
-		game.addVisual(tunel)
+	method generar(_position){
+		const tunell = new Tunel (position = _position)
+		game.addVisual(tunell)
 	}
-	
 	
 }
 
@@ -353,6 +369,7 @@ object o{
 } 
 
 object p{
+	
 	method generar(position){
 		game.addVisual(new Pared(position = position))
 	}
@@ -364,7 +381,22 @@ object m{
 	}
 }
 
+object sp{
+	
+	method generar(position){
+		const sensor = new SensorPuertaM(position = position, objetoApuntado = puertaNivelM)
+		game.addVisual(sensor) 
+		objetosUsables.agregarObjeto(sensor)
+	}
+}
 
+object pn{
+	method generar(position){
+		puertaNivelM.position(position)
+		game.addVisual(puertaNivelM)
+	}
+	
+}
 object g{
 
 	method generar(position){
@@ -385,48 +417,22 @@ object gp{
 }
 
 
-object cf{
-		
-	method generar (_position){
-		cofre.position(_position)
-		game.addVisual(cofre)
-		objetosUsables.agregarObjeto(cofre)
-	}	
-	
-}
 
-
-object ss{
-
-    method generar(position){
-        const sensor = new SensorCofre(position = position, objetoApuntado = cofre)
-        game.addVisual(sensor) 
-        objetosUsables.agregarObjeto(sensor)
-    }
-}
 
 object sp{
     
-//    method generar(position){
-//        const sensor = new SensorPuerta(position = position, objetoApuntado = puertaNivelM)
-//        game.addVisual(sensor) 
-//        objetosUsables.agregarObjeto(sensor)
-//    }
+    method generar(position){
+        const sensor = new SensorPuerta(position = position, objetoApuntado = puertaNivelM)
+        game.addVisual(sensor) 
+       objetosUsables.agregarObjeto(sensor)
+  }
 }
 
-object sl {
-	
-	method generar(position){
-        const sensor = new SensorPuerta(position = position, objetoApuntado = palanca)
-        game.addVisual(sensor) 
-        objetosUsables.agregarObjeto(sensor)
-    }
-}
 
 
 object v{
-	method generar (_position){
-		varita.position(_position)
+	method generar (position){
+		varita.position(position)
 		game.addVisual(varita)
 		objetosUsables.agregarObjeto(varita)
 	}
@@ -453,8 +459,6 @@ object h{
 		harry.position(position)
 		game.addVisual(harry)
 		harry.posicionPrincipio(position)
-//		harry.nivel(nivel)
-
 	}
 }
 
@@ -464,7 +468,7 @@ object s{
 		sirius.position(position)
 		game.addVisual(sirius)
 		sirius.posicionPrincipio(position)
-//		sirius.nivel(nivel)
+
 	}
 }
 
@@ -485,10 +489,11 @@ object ao{
 
 object f{
 	method generar(position){
-		puertaNivel.position(position)
 		game.addVisual(puertaNivel)
 	}
 }
+
+
 
 object pu {
 	method generar(position){

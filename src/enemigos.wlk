@@ -148,7 +148,7 @@ class GuardiaPerseguidor inherits Guardia {
 			self.volverPosicionCustodia()
 	}
   
-  }
+}
 
 
 
@@ -259,7 +259,7 @@ object caminoIluminado{
 	}
 }
 
-object tunel {
+class Tunel {
 
 	var property position = game.at(0, 0)
 	
@@ -273,6 +273,8 @@ object tunel {
 	}
 
 }
+
+object tunel inherits Tunel(position = (game.at(7, 2))){}
 
 class Pared {
 
@@ -305,30 +307,42 @@ class ZonaDeGuardias {
 
 }
 
-object puertaNivel{
+class PuertaNivel{
 
 	var property position = game.at(0, 0)
-	var property estado = abierto
+	var property estado 
+	var property sensor = null
 	
 	method puedePasar(){
-		
 	}
 	
 	method esSolidoPara(personaje){
 		// La puerta sabe si esta abierta o no segun el estado que posea.
 		return estado.esSolidoPara(personaje)
 	} 
-
+	
+	method serUsado(personaje){	
+	}
+	
+	method abrir(personaje){
+		if (personaje.tieneLlave()){
+				estado = abierto		
+			}
+	}
+	
 	method colisionarCon(personaje) {
 		if (self.sePuedePasarNivel()) {
 			protagonistas.congelar()
 			game.schedule(100, { protagonistas.descongelar()})
 			nivelActual.pasarDeNivel()
+			
 		}
 	}
 	
 	method sePuedePasarNivel(){
-		return self.estanHarryYSirius() and protagonistas.puedenPasarPuerta(self) and estado.estaAbierto()
+
+	return self.estanHarryYSirius() 
+
 	}
 	
 	method estanHarryYSirius() { // se fija si estan los dos para cambiar de nivel
@@ -349,6 +363,10 @@ class ListaDePuas {
 	puas.forEach({ pua => pua.activarMovimiento()})
 	}
 }
+
+
+object puertaNivel inherits PuertaNivel(estado = abierto){}
+object puertaNivelM inherits PuertaNivel (estado = cerrado){}
 
 object caminoDePuas inherits ListaDePuas{}
 
@@ -418,4 +436,5 @@ object puaActiva{
 		return puaInactiva
 	}
 }
+
 
