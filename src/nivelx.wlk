@@ -228,14 +228,16 @@ object nivel1 inherits NivelDeJuego {
 
 object nivelC inherits NivelDeJuego{
 	
-	override method image() = "background2.png"
+	override method image() = "fondoJuego.png"
+
+
 
 	override method celdas(){
 		return 
 		[[m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m],
 		 [m, _, _, _, _, _, _, _, _, _, _, f, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, m],
 		 [m, _, _, _, _, _, _, _, _, _, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, _, _, m],
-		 [m, _, _, p, m, m, m, m, m, m, m, _, _, _, _, _, _, m, _, m, _, m, _, _, m, _, _, _, _, _, _, m],
+		 [m, _, _, m, m, m, m, m, m, m, m, _, _, _, _, _, _, m, _, m, _, m, _, _, m, _, _, _, _, _, _, m],
 		 [m, _, _, _, _, _, _, _, m, _, _, _, _, _, _, _, _, m, _, m, _, m, _, _, m, _, _, _, _, _, _, m],
 		 [m, _, _, _, _, _, o, _, _, _, _, _, _, _, _, _, _, m, _, _, _, m, _, _, m, _, _, _, _, _, _, m],
 		 [m, a, a, a, ag, a, a, a, m, _, _, _, _, m, _, _, _, m, m, m, _, m, _, _, m, m, m, m, _, _, _, m],
@@ -256,6 +258,10 @@ object nivelC inherits NivelDeJuego{
 	override method accionDeNivel(){
 		game.onTick(1000, "caminataGuardias", {guardiasNoPerseguidores.perseguir()})
 	  }
+	  
+	 override method terminar(){
+	 	game.removeTickEvent("caminataGuardias")
+	 }
 	
 	
 	override method siguiente(){}
@@ -264,6 +270,7 @@ object nivelC inherits NivelDeJuego{
 		game.removeTickEvent("caminataGuardias")
 	}
 }
+
 
 object nivelB inherits NivelDeJuego{
 	
@@ -304,6 +311,7 @@ object nivelB inherits NivelDeJuego{
 		game.removeTickEvent("movimientoPuas")
 	}
 }
+
 
 
 object _{
