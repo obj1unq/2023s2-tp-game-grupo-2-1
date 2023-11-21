@@ -10,11 +10,8 @@ class Objeto {
 	method abrir(personaje){}
 	method colisionarCon(personaje){}
 	
-	method esSolidoPara(personaje){
-		return false
-	}
+	method esSolidoPara(personaje) = false
 	
-
 }
 
 
@@ -88,9 +85,8 @@ class Cofre inherits Objeto{
 	}
 		
 	
-	override method esSolidoPara(personaje){
-		return true
-	}
+	override method esSolidoPara(personaje) = true
+	
 	method estaAbierto(){
 		return estado.estaAbierto()
 	}
@@ -113,42 +109,158 @@ object abierto{
 	}
 }
 
-object cofre inherits Cofre{}
+class Sensor{
+    
+    const objetoApuntado 
+    var property position = game.at(0,0)
+    method colisionarCon(personaje){}
+    method esSolidoPara(personaje) = false
+    method serUsado(personaje){}
+    method abrir(personaje){
+            objetoApuntado.abrir(personaje)
+    }
 
-class SensorCofre {
-	
-	var property position 
-	method colisionarCon(personaje){}
-	method esSolidoPara(personaje) = false
-	method abrir(personaje){
-			cofre.abrir(personaje)
-	}
-	method serUsado(personaje){
-		personaje.obtenerVarita()
-		cerrado.contenido(vacio)
-	}
+    
 }
 
-object vacio{}
+class SensorCofre inherits Sensor {
+	
+    override method serUsado(personaje){
+        personaje.obtenerVarita()
+        cerrado.contenido(vacio)
+    }
+}
 
-object palanca {
+class SensorPuerta inherits Sensor{
+    
+}
+
+class SensorPalanca inherits Sensor{
+    
+    override method serUsado(personaje){
+    	palanca.serUsado(personaje)
+    }
+    
+}
+
+object palanca inherits Palanca{}
+object cofre inherits Cofre{}
+object vacio{}
+object puerta inherits Puerta{}
+
+class Palanca {
 
 	var property position = game.at(0,0)
+	var property estado = palancaApagada
 	
 	method image(){
-		return "palanca off.png"
+		return estado.image()
 	}
 	
 	method colisionarCon(personaje){
 	}
 	
- 	method esSolidoPara(personaje) {
-		return true
-	}
+ 	method esSolidoPara(personaje) = true
 	
 	method puedePasar(personaje) = false
 	
-	method serUsado(){
-		
+	method serUsado(personaje){
+		estado.serUsado()
+	}
+	
+	method cambiarEstado(){
+		estado = estado.serCambiado()
 	}
 }
+
+object palancaPrendida{
+	
+	method image(){
+		return "palancag.gif"
+	}
+	
+	method serUsado(){
+
+	}
+	
+	method serCambiado(){
+		return palancaApagada
+	}
+}
+
+object palancaApagada{
+	
+	method image(){
+		return "palanca off.png"
+	}
+	
+	method serUsado(){
+		palanca.cambiarEstado()
+		puerta.abrir()
+	}
+	
+	method prenderse(){
+		palanca.cambiarEstado()
+	}
+	
+	method serCambiado(){
+		return palancaPrendida
+	}
+	
+}
+
+class Puerta {
+	
+	var property position = game.at(0,0)
+	var property estado = puertaCerrada
+	
+	method image(){
+		return estado.image()
+	}
+	
+	method colisionarCon(personaje){
+	}
+	
+ 	method esSolidoPara(personaje) = estado.esSolidoPara(personaje)
+	
+	method puedePasar(personaje) = estado.puedePasar()
+	
+	method serUsado(personaje){
+		estado.serUsado()
+	}
+	
+	method cambiarEstado(){
+		estado = estado.serCambiado()
+	}
+	
+	method abrir(){
+		self.cambiarEstado()
+	}
+}
+
+object puertaCerrada{
+	
+	method image(){
+		return "puerta.png"
+	}
+	
+	method serUsado(){
+		puerta.abrir()
+	}
+	
+	method serCambiado(){
+		return puertaAbierta
+	}
+}
+
+object puertaAbierta{
+
+	method serUsado(){
+
+	}
+	
+	method serCambiado(){
+		return puertaCerrada
+	}
+}
+

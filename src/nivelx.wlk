@@ -147,7 +147,9 @@ object nivelM inherits NivelDeJuego {
 		game.onTick(500, "caminataGuardias", {guardiasPerseguidores.perseguir()})
 	}
 
-	override method siguiente(){} // hay que agregarle que nivle le sigue
+	override method siguiente(){
+		return nivelB
+	} // hay que agregarle que nivle le sigue
 	
 
 }
@@ -221,6 +223,7 @@ object nivel1 inherits NivelDeJuego {
 
 object nivelC inherits NivelDeJuego{
 	
+
 	override method image() = "background2.png"
 
 	override method celdas(){
@@ -228,7 +231,7 @@ object nivelC inherits NivelDeJuego{
 		[[m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m],
 		 [m, _, _, _, _, _, _, _, _, _, _, f, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, m],
 		 [m, _, _, _, _, _, _, _, _, _, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, _, _, m],
-		 [m, _, _, p, m, m, m, m, m, m, m, _, _, _, _, _, _, m, _, m, _, m, _, _, m, _, _, _, _, _, _, m],
+		 [m, _, _, m, m, m, m, m, m, m, m, _, _, _, _, _, _, m, _, m, _, m, _, _, m, _, _, _, _, _, _, m],
 		 [m, _, _, _, _, _, _, _, m, _, _, _, _, _, _, _, _, m, _, m, _, m, _, _, m, _, _, _, _, _, _, m],
 		 [m, _, _, _, _, _, o, _, _, _, _, _, _, _, _, _, _, m, _, _, _, m, _, _, m, _, _, _, _, _, _, m],
 		 [m, a, a, a, ag, a, a, a, m, _, _, _, _, m, _, _, _, m, m, m, _, m, _, _, m, m, m, m, _, _, _, m],
@@ -249,10 +252,16 @@ object nivelC inherits NivelDeJuego{
 	override method accionDeNivel(){
 		game.onTick(1000, "caminataGuardias", {guardiasNoPerseguidores.perseguir()})
 	  }
+	  
+	 override method terminar(){
+	 	game.removeTickEvent("caminataGuardias")
+	 }
 	
 	
-	override method siguiente(){
-		return nivelM
+	override method siguiente(){}
+	
+	override method terminarAccionNivel(){
+		game.removeTickEvent("caminataGuardias")
 	}
 	
 	
@@ -273,7 +282,7 @@ object nivelB inherits NivelDeJuego{
 		 [_, p, _, _, _, _, _, _, _, _, p, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, p, _, _],
 		 [_, p, _, _, _, _, _, _, _, _, p, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, p, p, p],
 		 [p, p, _, _, _, _, _, _, _, _, p, p, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, p, p, p],
-		 [_, h, s, _, _, _, _, _, _, _, p, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _],
+		 [_, h, s, _, _, _, _, _, _, _, p, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, f, _],
 		 [p, p, _, _, _, _, _, _, _, _, p, _, _, _, _, _, _, _, _, _, _, _, _, _, _, p, p, p, p, p, p, p],
 		 [_, p, _, _, _, _, _, _, _, _, p, p, _, _, _, _, _, _, _, _, _, _, _, _, p, p, p, p, p, _, _],
 		 [_, p, _, _, _, _, _, _, _, _, p, _, _, _, _, _, pu, pu, pu, pu, pu, pu, pu, p, p, p, p, p, _, _],
@@ -297,6 +306,7 @@ object nivelB inherits NivelDeJuego{
 		game.removeTickEvent("movimientoPuas")
 	}
 }
+
 
 
 object _{
@@ -388,11 +398,29 @@ object cf{
 
 object ss{
 
+    method generar(position){
+        const sensor = new SensorCofre(position = position, objetoApuntado = cofre)
+        game.addVisual(sensor) 
+        objetosUsables.agregarObjeto(sensor)
+    }
+}
+
+object sp{
+    
+//    method generar(position){
+//        const sensor = new SensorPuerta(position = position, objetoApuntado = puertaNivelM)
+//        game.addVisual(sensor) 
+//        objetosUsables.agregarObjeto(sensor)
+//    }
+}
+
+object sl {
+	
 	method generar(position){
-		const sensor = new SensorCofre(position = position)
-		game.addVisual(sensor)
-		objetosUsables.agregarObjeto(sensor)
-	}
+        const sensor = new SensorPuerta(position = position, objetoApuntado = palanca)
+        game.addVisual(sensor) 
+        objetosUsables.agregarObjeto(sensor)
+    }
 }
 
 
@@ -470,11 +498,21 @@ object pu {
 	}
 }
 
-object pa {
-	
+object dn {
 	method generar(position){
-		palanca.position(position)
-		game.addVisual(palanca)
+		const pua = new Pua(position = position)
+		game.addVisual(pua) 
 	}
 }
 
+object pa {
+	
+	method generar(position){
+		const palanc = new Palanca (position = position)
+		game.addVisual(palanc)
+	}
+}
+
+object pl {
+	
+}
