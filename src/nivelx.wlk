@@ -484,6 +484,7 @@ object ao{
 }
 
 object f{
+	method generar(position){
 		game.addVisual(new PuertaNivel(estado = abierto, position = position))
 	}
 }
