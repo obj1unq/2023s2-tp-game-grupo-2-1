@@ -240,7 +240,7 @@ object nivel3 inherits NivelDeJuego{
 		return 
 		[[p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p],
 		 [p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p],
-		 [p, _, _, _, _, _, f, a, a, a, a, a, a, a, a, ag, _, _, _, _, _, _, _, _, _, _, _, _, _, p, p],
+		 [p, _, _, _, _, _, pv, a, a, a, a, a, a, a, a, ag, _, _, _, _, _, _, _, _, _, _, _, _, _, p, p],
 		 [p, _, _, m, m, m, m, m, m, m, m, _, _, _, _, _, _, m, _, m, _, m, _, _, m, _, _, _, _, p, p],
 		 [p, a, a, a, ag, a, a, a, m, _, _, _, _, _, _, _, _, m, _, m, _, m, o, _, m, _, _, _, _, p, p],
 		 [p, _, _, _, _, _, o, _, _, _, _, _, _, _, _, _, _, m, _, _, _, m, _, _, m, _, _, _, _, p, p],
@@ -268,6 +268,12 @@ object nivel3 inherits NivelDeJuego{
 	
 	override method hechizoNivel(personaje){
 		personaje.patronus()
+	}
+	
+	override method generar(){
+		super()
+		harry.objetoActual(nada)
+		sirius.objetoActual(nada)
 	}	
 }
 
@@ -279,7 +285,7 @@ object nivel4 inherits NivelDeJuego {
 	
 	override method celdas(){
 		return 
-		[[i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, m, _, _, _, _, _, _, _, _, _, _, _, _, _, f],
+		[[i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, m, _, _, _, _, _, _, _, _, _, _, _, _, _, pv],
 		 [i, i, i, i, i, i, i, i, i, i, i, i, i, i, c, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _],
 		 [i, i, i, i, i, i, i, i, i, c, c, c, i, i, c, m, a, a, a, a, a, ag, a, m, a, a, a, a, a, a],
 		 [i, i, i, i, i, i, i, i, i, c, i, c, c, i, c, m, a, a, a, a, a, m, a, a, a, a, a, ag, a, a],
@@ -545,3 +551,9 @@ object bs {
 	}
 }
 
+object pv{
+	method generar(position){
+		game.addVisual(puertaNivelVisible)
+		puertaNivelVisible.position(position)
+	}
+}
