@@ -151,7 +151,7 @@ class GuardiaPerseguidor inherits Guardia {
 
 	override method colisionarCon(personaje) {
 			game.say(self, "¡TE ATRAPE!")
-			personaje.volverAlPrincipio()
+			protagonistas.perder()
 			self.volverPosicionCustodia()
 	}
   
@@ -392,7 +392,7 @@ class Pua {
 	}
 	
 	method colisionarCon(personaje) {
-		estado.colisionarCon(personaje)
+		estado.colisionarCon(protagonistas)
 	}
 
 	method esSolidoPara(personaje) {

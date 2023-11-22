@@ -12,6 +12,6 @@ program juego {
 	game.height(18)
 	
 	menu.iniciar()
-  
+
 	game.start()
 }
