@@ -11,7 +11,7 @@ describe "nivel1" {
 		nivel1.iniciar()
 	}
 	 
-	test "harry entra a la zona guardias y no pueden moverse ni el ni sirius"{ 
+	test "harry entra a la zona guardias y no pueden moverse ni el ni sirius"{  
 
 		harry.entrarEnZonaGuardias()
 		assert.equals(harryCongelado, harry.estado())
