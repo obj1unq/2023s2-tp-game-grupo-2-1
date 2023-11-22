@@ -310,8 +310,7 @@ class ZonaVigilada inherits ZonaDeGuardias{
 	override method colisionarCon(personaje){
 		if (personaje.esPerseguible()){
 			guardiasPerseguidores.acercarseHacia()	
-		}
-			 	
+		}	 	
 	}
 }
 

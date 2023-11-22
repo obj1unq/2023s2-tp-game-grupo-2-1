@@ -212,14 +212,9 @@ class Puerta {
 	method puedePasar(personaje) = estado.puedePasar()
 	
 	method serUsado(personaje){
-		if (estado.esCerrado()){
-			self.abrir()
-		}
-	}
-	
-	method abrir(){
 		estado = estado.estadoContrario()
 	}
+	
 }
 
 object p1 inherits Puerta{}

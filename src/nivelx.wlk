@@ -216,8 +216,8 @@ object nivel2 inherits NivelDeJuego{
 		 [_, p, _, _, pu, ps, pu, _, _, _, p, _, zv, _, _, zv, _, _, _, _, _, _, _, _, _, _, _, p, _, _],
 		 [_, p, _, _, pu, bs, pu, _, _, _, p, _, _, _, _, _, _, zv, _, _, _, _, _, _, _, _, _, p, p, p],
 		 [p, p, _, _, pu, pu, pu, _, _, _, p, p, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, p, p, p],
-		 [_, h, s, _, _, _, _, _, _, _, d1, _, zv, _, _, zv, _, _, _, _, _, _, _, p, _, _, _, _, _, f],
-		 [p, p, _, _, _, _, _, _, _, _, p, _, zv, _, _, _, _, _, _, _, zv, _, _, _, _, p, p, p, p, p, p, p],
+		 [_, h, s, _, _, _, _, _, _, _, d1, _, zv, _, _, zv, _, _, _, _, _, _, _, _, _, _, _, _, _, f],
+		 [p, p, _, _, _, _, _, _, _, _, p, _, zv, _, _, _, _, _, _, _, zv, _, _, p, p, p, p, p, p, p, p, p],
 		 [_, p, _, _, _, _, _, _, _, _, p, p, _, _, _, _, _, _, _, _, _, _, _, _, p, p, p, p, p, _, _],
 		 [_, p, _, _, _, _, _, _, _, _, p, _, _, _, _, _,  pu, pu, pu, pu, pu, pu, pu, p, p,  p,  p, p, _, _],
 		 [_, p, _, o, _, _, _, _, _, _, p, _, p, _, _, _,  pu, _,  pu, _,  pu, _,  pu, d2, _, pu, sb, p, _, _],
@@ -255,7 +255,7 @@ object nivel3 inherits NivelDeJuego{
 		 [p, p, p, p, p, _, f, _, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p],
 		 [p, _, _, _, _, _, _, a, a, a, a, a, a, a, a, ag, _, _, _, _, _, _, _, _, _, _, _, _, _, p, p],
 		 [p, _, _, m, m, m, m, m, m, m, m, _, _, _, _, _, _, m, _, m, _, m, _, _, m, _, _, _, _, p, p],
-		 [p, a, a, a, ag, a, a, a, m, _, _, _, _, _, _, _, _, m, _, m, _, m, o, _, m, _, _, _, _, p, p],
+		 [p, _, a, a, ag, a, a, a, m, _, _, _, _, _, _, _, _, m, _, m, _, m, o, _, m, _, _, _, _, p, p],
 		 [p, _, _, _, _, _, o, _, _, _, _, _, _, _, _, _, _, m, _, _, _, m, _, _, m, _, _, _, _, p, p],
 		 [p, a, a, a, ag, a, a, a, m, _, _, _, _, _, _, _, _, m, m, m, _, m, _, _, m, m, m, m, _, p, p],
 		 [p, _, _, p, m, m, m, m, m, _, _, _, _, m, m, _, _, _, _, _, _, _, _, _, _, _, _, _, _, p, p],
@@ -277,7 +277,9 @@ object nivel3 inherits NivelDeJuego{
 	  }
 	  
 	
-	override method siguiente(){}
+	override method siguiente(){
+		return nivel4
+	}
 	
 	override method hechizoNivel(personaje){
 		personaje.patronus()
