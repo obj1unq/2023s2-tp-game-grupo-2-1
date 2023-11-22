@@ -13,10 +13,6 @@ object nivelActual{ // hago directamente un obj nivel que se acuerde en donde es
 		nivelActual = nivelActual.siguiente()
 		nivelActual.iniciar()
 	} 
-	
-	method reiniciar(){
-		nivelActual.iniciar()
-	}
 }
 
 class Nivel{
@@ -66,8 +62,6 @@ class NivelDeJuego inherits Nivel{
 		const celda = self.celdas().get(y).get(x)
 		celda.generar(game.at(x,y))
 	}
-	
-
 
 	
 	method hechizoNivel(personaje){}
@@ -122,7 +116,7 @@ object reglas inherits Nivel{
 	}
 }
 
-object nivelM inherits NivelDeJuego {
+object nivel1 inherits NivelDeJuego {
 	
 
 	override method image() =   "nivelM.png"
@@ -161,46 +155,8 @@ object nivelM inherits NivelDeJuego {
 	}
 
 	override method siguiente(){
-		return nivelB
-	} // hay que agregarle que nivle le sigue
-	
-
-}
-
-
-
-
-object nivel1 inherits NivelDeJuego {
-
-
-	override method image() = "background2.png"
-	
-	override method celdas(){
-		return 
-		[[i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, m, _, _, _, _, _, _, _, _, _, _, _, _, _, f],
-		 [i, i, i, i, i, i, i, i, i, i, i, i, i, i, c, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _],
-		 [i, i, i, i, i, i, i, i, i, c, c, c, i, i, c, m, a, a, a, a, a, ag, a, a, a, a, a, a, a, a],
-		 [i, i, i, i, i, i, i, i, i, c, i, c, c, i, c, m, a, a, a, a, a, a, a, a, a, a, a, ag, a, a],
-		 [i, i, i, i, i, i, i, i, i, c, c, i, c, c, c, m, a, a, a, ag, a, a, a, a, a, a, a, a, a, a],
-		 [i, i, i, i, i, i, i, i, i, i, c, i, i, i, i, m, a, a, a, a, a, ag, a, a, a, a, a, a, a, a],
-		 [i, i, i, i, i, i, i, i, i, i, c, c, i, i, i, m, a, a, a, a, a, a, a, ag, a, a, a, a, a, a],
-		 [i, i, i, i, c, c, c, c, i, i, i, c, i, i, i, m, ao, a, a, a, a, a, a, a, a, a, a, a, a, a],
-		 [i, i, c, c, c, i, i, c, c, c, i, c, i, i, i, m, a, a, ag, a, a, ag, a, a, a, a, ag, a, a, a],
-		 [i, i, c, i, i, i, i, i, i, c, i, c, i, i, i, m, a, a, a, a, a, a, a, a, ag, a, a, a, a, a],
-		 [i, i, c, i, i, i, i, i, i, c, c, c, i, i, i, m, a, a, a, a, a, a, a, a, a, a, a, a, a, a],
-		 [i, i, c, i, i, i, i, i, i, i, i, i, i, i, i, m, a, a, a, a, a, a, a, a, a, a, ag, a, a, a],
-		 [i, i, c, i, i, i, i, i, i, i, i, i, i, i, i, m, a, a, a, a, a, a, a, a, a, a, a, a, a, a],
-		 [i, i, c, c, i, c, c, c, i, i, i, i, i, i, i, m, a, a, a, ag, a, a, a, a, ag, a, a, a, a, a],
-		 [i, i, i, c, c, c, i, c, i, i, i, i, i, i, i, m, a, a, a, a, ag, a, a, a, a, a, a, a, a, a],
-		 [m, m, m, m, m, m, m, tn, m, m, m, m, m, m, m, m, _, _, _, _, _, _, _, _, _, _, _, _, _, _],
-		 [_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, o, _, _, _, _, _, _, _, _, _, _, _, _, _, _],
-		 [h, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _]
-	].reverse()
-	}
-	
-	override method accionDeNivel(){
-		game.onTick(500, "caminataGuardias", {guardiasNoPerseguidores.perseguir()})
-	}
+		return nivel2
+	} 
 	
 	override method configurar(){
 		keyboard.up().onPressDo({ harry.mover(arriba) })
@@ -221,74 +177,18 @@ object nivel1 inherits NivelDeJuego {
 		keyboard.o().onPressDo({ harry.abrir() })
 		keyboard.e().onPressDo({ sirius.abrir() })    
 		keyboard.q().onPressDo({ sirius.soltar() })
+		keyboard.l().onPressDo({ harry.soltar() }) 
+	
+		keyboard.p().onPressDo({ harry.usarHechizo()}) 
+		keyboard.z().onPressDo({ sirius.usarHechizo()})
 	}
 	
-
-
-	override method generar(){
-		super()
-		tunel.position(game.at(7, 2))
-		game.addVisual(sirius)
-		sirius.position(game.at(1,0))
-	}
-
 	
-	override method siguiente(){
-		return nivelM
-	}
-	
+
 }
 
-object nivelC inherits NivelDeJuego{
-	
 
-	override method image() = "fondojuego.png"
-
-	override method celdas(){
-		return 
-		[[p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p],
-		 [p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p],
-		 [p, _, _, _, _, _, f, a, a, a, a, a, a, a, a, ag, _, _, _, _, _, _, _, _, _, _, _, _, _, p, p],
-		 [p, _, _, m, m, m, m, m, m, m, m, _, _, _, _, _, _, m, _, m, _, m, _, _, m, _, _, _, _, p, p],
-		 [p, a, a, a, ag, a, a, a, m, _, _, _, _, _, _, _, _, m, _, m, _, m, o, _, m, _, _, _, _, p, p],
-		 [p, _, _, _, _, _, o, _, _, _, _, _, _, _, _, _, _, m, _, _, _, m, _, _, m, _, _, _, _, p, p],
-		 [p, a, a, a, ag, a, a, a, m, _, _, _, _, _, _, _, _, m, m, m, _, m, _, _, m, m, m, m, _, p, p],
-		 [p, _, _, p, m, m, m, m, m, _, _, _, _, m, m, _, _, _, _, _, _, _, _, _, _, _, _, _, _, p, p],
-		 [p, ag, a, a, a, a, a, a, m, _, _, m, m, m, m, _, _, m, m, m, m, m, m, m, m, _, _, m, _, p, p],
-		 [p, a, a, a, a, a, a, ag, m, _, _, m, o, _, m, _, _, m, a, a, a, a, ag, a, a, a, a, a, _, p, p],
-		 [p, m, m, m, m, m, _, _, m, _, _, m, _, _, m, _, _, m, _, _, m, _, _, m, m, m, m, m, m, _, p],
-		 [p, g, _, _, _, m, _, _, m, _, _, m, _, _, m, _, _, m, _, _, m, o, _, m, _, _, v, _, m, _, p, p],
-		 [p, _, m, m, _, m, _, _, _, _, _, m, _, _, m, _, _, m, _, _, m, m, m, m, _, _, _, _, m, _, p, p],
-		 [p, _, _, _, _, m, a, a, a, ag, a, a, a, a, m, _, _, m, _, _, _, _, _, _, _, _, _, _, m, _, p, p],
-		 [p, m, m, m, _, m, m, m, m, m, m, m, m, m, m, _, _, m, m, m, m, m, m, m, m, m, m, m, m, _, p, p],
-		 [p, _, _, _, _, _, _, _, _,_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, p, p],
-		 [p, s, h, _, _, _, _, _, _,_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, p, p],
-		 [p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p]
-		].reverse()
-	}
-	
-	override method accionDeNivel(){
-		game.onTick(1000, "caminataGuardias", {guardiasNoPerseguidores.perseguir()})
-	  }
-	  
-	 override method terminar(){
-	 	game.removeTickEvent("caminataGuardias")
-	 }
-	
-	
-	override method siguiente(){}
-	
-	override method terminarAccionNivel(){
-		game.removeTickEvent("caminataGuardias")
-	}
-	
-	override method hechizoNivel(personaje){
-		personaje.patronus()
-	}
-	
-}
-
-object nivelB inherits NivelDeJuego{
+object nivel2 inherits NivelDeJuego{
 	
 	override method image() = "fondoB.png"
 
@@ -321,15 +221,106 @@ object nivelB inherits NivelDeJuego{
 	}
 	
 	override method siguiente(){
-		return nivelC
+		return nivel3
 	}
 	
 	override method terminarAccionNivel(){
 		super()
-		game.removeTickEvent("movimientoPuas")
+    game.removeTickEvent("movimientoPuas")
 	}
 }
 
+
+object nivel3 inherits NivelDeJuego{
+	
+
+	override method image() = "fondojuego.png"
+
+	override method celdas(){
+		return 
+		[[p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p],
+		 [p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p],
+		 [p, _, _, _, _, _, f, a, a, a, a, a, a, a, a, ag, _, _, _, _, _, _, _, _, _, _, _, _, _, p, p],
+		 [p, _, _, m, m, m, m, m, m, m, m, _, _, _, _, _, _, m, _, m, _, m, _, _, m, _, _, _, _, p, p],
+		 [p, a, a, a, ag, a, a, a, m, _, _, _, _, _, _, _, _, m, _, m, _, m, o, _, m, _, _, _, _, p, p],
+		 [p, _, _, _, _, _, o, _, _, _, _, _, _, _, _, _, _, m, _, _, _, m, _, _, m, _, _, _, _, p, p],
+		 [p, a, a, a, ag, a, a, a, m, _, _, _, _, _, _, _, _, m, m, m, _, m, _, _, m, m, m, m, _, p, p],
+		 [p, _, _, p, m, m, m, m, m, _, _, _, _, m, m, _, _, _, _, _, _, _, _, _, _, _, _, _, _, p, p],
+		 [p, ag, a, a, a, a, a, a, m, _, _, m, m, m, m, _, _, m, m, m, m, m, m, m, m, _, _, m, _, p, p],
+		 [p, a, a, a, a, a, a, ag, m, _, _, m, o, _, m, _, _, m, a, a, a, a, ag, a, a, a, a, a, _, p, p],
+		 [p, m, m, m, m, m, _, _, m, _, _, m, _, _, m, _, _, m, _, _, m, _, _, m, m, m, m, m, m, _, p],
+		 [p, g, _, _, _, m, _, _, m, _, _, m, _, _, m, _, _, m, _, _, m, o, _, m, _, _, v, _, m, _, p, p],
+		 [p, _, m, m, _, m, _, _, _, _, _, m, _, _, m, _, _, m, _, _, m, m, m, m, _, _, _, _, m, _, p, p],
+		 [p, _, _, _, _, m, a, a, a, ag, a, a, a, a, m, _, _, m, _, _, _, _, _, _, _, _, _, _, m, _, p, p],
+		 [p, m, m, m, _, m, m, m, m, m, m, m, m, m, m, _, _, m, m, m, m, m, m, m, m, m, m, m, m, _, p, p],
+		 [p, _, _, _, _, _, _, _, _,_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, p, p],
+		 [p, s, h, _, _, _, _, _, _,_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, p, p],
+		 [p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p]
+		].reverse()
+	}
+	
+	override method accionDeNivel(){
+		game.onTick(1000, "caminataGuardias", {guardiasNoPerseguidores1.perseguir()})
+	  }
+	  
+	
+	override method siguiente(){}
+	
+	override method hechizoNivel(personaje){
+		personaje.patronus()
+	}	
+}
+
+
+object nivel4 inherits NivelDeJuego {
+
+
+	override method image() = "background2.png"
+	
+	override method celdas(){
+		return 
+		[[i, i, i, i, i, i, i, i, i, i, i, i, i, i, i, m, _, _, _, _, _, _, _, _, _, _, _, _, _, f],
+		 [i, i, i, i, i, i, i, i, i, i, i, i, i, i, c, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _],
+		 [i, i, i, i, i, i, i, i, i, c, c, c, i, i, c, m, a, a, a, a, a, ag, a, m, a, a, a, a, a, a],
+		 [i, i, i, i, i, i, i, i, i, c, i, c, c, i, c, m, a, a, a, a, a, m, a, a, a, a, a, ag, a, a],
+		 [i, i, i, i, i, i, i, i, i, c, c, i, c, c, c, m, a, a, a, ag, a, a, a, a, m, m, a, a, a, a],
+		 [i, i, i, i, i, i, i, i, i, i, c, i, i, i, i, m, m, m, a, a, a, ag, m, m, a, a, a, a, a, a],
+		 [i, i, i, i, i, i, i, i, i, i, c, c, i, i, i, m, a, a, a, a, a, a, a, ag, a, a, a, a, a, a],
+		 [i, i, i, i, c, c, c, c, i, i, i, c, i, i, i, m, o, m, a, a, a, a, a, a, ag, a, a, a, a, a],
+		 [i, i, c, c, c, i, i, c, c, c, i, c, i, i, i, m, a, a, ag, a, a, ag, a, a, a, a, ag, a, a, a],
+		 [i, i, c, i, i, i, i, i, i, c, i, c, i, i, i, m, a, a, a, ag, a, a, a, a, ag, a, a, m, o, a],
+		 [i, i, c, i, i, i, i, i, i, c, c, c, i, i, i, m, a, ag, a, a, a, m, m, m, a, a, a, a, a, a],
+		 [i, i, c, i, i, i, i, i, i, i, i, i, i, i, i, m, a, a, a, a, a, a, a, a, a, a, ag, a, a, a],
+		 [i, i, c, i, i, i, i, i, i, i, i, i, i, i, i, m, m, a, ag, m, a, a, a, ag, a, a, a, m, a, a],
+		 [i, i, c, c, i, c, c, c, i, i, i, i, i, i, i, m, a, a, a, ag, m, a, a, a, ag, a, a, a, a, a],
+		 [i, i, i, c, c, c, i, c, i, i, i, i, i, i, i, m, m, a, a, a, ag, m, a, a, a, a, a, a, a, a],
+		 [m, m, m, m, m, m, m, tn, m, m, m, m, m, m, m, m, _, _, _, _, _, _, _, _, _, _, _, _, _, _],
+		 [_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, o, _, _, _, _, _, _, _, _, _, _, _, _, _, _],
+		 [h, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _]
+     ].reverse()
+	}
+	
+	override method accionDeNivel(){
+		game.onTick(200, "caminataGuardias", {guardiasNoPerseguidores1.perseguir()})
+		game.onTick(10000, "mostrarCaminos", {caminosValidos.iluminar()})
+	}
+	
+	override method generar(){
+		super()
+		tunel.position(game.at(7, 2))
+		game.addVisual(sirius)
+		sirius.position(game.at(1,0))
+	}
+
+	override method siguiente(){
+		return self
+	}
+	
+	override method terminarAccionNivel(){
+		super()
+		game.removeTickEvent("mostrarCaminos")
+	}
+}
 
 
 object _{
@@ -341,7 +332,6 @@ object i{
 	method generar(_position){
 		const camino = new CaminoInvalido(position = _position)
 		game.addVisual(camino)
-//		caminosInvalidos.agregarCamino(self)
 	}
 }
 
@@ -407,7 +397,16 @@ object g{
 	method generar(position){
 		const guardia = new Guardia(position = position)
 		game.addVisual(guardia)
-		guardiasNoPerseguidores.agregarGuardia(guardia)
+		guardiasNoPerseguidores1.agregarGuardia(guardia)
+	}
+}
+
+object g2{
+	
+	method generar(position){
+		const guardia = new Guardia(position = position)
+		game.addVisual(guardia)
+		guardiasNoPerseguidores2.agregarGuardia(guardia)
 	}
 }
 
@@ -478,6 +477,13 @@ object ag{
 	}
 }
 
+object ag2{
+	method generar(position){
+		a.generar(position)
+		g2.generar(position)
+	}
+}
+
 object ao{
 	method generar(position){
 		a.generar(position)
@@ -487,7 +493,7 @@ object ao{
 
 object f{
 	method generar(position){
-		game.addVisual(puertaNivel)
+		game.addVisual(new PuertaNivel(estado = abierto, position = position))
 	}
 }
 
@@ -552,3 +558,4 @@ object bs {
 		objetosUsables.agregarObjeto(sensor)
 	}
 }
+

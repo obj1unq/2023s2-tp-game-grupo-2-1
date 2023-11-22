@@ -11,9 +11,8 @@ class Personaje {
 	var property posicionPrincipio = game.at(0, 0)
 	const property llavesRotas = #{}
 	var property tieneVarita = false
-	var property nivel = nivelM
 	var property objetoActual = nada
-	 
+	
 	method transformacion()
 
 	method estadoHabitual()
@@ -79,8 +78,10 @@ class Personaje {
 		}
 	}
 	
-		
-	
+	method usarHechizo(){
+		 self.validarHechizo()			
+		 nivelActual.nivelActual().hechizoNivel(self)
+	}	
 	 
 	method validarHechizo(){
 		 if (not self.tieneVarita()){
@@ -126,7 +127,7 @@ class Personaje {
 	}
 
 	method volverAlPrincipio() {
-		self.position((posicionPrincipio))
+		self.position(posicionPrincipio)
 	}
 
 	method esSolidoPara(personaje) {
@@ -207,9 +208,6 @@ object protagonistas {
 
 object harry inherits Personaje {
 
-	var property patronus = 1
-
-
 	override method transformacion() {
 		return harryInvisible
 	}
@@ -228,11 +226,6 @@ object harry inherits Personaje {
 }
 
 object sirius inherits Personaje {
-	
-
-	method tirar(){
-		estado.objeto().position(position)
-	}
 
 	override method transformacion() {
 		return siriusPerro
@@ -244,7 +237,6 @@ object sirius inherits Personaje {
 
 	override method entrarEnZonaGuardias() {
 		game.say(self, "Me pueden ver!")
-			// game.schedule(1500, { self.volverAlPrincipio()})
 		self.serAtrapado()
 	}
 
@@ -266,8 +258,6 @@ class Estado {
 	
 	
 	method entrarEnZonaGuardias(personaje){}
-
-//	
 	
 }
 
@@ -276,7 +266,7 @@ object harryHumano inherits Estado {
 	
 	override method entrarEnZonaGuardias(personaje) {
 		game.say(personaje, "Me pueden ver!")
-			// game.schedule(1500, { personaje.volverAlPrincipio()})
+		game.schedule(1500, { personaje.volverAlPrincipio()})
 		personaje.serAtrapado()
 	}
 
@@ -290,6 +280,7 @@ object harryInvisible inherits Estado {
 
 object harryCongelado inherits Estado{
 	override method puedeMoverse() = false
+	override method image()= "harryNormal"
 }
 
 object siriusHumano inherits Estado {}
@@ -305,6 +296,7 @@ object siriusPerro  inherits Estado{
 
 object siriusCongelado inherits Estado{
 	override method puedeMoverse() = false
+	override method image() = "siriusHumanoConNada"
 }
 
 
