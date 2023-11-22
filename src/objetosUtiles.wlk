@@ -13,6 +13,9 @@ class Objeto {
 	method abrir(personaje){}
 	method colisionarCon(personaje){}
 	method esSolidoPara(personaje) = false	
+	method esLlave() = false 
+	method esVarita() = false
+	method esNada()  = false
 }
 
 
@@ -62,13 +65,12 @@ class LlaveRota inherits Objeto{
 class Varita inherits Objeto{
 	 
 	override method image() = "varita.png"
+	override method esVarita() = true
 	
-	method esLlave() = false
-	method esVarita() = true
-	method esNada()  = false
 	
 	override method serUsado(personaje){
-			personaje.llevaVarita()
+			personaje.soltar()
+			personaje.guardar(self)
 			game.removeVisual(self)
 	}
 	
@@ -78,6 +80,13 @@ class Varita inherits Objeto{
 		game.addVisual(self)
 		objetosUsables.agregarObjeto(self)
 	}
+
+}
+
+object llave inherits Varita{
+	override method image() = "llave.png"
+	override method esLlave() = true
+	override method esVarita() = false
 
 }
 

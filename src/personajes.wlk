@@ -300,7 +300,7 @@ object siriusPerro  inherits Estado{
 	override method esPerseguible() = false
 
 
-}
+} 
 
 object siriusCongelado inherits Estado{
 	override method puedeMoverse() = false
