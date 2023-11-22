@@ -313,7 +313,6 @@ object nivel4 inherits NivelDeJuego {
 	
 	override method generar(){
 		super()
-		tunel.position(game.at(7, 2))
 		game.addVisual(sirius)
 		sirius.position(game.at(1,0))
 	}
