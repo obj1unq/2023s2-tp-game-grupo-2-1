@@ -39,6 +39,7 @@ class Guardia {
 		return true
 	}
 	
+	method elGuardiaEsSolido() = true
 	
 	method colisionarCon(personaje) {
 		game.say(self, "te atrapé!")
@@ -59,18 +60,21 @@ object guardiaHabitual {
 	method puedeMover(posicion){
 		return tablero.puedeOcupar(posicion, self)
 	}
+	method elGuardiaEsSolido() = true
+	method puedePasar(personaje)=false
 }
 
 object guardiaEstatico {
 	method puedeMover(posicion){
 		return false
 	}
+	method puedePasar(personaje)=false
+	method elGuardiaEsSolido() = true
 }
 
 
 class GuardiaPerseguidor inherits Guardia {
 
-	const personajes = #{ harry, sirius }
 	const property posicionDeCustodia
 
 	override method perseguir() {
@@ -115,11 +119,11 @@ class GuardiaPerseguidor inherits Guardia {
 	}
 	
 	method intrusoMasCercano() {
-		return personajes.min({ personaje => self.distanciaMenorEntre(personaje) })
+		return protagonistas.personajes().min({ personaje => self.distanciaMenorEntre(personaje) })
 	}
 	
 	method distanciaMenorEntre(personaje) {
-		return self.position().x() - personaje.position().x().min(self.position().y() - personaje.position().y())
+		return (self.position().x() - personaje.position().x()).min(self.position().y() - personaje.position().y())
 	}
 	
 	method puedePerseguir(intrusoCercano) {
@@ -133,14 +137,17 @@ class GuardiaPerseguidor inherits Guardia {
 	
 
 	method puedeVerlo(personaje) {
-		return personaje.esPerseguible() and self.verAInfiltrado() >= self.position().x() - personaje.position().x() and self.verAInfiltrado() >= self.position().y() - personaje.position().y()
+		return personaje.esPerseguible() and 
+		self.verAInfiltrado() >= self.position().x() - personaje.position().x() and self.verAInfiltrado() >= self.position().y() - personaje.position().y()
 	}
 
 	method verAInfiltrado() {
 		return 5
 	}
 
-	
+	override method esSolidoPara(personaje) {
+		return personaje.elGuardiaEsSolido()
+	}
 
 	override method colisionarCon(personaje) {
 			game.say(self, "¡TE ATRAPE!")
@@ -161,6 +168,10 @@ class ListaGuardias {
 		guardias.add(guardia)
 	}
 
+	method acercarseHacia(){
+		guardias.forEach({ guardia => guardia.acercarseHacia(guardia.intrusoMasCercano().position())})
+	}
+	
 	method perseguir() {
 		guardias.forEach({ guardia => guardia.perseguir()})
 	}
@@ -200,20 +211,6 @@ class CaminoInvalido {
 	
 
 }
-
-//object caminosInvalidos {
-//
-//	const property caminos = #{}
-//
-//	method agregarCamino(camino) {
-//		caminos.add(camino)
-//	}
-//	
-//	method iluminar(){
-//		caminos.forEach({camino=> camino.iluminar()})
-//	}
-//
-//}
 
 class CaminoValido{
 	const property position
@@ -305,6 +302,15 @@ class ZonaDeGuardias {
 		return false
 	}
 
+}
+
+class ZonaVigilada inherits ZonaDeGuardias{
+	override method colisionarCon(personaje){
+		if (personaje.esPerseguible()){
+			guardiasPerseguidores.acercarseHacia()	
+		}
+			 	
+	}
 }
 
 class PuertaNivel{
