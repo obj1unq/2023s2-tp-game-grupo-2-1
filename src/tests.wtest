@@ -61,3 +61,15 @@ describe "nivel1" {
 //		assert.equals(abierto, p1.estado())
 //	}
 //}
+
+describe "hechizos Harry" {
+	
+	method initialize(){
+	nivelC.iniciar()
+	}
+	test "Comprobar el cambio de estado del guardia luego de usar patronus"{
+		guardiasNoPerseguidores.estaticos()
+		assert.that(guardiasNoPerseguidores.guardias().all({guardia => guardia.estado() == guardiaEstatico}))
+	}
+	
+}

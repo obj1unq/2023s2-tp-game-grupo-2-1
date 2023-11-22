@@ -172,6 +172,13 @@ class Personaje {
 	}
 	
 	method elGuardiaEsSolido() = false
+	
+	method patronus(){
+		self.validarHechizo()
+		guardiasNoPerseguidores.estaticos()
+		guardiasPerseguidores.estaticos()
+	}
+	
 
 }
 
