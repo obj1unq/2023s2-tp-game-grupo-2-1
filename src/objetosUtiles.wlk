@@ -5,15 +5,17 @@ import enemigos.*
 
 class Objeto {
 
-	var property position = game.at(0,0) 
+	var property position = game.at(0,0)
 
 	method image() 
 	method esVacio() = false
 	method serUsado(personaje) {}
 	method abrir(personaje){}
 	method colisionarCon(personaje){}
-
-	method esSolidoPara(personaje) = false
+	method esSolidoPara(personaje) = false	
+	method esLlave() = false 
+	method esVarita() = false
+	method esNada()  = false
 }
 
 
@@ -63,13 +65,12 @@ class LlaveRota inherits Objeto{
 class Varita inherits Objeto{
 	 
 	override method image() = "varita.png"
+	override method esVarita() = true
 	
-	method esLlave() = false
-	method esVarita() = true
-	method esNada()  = false
 	
 	override method serUsado(personaje){
-			personaje.llevaVarita()
+			personaje.soltar()
+			personaje.guardar(self)
 			game.removeVisual(self)
 	}
 	
@@ -82,11 +83,20 @@ class Varita inherits Objeto{
 
 }
 
+object llave inherits Varita{
+	
+	override method image() = "llave.png"
+	override method esLlave() = true
+	override method esVarita() = false
+
+}
+
 object cerrado{
 	
 	method estadoContrario() = abierto 
 	method estaAbierto() = false
 	method esSolidoPara(personaje) = true
+	method esCerrado() = true
 }
 
 object abierto{
@@ -95,6 +105,7 @@ object abierto{
 	method estadoContrario() = cerrado
 	method estaAbierto() = true
 	method esSolidoPara(personaje) = false
+	method esCerrado() = false
 }
 
 
@@ -117,20 +128,25 @@ class Sensor{
 
 class SensorPuertaM inherits Sensor(objetoApuntado = puertaNivelM){}
 
+class SensorPalancaB inherits Sensor(objetoApuntado = palancaPuertaB){}
 
-object varita inherits Varita{} 
+class SensorPalanca inherits Sensor(objetoApuntado = palancaPuerta){}
+
+object palancaPuertaB inherits Palanca (objetoAAbrir = p1){}
+
+object palancaPuerta inherits Palanca (objetoAAbrir = p2){}
 
 
-object palanca inherits Palanca(objetoApuntado = puerta){}
+object varita inherits Varita {} 
 
 object vacio{}
-object puerta inherits Puerta{}
 
 class Palanca {
 
 	var property position = game.at(0,0)
 	var property estado = palancaApagada
-	var property objetoApuntado
+	var property objetoAAbrir
+	
 	
 	method image(){
 		return estado.image()
@@ -144,15 +160,13 @@ class Palanca {
 	method puedePasar(personaje) = false
 	
 	method serUsado(personaje){
-		estado.serUsado()
+		self.cambiarEstado()
+		objetoAAbrir.serUsado(personaje)
 	}
 	
 	method cambiarEstado(){
 		estado = estado.serCambiado()
 
-	}
-	method abrir(personaje){
-		objetoApuntado.abrir(personaje)
 	}
 	
 }
@@ -161,11 +175,7 @@ class Palanca {
 object palancaPrendida{
 	
 	method image(){
-		return "palancag.gif"
-	}
-	
-	method serUsado(){
-
+		return "palanca.png"
 	}
 	
 	method serCambiado(){
@@ -179,15 +189,6 @@ object palancaApagada{
 		return "palanca off.png"
 	}
 	
-	method serUsado(){
-		palanca.cambiarEstado()
-		puerta.abrir()
-	}
-	
-	method prenderse(){
-		palanca.cambiarEstado()
-	}
-	
 	method serCambiado(){
 		return palancaPrendida
 	}
@@ -197,10 +198,10 @@ object palancaApagada{
 class Puerta {
 	
 	var property position = game.at(0,0)
-	var property estado = puertaCerrada
+	var property estado = cerrado
 	
 	method image(){
-		return estado.image()
+		return "puerta" + self.estado() + ".png"
 	}
 	
 	method colisionarCon(personaje){
@@ -211,41 +212,15 @@ class Puerta {
 	method puedePasar(personaje) = estado.puedePasar()
 	
 	method serUsado(personaje){
-		estado.serUsado()
-	}
-	
-	method cambiarEstado(){
-		estado = estado.serCambiado()
+		if (estado.esCerrado()){
+			self.abrir()
+		}
 	}
 	
 	method abrir(){
-		self.cambiarEstado()
+		estado = estado.estadoContrario()
 	}
 }
 
-object puertaCerrada{
-	
-	method image(){
-		return "puerta.png"
-	}
-	
-	method serUsado(){
-		puerta.abrir()
-	}
-	
-	method serCambiado(){
-		return puertaAbierta
-	}
-}
-
-object puertaAbierta{
-
-	method serUsado(){
-
-	}
-	
-	method serCambiado(){
-		return puertaCerrada
-	}
-}
-
+object p1 inherits Puerta{}
+object p2 inherits Puerta{}

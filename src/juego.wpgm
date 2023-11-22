@@ -10,8 +10,8 @@ program juego {
 	game.cellSize(50)
 	game.width(30)
 	game.height(18)
-
-	nivel1.iniciar()	
-	    
+	
+	nivelC.iniciar()
+  
 	game.start()
 }

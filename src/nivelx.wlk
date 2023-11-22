@@ -105,7 +105,7 @@ object menu inherits Nivel{
 }
 
 object reglas inherits Nivel{
-	override method image() = "background.png"
+	override method image() = "fondoReglas.png"
 	
 	override method terminar(){
 		game.clear()
@@ -127,16 +127,16 @@ object nivel1 inherits NivelDeJuego {
         [[_, _, _, _, _, _, _, _, _, _, p, _, _, _, p, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _],
          [_, _, _, _, _, _, _, _, _, _, p, _, _, _, p, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _],
          [_, _, p, p, p, p, p, p, p, p, p, p, _, _, p, p, p, p, p, p, p, p, p, p, p, p, p, p, _, _],
-         [_, _, p, p, p, p, p, p, p, p, p, p, _, _, p, p, p, p, p, p, p, p, p, p, p, p, p, p, _, _],
+         [_, _, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, _, _],
          [_, _, p, _, _, p, p, _, _, _, p, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, p, _, _],
-         [_, _, p, _, _, v, _, _, _, _, p, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, p, _, _],
+         [_, _, p, _, _, v, _, _, _, _, p, _, zv, _, _, _, zv, _, _, _, _, _, _, _, _, _, _, p, _, _],
          [_, _, p, _, _, _, _, _, _, _, p, _, _, _, _, _, _, _, _, _, gp, _, _, lr6, _, _, _, p, _, _],
-         [_, _, p, p, p, _, _, p, tn, p, p, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, p, p, p],
-         [p, p, p, p, p, p, p, p, tn, p, p, _, _, _, _, _, _, gp, _, _, _, _, gp, _, _, _, _, p, p, p],
-         [_, _, _, h, s, _, _, _,   _, _, _, _, _, _, gp, _, _, lr1, _, _, _, _, _, _, _, _, _, sp, p, _],
+         [_, _, p, p, p, _, _, p, ti, p, p, _, _, zv, _, _, _, _, _, _, _, _, _, _, _, _, _, p, p, p],
+         [p, p, p, p, p, p, p, p, ti, p, p, _, _, _, _, _, _, gp, _, _, _, _, gp, _, _, _, _, p, p, p],
+         [_, _, _, h, s, _, _, _,   _, _, _, _, _, _, gp, _, _, lr1, _, _, _, _, _, _, _, _, _, p, p, p],
          [_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, gp, _, _, _, lr5, _, _, _, sp, pn],
-         [p, p, p, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, lr3, _, _, _, _, _, _, p, p, p],
-         [_, _, p, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, p, _, _],
+         [p, p, p, _, _, _, _, _, _, _, _, _, _, _, zv, _, _, _, _, _, lr3, _, _, _, _, _, _, p, p, p],
+         [_, _, p, _, _, _, _, _, _, _, _, _, zv, _, _, _, _, _, _, _, _, _, _, _, _, _, _, p, _, _],
          [_, _, p, _, o, _, _, _, _, _, _, _, _, _, _, _, gp, _, _, _, _, _, _, _, _, _, _, p, _, _],
          [_, _, p, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, lr2, _, _, gp, lr4, _, _, _, p, _, _],
          [_, _, p, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, p, _, _],
@@ -199,17 +199,17 @@ object nivel2 inherits NivelDeJuego{
 		 [_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _],
 		 [_, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, _, _],
 		 [_, p, _, _, _, _, _, _, _, _, p, _, _, _, _, _, _, _, _, _, _, gp, _, _, _, _, _, p, _, _],
-		 [_, p, _, _, _, _, _, _, _, _, p, _, _, _, _, _, _, _, _, _, _, _, _, _, gp, _, _, p, _, _],
-		 [_, p, _, _, _, _, _, _, _, _, p, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, p, _, _],
-		 [_, p, _, _, _, _, _, _, _, _, p, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, p, p, p],
-		 [p, p, _, _, _, _, _, _, _, _, p, p, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, p, p, p],
-		 [_, h, s, _, _, _, _, _, _, _, p, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, f, _],
+		 [_, p, _, _, pu, pu, pu, _, _, _, p, _, _, _, _, _, _, _, _, _, _, _, _, _, gp, _, _, p, _, _],
+		 [_, p, _, _, pu, ps, pu, _, _, _, p, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, p, _, _],
+		 [_, p, _, _, pu, bs, pu, _, _, _, p, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, p, p, p],
+		 [p, p, _, _, pu, pu, pu, _, _, _, p, p, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, p, p, p],
+		 [_, h, s, _, _, _, _, _, _, _, d1, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, f],
 		 [p, p, _, _, _, _, _, _, _, _, p, _, _, _, _, _, _, _, _, _, _, _, _, _, _, p, p, p, p, p, p, p],
 		 [_, p, _, _, _, _, _, _, _, _, p, p, _, _, _, _, _, _, _, _, _, _, _, _, p, p, p, p, p, _, _],
-		 [_, p, _, _, _, _, _, _, _, _, p, _, _, _, _, _, pu, pu, pu, pu, pu, pu, pu, p, p, p, p, p, _, _],
-		 [_, p, _, o, _, _, _, _, _, _, p, _, p, _, _, _, pu, _, pu, _, pu, _, pu, pu, _, pu, _, p, _, _],
-		 [_, p, _, _, _, _, _, _, _, _, p, tn, p, _, _, _, pu, pu, pu, pu, pu, pu, pu, p, pu, _, pa, p, _, _],
-		 [_, p, _, _, _, _, _, _, _, _, _, pu,  p, _, _, _, _, _, _, _, _, _, _, p, _, _, _, p, _, _],
+		 [_, p, _, _, _, _, _, _, _, _, p, _, _, _, _, _,  pu, pu, pu, pu, pu, pu, pu, p, p,  p,  p, p, _, _],
+		 [_, p, _, o, _, _, _, _, _, _, p, _, p, _, _, _,  pu, _,  pu, _,  pu, _,  pu, d2, _, pu, sb, p, _, _],
+		 [_, p, _, _, _, _, _, _, _, _, p, ti, p, _, _, _, pu, pu, pu, pu, pu, pu, pu, p, pu, sb, pa, p, _, _],
+		 [_, p, _, _, _, _, _, _, _, _, _, pu,  p, _, _, _, _, _, _, _, _, _, _, p, _, _, sb, p, _, _],
 		 [_, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, _, _],
 		 [_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _]
 	].reverse()
@@ -217,6 +217,7 @@ object nivel2 inherits NivelDeJuego{
 	
 	override method accionDeNivel(){
 		game.onTick(800, "movimientoPuas", {caminoDePuas.activarMovimiento()})
+		game.onTick(1000, "caminataGuardias", {guardiasNoPerseguidores.perseguir()})
 	}
 	
 	override method siguiente(){
@@ -224,7 +225,8 @@ object nivel2 inherits NivelDeJuego{
 	}
 	
 	override method terminarAccionNivel(){
-		game.removeTickEvent("movimientoPuas")
+		super()
+    game.removeTickEvent("movimientoPuas")
 	}
 }
 
@@ -232,29 +234,28 @@ object nivel2 inherits NivelDeJuego{
 object nivel3 inherits NivelDeJuego{
 	
 
-	override method image() = "background2.png"
+	override method image() = "fondojuego.png"
 
 	override method celdas(){
 		return 
-		[[m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m],
-		 [m, _, _, _, _, _, _, _, _, _, _, f, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, m],
-		 [m, _, _, _, _, _, _, _, _, _, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, _, _, m],
-		 [m, _, _, m, m, m, m, m, m, m, m, _, _, _, _, _, _, m, _, m, _, m, _, _, m, _, _, _, _, _, _, m],
-		 [m, _, _, _, _, _, _, _, m, _, _, _, _, _, _, _, _, m, _, m, _, m, _, _, m, _, _, _, _, _, _, m],
-		 [m, _, _, _, _, _, o, _, _, _, _, _, _, _, _, _, _, m, _, _, _, m, _, _, m, _, _, _, _, _, _, m],
-		 [m, a, a, a, ag, a, a, a, m, _, _, _, _, m, _, _, _, m, m, m, _, m, _, _, m, m, m, m, _, _, _, m],
-		 [m, _, _, p, m, m, m, m, m, _, _, _, _, m, m, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, m],
-		 [m, ag, a, a, a, a, a, a, m, _, _, m, m, m, m, _, _, m, m, m, m, m, m, m, m, _, _, m, m, _, _, m],
-		 [m, a, a, a, a, a, a, ag, m, _, _, m, o, _, m, _, _, m, a, a, a, a, ag, a, a, a, a, a, m, _, _, m],
-		 [m, m, m, m, m, m, _, _, m, _, _, m, _, _, m, _, _, m, _, _, _, _, _, _, _, _, _, _, m, _, _, m],
-		 [m, g, _, _, _, m, _, _, m, _, _, m, _, _, m, _, _, m, _, _, _, _, _, _, _, _, _, _, m, _, _, m],
-		 [m, _, m, m, _, m, _, _, _, _, _, m, _, _, m, _, _, m, _, _, _, _, _, _, _, _, _, _, m, _, _, m],
-		 [m, _, _, _, _, m, a, a, a, a, a, a, a, a, m, _, _, m, _, _, _, _, _, _, _, _, _, _, m, _, _, m],
-		 [m, m, m, m, _, m, m, m, m, m, m, m, m, m, m, _, _, m, m, m, m, m, m, m, m, m, m, m, m, _, _, m],
-		 [m, _, _, _, _, _, _, _, _,_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, m],
-
-		 [m, s, h, _, _, _, _, _, _,_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, m],
-		 [m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m]
+		[[p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p],
+		 [p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p],
+		 [p, _, _, _, _, _, f, a, a, a, a, a, a, a, a, ag, _, _, _, _, _, _, _, _, _, _, _, _, _, p, p],
+		 [p, _, _, m, m, m, m, m, m, m, m, _, _, _, _, _, _, m, _, m, _, m, _, _, m, _, _, _, _, p, p],
+		 [p, a, a, a, ag, a, a, a, m, _, _, _, _, _, _, _, _, m, _, m, _, m, o, _, m, _, _, _, _, p, p],
+		 [p, _, _, _, _, _, o, _, _, _, _, _, _, _, _, _, _, m, _, _, _, m, _, _, m, _, _, _, _, p, p],
+		 [p, a, a, a, ag, a, a, a, m, _, _, _, _, _, _, _, _, m, m, m, _, m, _, _, m, m, m, m, _, p, p],
+		 [p, _, _, p, m, m, m, m, m, _, _, _, _, m, m, _, _, _, _, _, _, _, _, _, _, _, _, _, _, p, p],
+		 [p, ag, a, a, a, a, a, a, m, _, _, m, m, m, m, _, _, m, m, m, m, m, m, m, m, _, _, m, _, p, p],
+		 [p, a, a, a, a, a, a, ag, m, _, _, m, o, _, m, _, _, m, a, a, a, a, ag, a, a, a, a, a, _, p, p],
+		 [p, m, m, m, m, m, _, _, m, _, _, m, _, _, m, _, _, m, _, _, m, _, _, m, m, m, m, m, m, _, p],
+		 [p, g, _, _, _, m, _, _, m, _, _, m, _, _, m, _, _, m, _, _, m, o, _, m, _, _, v, _, m, _, p, p],
+		 [p, _, m, m, _, m, _, _, _, _, _, m, _, _, m, _, _, m, _, _, m, m, m, m, _, _, _, _, m, _, p, p],
+		 [p, _, _, _, _, m, a, a, a, ag, a, a, a, a, m, _, _, m, _, _, _, _, _, _, _, _, _, _, m, _, p, p],
+		 [p, m, m, m, _, m, m, m, m, m, m, m, m, m, m, _, _, m, m, m, m, m, m, m, m, m, m, m, m, _, p, p],
+		 [p, _, _, _, _, _, _, _, _,_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, p, p],
+		 [p, s, h, _, _, _, _, _, _,_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, p, p],
+		 [p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p]
 		].reverse()
 	}
 	
@@ -265,7 +266,9 @@ object nivel3 inherits NivelDeJuego{
 	
 	override method siguiente(){}
 	
-	
+	override method hechizoNivel(personaje){
+		personaje.patronus()
+	}	
 }
 
 
@@ -294,15 +297,13 @@ object nivel4 inherits NivelDeJuego {
 		 [m, m, m, m, m, m, m, tn, m, m, m, m, m, m, m, m, _, _, _, _, _, _, _, _, _, _, _, _, _, _],
 		 [_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, o, _, _, _, _, _, _, _, _, _, _, _, _, _, _],
 		 [h, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _]
-	].reverse()
+     ].reverse()
 	}
 	
 	override method accionDeNivel(){
 		game.onTick(200, "caminataGuardias", {guardiasNoPerseguidores1.perseguir()})
 		game.onTick(10000, "mostrarCaminos", {caminosValidos.iluminar()})
 	}
-	
-	
 	
 	override method generar(){
 		super()
@@ -311,7 +312,6 @@ object nivel4 inherits NivelDeJuego {
 		sirius.position(game.at(1,0))
 	}
 
-	
 	override method siguiente(){
 		return self
 	}
@@ -437,6 +437,12 @@ object lr4 inherits LlaveRota{override method image() = "LR4.png"}
 object lr5 inherits LlaveRota{override method image() = "LR5.png"}
 object lr6 inherits LlaveRota{override method image() = "LR6.png"}	
 
+object zv {
+	method generar(position){
+		game.addVisual(new ZonaVigilada(position = position))
+	}
+}
+
 
 object a{
 	method generar(position){
@@ -445,7 +451,6 @@ object a{
 }
 
 object h{
-	
 	
 	method generar(position){
 		harry.position(position)
@@ -502,17 +507,55 @@ object pu {
 	}
 }
 
-object dn {
-	method generar(position){
-		const pua = new Pua(position = position)
-		game.addVisual(pua) 
-	}
-}
-
 object pa {
 	
 	method generar(position){
-		const palanc = new Palanca (position = position, objetoApuntado = puerta)
-		game.addVisual(palanc)
+		palancaPuertaB.position(position)
+		game.addVisual(palancaPuertaB)
 	}
 }
+
+object ps {
+	method generar(position){
+		palancaPuerta.position(position)
+		game.addVisual(palancaPuerta)
+	}
+}
+
+object d1 {
+	method generar(position){
+		p1.position(position)
+		game.addVisual(p1)
+	}
+}
+
+object d2 {
+	method generar(position){
+		p2.position(position)
+		game.addVisual(p2)
+	}
+}
+
+object ti {
+	method generar(position){
+		const tunelIn = new TunelInvisible (position = position)
+		game.addVisual(tunelIn)
+	}
+}
+
+object sb {
+	method generar(position){
+		const sensor = new SensorPalancaB (position = position)
+		game.addVisual(sensor) 
+		objetosUsables.agregarObjeto(sensor)
+		}
+}
+
+object bs { 
+	method generar(position){
+		const sensor = new SensorPalanca (position = position)
+		game.addVisual(sensor) 
+		objetosUsables.agregarObjeto(sensor)
+	}
+}
+

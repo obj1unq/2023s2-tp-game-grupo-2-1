@@ -3,14 +3,15 @@ import wollok.game.*
 import personajes.*
 import enemigos.*
 import direcciones.*
+import objetosUtiles.*
 
-describe "nivel1" {
+describe "nivel1" { 
 	
 	method initialize(){
 		nivel1.iniciar()
 	}
-	
-	test "harry entra a la zona guardias y no pueden moverse ni el ni sirius"{
+	 
+	test "harry entra a la zona guardias y no pueden moverse ni el ni sirius"{  
 
 		harry.entrarEnZonaGuardias()
 		assert.equals(harryCongelado, harry.estado())
@@ -36,5 +37,43 @@ describe "nivel1" {
 		sirius.mover(arriba)
 		assert.notThat(harry.sePuedeMover(arriba))
 		assert.notThat(sirius.sePuedeMover(arriba))
+	}
+}
+
+//describe "nivelB" {
+//	
+//	method initialize(){
+//		nivelB.iniciar()
+//	}
+//	
+//	test "harry se choca con una pua, vuelven el y sirius al lugar de inicio"{
+//		harry.position(game.at(5,8))
+//		caminoDePuas.activarMovimiento()
+//		harry.mover(arriba)
+//		caminoDePuas.activarMovimiento()
+//		assert.equals(game.at(1,8) , harry.position())
+//		assert.equals(game.at(2,8) , sirius.position())
+//	}
+//	
+//	test "harry mueve la palanca y abre la puerta correspondiente" {
+//		harry.position(game.at(5,10))
+//		harry.usarObjeto()
+//		assert.equals(abierto, p1.estado())
+//	}
+//}
+
+describe "hechizos Harry" {
+	
+	method initialize(){
+	nivelC.iniciar()
+	}
+	test "Comprobar el cambio de estado del guardia no perseguidor luego de usar patronus"{
+		guardiasNoPerseguidores.estaticos()
+		assert.that(guardiasNoPerseguidores.guardias().all({guardia => guardia.estado() == guardiaEstatico}))
+	}
+	
+	test "Comprobar el cambio de estado del guardia perseguidor luego de usar patronus"{
+		guardiasPerseguidores.estaticos()
+		assert.that(guardiasPerseguidores.guardias().all({guardia => guardia.estado() == guardiaEstatico}))
 	}
 }
