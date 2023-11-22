@@ -9,7 +9,7 @@ object nivelActual{ // hago directamente un obj nivel que se acuerde en donde es
 	var property nivelActual = menu
 	
 	method pasarDeNivel(){
-		nivelActual.terminar()
+		nivelActual.terminar() 
 		nivelActual = nivelActual.siguiente()
 		nivelActual.iniciar()
 	} 
