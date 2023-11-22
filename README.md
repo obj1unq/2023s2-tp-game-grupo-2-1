@@ -3,7 +3,7 @@
 
 ## Equipo de desarrollo
 
-- Cristian Fernandez
+- Cristian Adrian Fernandez Requejo
 - Mateo Gabriel Giuffra Hernandez
 - Bianca Picchio
 - Malena Sciutto
