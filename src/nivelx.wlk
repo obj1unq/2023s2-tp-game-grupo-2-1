@@ -255,7 +255,7 @@ object nivel3 inherits NivelDeJuego{
 		 [p, p, p, p, p, _, f, _, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p],
 		 [p, _, _, _, _, _, _, a, a, a, a, a, a, a, a, ag, _, _, _, _, _, _, _, _, _, _, _, _, _, p, p],
 		 [p, _, _, m, m, m, m, m, m, m, m, _, _, _, _, _, _, m, _, m, _, m, _, _, m, _, _, _, _, p, p],
-		 [p, a, a, a, ag, a, a, a, m, _, _, _, _, _, _, _, _, m, _, m, _, m, o, _, m, _, _, _, _, p, p],
+		 [p, _, _, a, ag, a, a, a, m, _, _, _, _, _, _, _, _, m, _, m, _, m, o, _, m, _, _, _, _, p, p],
 		 [p, _, _, _, _, _, o, _, _, _, _, _, _, _, _, _, _, m, _, _, _, m, _, _, m, _, _, _, _, p, p],
 		 [p, a, a, a, ag, a, a, a, m, _, _, _, _, _, _, _, _, m, m, m, _, m, _, _, m, m, m, m, _, p, p],
 		 [p, _, _, p, m, m, m, m, m, _, _, _, _, m, m, _, _, _, _, _, _, _, _, _, _, _, _, _, _, p, p],
@@ -269,7 +269,7 @@ object nivel3 inherits NivelDeJuego{
 		 [p, _, _, _, _, _, _, _, _,_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, p, p],
 		 [p, s, h, _, _, _, _, _, _,_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, p, p],
 		 [p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p]
-		].reverse()
+		].reverse() 
 	}
 	
 	override method accionDeNivel(){
