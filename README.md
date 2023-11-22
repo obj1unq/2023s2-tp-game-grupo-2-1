@@ -26,6 +26,7 @@ Harry:
 - tecla Enter para usar objetos
 - tecla L para soltar objetos
 - tecla P para lanzar hechizos
+
 Sirius:
 - tecla E para abrir puertas
 - tecla Space para usar objetos
