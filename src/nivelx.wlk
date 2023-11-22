@@ -96,7 +96,7 @@ class NivelDeJuego inherits Nivel{
 
 
 object menu inherits Nivel{
-	override method image() = "background2.png"
+	override method image() = "fondoMenu.png"
 	
 	
 	override method siguiente(){
@@ -202,26 +202,35 @@ object nivel1 inherits NivelDeJuego {
 		game.onTick(500, "caminataGuardias", {guardiasNoPerseguidores.perseguir()})
 	}
 	
-	override method configurar(){
-		keyboard.up().onPressDo({ harry.mover(arriba) })
-		keyboard.down().onPressDo({ harry.mover(abajo) })
-		keyboard.left().onPressDo({ harry.mover(izquierda) })
-		keyboard.right().onPressDo({ harry.mover(derecha) })
-
-		keyboard.w().onPressDo({ sirius.mover(arriba) })
-		keyboard.s().onPressDo({ sirius.mover(abajo) })
-		keyboard.a().onPressDo({ sirius.mover(izquierda) })
-		keyboard.d().onPressDo({ sirius.mover(derecha) })
-		
-		game.onCollideDo(harry, {colisionado => colisionado.colisionarCon(harry)})
-		game.onCollideDo(sirius, {colisionado => colisionado.colisionarCon(sirius)})
-		keyboard.space().onPressDo({ sirius.usarObjeto() })
-		keyboard.enter().onPressDo({ harry.usarObjeto() })
-		
-		keyboard.o().onPressDo({ harry.abrir() })
-		keyboard.e().onPressDo({ sirius.abrir() })    
-		keyboard.q().onPressDo({ sirius.soltar() })
-	}
+//	override method configurar(){
+//		keyboard.up().onPressDo({ harry.mover(arriba) })
+//		keyboard.down().onPressDo({ harry.mover(abajo) })
+//		keyboard.left().onPressDo({ harry.mover(izquierda) })
+//		keyboard.right().onPressDo({ harry.mover(derecha) })
+//
+//		keyboard.w().onPressDo({ sirius.mover(arriba) })
+//		keyboard.s().onPressDo({ sirius.mover(abajo) })
+//		keyboard.a().onPressDo({ sirius.mover(izquierda) })
+//		keyboard.d().onPressDo({ sirius.mover(derecha) })
+//		
+//		game.onCollideDo(harry, {colisionado => colisionado.colisionarCon(harry)})
+//		game.onCollideDo(sirius, {colisionado => colisionado.colisionarCon(sirius)})
+//		keyboard.space().onPressDo({ sirius.usarObjeto() })
+//		keyboard.enter().onPressDo({ harry.usarObjeto() })
+//		
+//
+//		
+//		keyboard.o().onPressDo({ harry.abrir() })
+//		keyboard.e().onPressDo({ sirius.abrir() })    
+//
+//		keyboard.q().onPressDo({ sirius.soltar() }) 
+//		keyboard.l().onPressDo({ harry.soltar() }) 
+//
+//		keyboard.p().onPressDo({ harry.usarHechizo()}) 
+//		keyboard.z().onPressDo({ sirius.usarHechizo()}) 
+//		
+//		
+//	}
 	
 
 
@@ -297,11 +306,11 @@ object nivelB inherits NivelDeJuego{
 		 [_, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, _, _],
 		 [_, p, _, _, _, _, _, _, _, _, p, _, _, _, _, _, _, _, _, _, _, gp, _, _, _, _, _, p, _, _],
 		 [_, p, _, _, pu, pu, pu, _, _, _, p, _, _, _, _, _, _, _, _, _, _, _, _, _, gp, _, _, p, _, _],
-		 [_, p, _, _, pu, ps, pu, _, _, _, p, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, p, _, _],
-		 [_, p, _, _, pu, bs, pu, _, _, _, p, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, p, p, p],
+		 [_, p, _, _, pu, ps, pu, _, _, _, p, _, zv, _, _, zv, _, _, _, _, _, _, _, _, _, _, _, p, _, _],
+		 [_, p, _, _, pu, bs, pu, _, _, _, p, _, _, _, _, _, _, zv, _, _, _, _, _, _, _, _, _, p, p, p],
 		 [p, p, _, _, pu, pu, pu, _, _, _, p, p, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, p, p, p],
-		 [_, h, s, _, _, _, _, _, _, _, d1, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, f],
-		 [p, p, _, _, _, _, _, _, _, _, p, _, _, _, _, _, _, _, _, _, _, _, _, _, _, p, p, p, p, p, p, p],
+		 [_, h, s, _, _, _, _, _, _, _, d1, _, zv, _, _, zv, _, _, _, _, _, _, _, p, _, _, _, _, _, f],
+		 [p, p, _, _, _, _, _, _, _, _, p, _, zv, _, _, _, _, _, _, _, zv, _, _, _, _, p, p, p, p, p, p, p],
 		 [_, p, _, _, _, _, _, _, _, _, p, p, _, _, _, _, _, _, _, _, _, _, _, _, p, p, p, p, p, _, _],
 		 [_, p, _, _, _, _, _, _, _, _, p, _, _, _, _, _,  pu, pu, pu, pu, pu, pu, pu, p, p,  p,  p, p, _, _],
 		 [_, p, _, o, _, _, _, _, _, _, p, _, p, _, _, _,  pu, _,  pu, _,  pu, _,  pu, d2, _, pu, sb, p, _, _],
@@ -314,7 +323,7 @@ object nivelB inherits NivelDeJuego{
 	
 	override method accionDeNivel(){
 		game.onTick(800, "movimientoPuas", {caminoDePuas.activarMovimiento()})
-		game.onTick(1000, "caminataGuardias", {guardiasNoPerseguidores.perseguir()})
+		game.onTick(1000, "caminataGuardias", {guardiasPerseguidores.perseguir()})
 	}
 	
 	override method siguiente(){
@@ -484,6 +493,7 @@ object ao{
 
 object f{
 	method generar(position){
+		puertaNivel.position(position)
 		game.addVisual(puertaNivel)
 	}
 }

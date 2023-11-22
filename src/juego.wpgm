@@ -11,7 +11,7 @@ program juego {
 	game.width(30)
 	game.height(18)
 	
-	nivelM.iniciar()
+	nivelB.iniciar()
 	
 	game.onCollideDo(harry, {colisionado => colisionado.colisionarCon(harry)})
 		game.onCollideDo(sirius, {colisionado => colisionado.colisionarCon(sirius)})
