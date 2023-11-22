@@ -192,7 +192,7 @@ object guardiasPerseguidores inherits ListaGuardias {}
 class CaminoInvalido {
 
 	const property position
-	var property posicionEntrada = tunel.position()
+	method posicionEntrada() = tunel.position()
 	
 	method image(){
 		return "baldoza.png"
@@ -204,7 +204,7 @@ class CaminoInvalido {
 	}
 
 	method arribaDeLaEntrada() {
-		return arriba.siguiente(posicionEntrada)
+		return arriba.siguiente(self.posicionEntrada())
 	}
 
 	method esSolidoPara(personaje) {

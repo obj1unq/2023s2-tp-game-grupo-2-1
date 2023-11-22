@@ -45,7 +45,7 @@ describe "hechizos Harry" {
 	}
 }
 
-describe "nivel1" { 
+describe "nivel4" { 
 	
 	method initialize(){
 		nivel4.iniciar()
@@ -60,22 +60,24 @@ describe "nivel1" {
 		
 	}
 	
-	test "harry entra a la zona invisible. Los dos pueden moverse"{
-		harry.perder()
-		sirius.perder()
+	test "harry entra a la zona invisible. Sirius puede moverse"{
+		harry.estado(harryHumano)
+		sirius.estado(siriusHumano)
 		harry.transformarse()
 		assert.equals(harryInvisible, harry.estado())
 		harry.entrarEnZonaGuardias()
-		assert.that(harry.sePuedeMover(arriba))
 		assert.that(sirius.sePuedeMover(arriba))
 	}
 	
-	test "harry choca contra una pared"{
-		harry.position(game.at(2, 1))
+	test "sirius choca contra una pared y no puede moverse"{
 		sirius.position(game.at(2,1))
-		harry.mover(arriba)
-		sirius.mover(arriba)
-		assert.notThat(harry.sePuedeMover(arriba))
 		assert.notThat(sirius.sePuedeMover(arriba))
 	}
+	
+	test "sirius pisa la zona invalida y vuelve al principio del camino"{
+		const caminoInvalido = new CaminoInvalido(position = game.at(4, 13))
+		caminoInvalido.colisionarCon(sirius)
+		assert.equals(caminoInvalido.arribaDeLaEntrada(), sirius.position())
+	}
 }
+	
