@@ -182,9 +182,9 @@ class ListaGuardias {
 }
 
 
-object guardiasNoPerseguidores1 inherits ListaGuardias {}
+object guardiasNoPerseguidores inherits ListaGuardias {}
 
-object guardiasNoPerseguidores2 inherits ListaGuardias {}
+//object guardiasNoPerseguidores2 inherits ListaGuardias {}
 
 object guardiasPerseguidores inherits ListaGuardias {}
 
@@ -357,6 +357,10 @@ class PuertaNivel{
 		return harry.position() == position && sirius.position() == position
 	}
 
+}
+
+object puertaNivelVisible inherits PuertaNivel(estado = abierto){
+	method image() = "puerta.png"
 }
 
 class ListaDePuas {

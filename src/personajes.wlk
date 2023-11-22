@@ -61,11 +61,6 @@ class Personaje {
 		}
 	}
 	
-	method usarHechizo(){
-		 self.validarHechizo()			
-		 nivel.hechizoNivel(self)
-	}
-
 	method validarAbrir(objetos) {
 		if (objetos.isEmpty()) {
 			self.error("No tengo nada para abrir")
@@ -280,23 +275,18 @@ object harryInvisible inherits Estado {
 
 object harryCongelado inherits Estado{
 	override method puedeMoverse() = false
-	override method image()= "harryNormal"
 }
 
 object siriusHumano inherits Estado {}
 
 object siriusPerro  inherits Estado{
 
-
 	override method puedePasar(puerta) = true
 	override method esPerseguible() = false
-
-
 } 
 
 object siriusCongelado inherits Estado{
 	override method puedeMoverse() = false
-	override method image() = "siriusHumanoConNada"
 }
 
 

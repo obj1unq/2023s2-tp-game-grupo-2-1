@@ -260,7 +260,7 @@ object nivel3 inherits NivelDeJuego{
 	}
 	
 	override method accionDeNivel(){
-		game.onTick(1000, "caminataGuardias", {guardiasNoPerseguidores1.perseguir()})
+		game.onTick(1000, "caminataGuardias", {guardiasNoPerseguidores.perseguir()})
 	  }
 	  
 	
@@ -301,7 +301,7 @@ object nivel4 inherits NivelDeJuego {
 	}
 	
 	override method accionDeNivel(){
-		game.onTick(200, "caminataGuardias", {guardiasNoPerseguidores1.perseguir()})
+		game.onTick(200, "caminataGuardias", {guardiasNoPerseguidores.perseguir()})
 		game.onTick(10000, "mostrarCaminos", {caminosValidos.iluminar()})
 	}
 	
@@ -397,18 +397,10 @@ object g{
 	method generar(position){
 		const guardia = new Guardia(position = position)
 		game.addVisual(guardia)
-		guardiasNoPerseguidores1.agregarGuardia(guardia)
+		guardiasNoPerseguidores.agregarGuardia(guardia)
 	}
 }
 
-object g2{
-	
-	method generar(position){
-		const guardia = new Guardia(position = position)
-		game.addVisual(guardia)
-		guardiasNoPerseguidores2.agregarGuardia(guardia)
-	}
-}
 
 object gp{
 
@@ -477,12 +469,6 @@ object ag{
 	}
 }
 
-object ag2{
-	method generar(position){
-		a.generar(position)
-		g2.generar(position)
-	}
-}
 
 object ao{
 	method generar(position){

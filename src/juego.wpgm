@@ -11,7 +11,7 @@ program juego {
 	game.width(30)
 	game.height(18)
 	
-	nivelC.iniciar()
+	menu.iniciar()
   
 	game.start()
 }
