@@ -14,10 +14,9 @@ class Objeto {
 	method colisionarCon(personaje){}
 
 	method esSolidoPara(personaje) = false
-
-
-
-
+	method esLlave() = false 
+	method esVarita() = false
+	method esNada()  = false
 	
 }
 
@@ -68,13 +67,12 @@ class LlaveRota inherits Objeto{
 class Varita inherits Objeto{
 	 
 	override method image() = "varita.png"
+	override method esVarita() = true
 	
-	method esLlave() = false
-	method esVarita() = true
-	method esNada()  = false
 	
 	override method serUsado(personaje){
-			personaje.llevaVarita()
+			personaje.soltar()
+			personaje.guardar(self)
 			game.removeVisual(self)
 	}
 	
@@ -86,6 +84,15 @@ class Varita inherits Objeto{
 	}
 
 }
+
+object llave inherits Varita{
+	override method image() = "llave.png"
+	override method esLlave() = true
+	override method esVarita() = false
+
+}
+
+
 
 object cerrado{
 	
@@ -126,10 +133,10 @@ class SensorPuertaM inherits Sensor(objetoApuntado = puertaNivelM){}
 object varita inherits Varita{} 
 
 
-object palanca inherits Palanca(objetoApuntado = puerta){}
+object palanca inherits Palanca(objetoApuntado = puertaInteractuable){}
 
 object vacio{}
-object puerta inherits Puerta{}
+object puertaInteractuable inherits Puerta{}
 
 class Palanca {
 
@@ -186,7 +193,7 @@ object palancaApagada{
 	
 	method serUsado(){
 		palanca.cambiarEstado()
-		puerta.abrir()
+		puertaInteractuable.abrir()
 	}
 	
 	method prenderse(){
@@ -205,6 +212,7 @@ class Puerta {
 	var property estado = puertaCerrada
 	
 	method image(){
+		
 		return estado.image()
 	}
 	
@@ -223,6 +231,10 @@ class Puerta {
 		estado = estado.serCambiado()
 	}
 	
+	
+	
+	
+	
 	method abrir(){
 		self.cambiarEstado()
 	}
@@ -235,7 +247,7 @@ object puertaCerrada{
 	}
 	
 	method serUsado(){
-		puerta.abrir()
+		puertaInteractuable.abrir()
 	}
 	
 	method serCambiado(){
