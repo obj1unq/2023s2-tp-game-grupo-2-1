@@ -333,7 +333,7 @@ object nivel4 inherits NivelDeJuego {
 		game.onTick(200, "caminataGuardias", {guardiasNoPerseguidores.perseguir()})
 		game.onTick(10000, "mostrarCaminos", {caminosValidos.iluminar()})
 	}
-	
+	 
 	override method generar(){
 		super()
 		game.addVisual(sirius)

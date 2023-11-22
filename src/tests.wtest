@@ -103,7 +103,7 @@ describe "nivel4" {
 	method initialize(){
 		nivel4.iniciar()
 	}
-	 
+	  
 	test "harry entra a la zona guardias y no pueden moverse ni el ni sirius"{  
 
 		harry.entrarEnZonaGuardias()
