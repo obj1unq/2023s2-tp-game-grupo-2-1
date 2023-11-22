@@ -12,9 +12,7 @@ class Personaje {
 	const property llavesRotas = #{}
 	var property tieneVarita = false
 	var property nivel = nivelM
-	var property objAnterior = nada
-	var property puedeAgarrarVarita = false
-	var property ultimoObjGuardado = nada
+	var property objetoActual = nada
 	 
 	method transformacion()
 
@@ -24,17 +22,17 @@ class Personaje {
 
 	method entrarEnZonaGuardias()
 
-	method image() = "" + estado + "Con" + self.ultimoObjGuardado() + ""  + ".png"
+	method image() = "" + estado + "Con" + self.objetoActual() + ""  + ".png"
 
 	method colisionarCon(personaje) {
 	}
 	
-	method tieneLlave() = ultimoObjGuardado.esLlave() // o objeto == llave 
-	method tieneVarita() = ultimoObjGuardado.esVarita()
-	method tieneNada() = ultimoObjGuardado.esNada()
+	method tieneLlave() = objetoActual.esLlave() 
+	method tieneVarita() = objetoActual.esVarita()
+	method tieneNada() = objetoActual.esNada()
 	
 	method guardar(objeto){
-		ultimoObjGuardado = objeto
+		objetoActual = objeto
 	}
 
 	
@@ -58,15 +56,17 @@ class Personaje {
 	}
 	
 	method soltar(){
-		
 		if (not self.tieneNada()){
-			ultimoObjGuardado.generar(position)
-			ultimoObjGuardado = nada
+			objetoActual.generar(position)
+			objetoActual = nada
 		}
 	}
 	
-	
-	
+	method usarHechizo(){
+		 self.validarHechizo()			
+		 nivel.hechizoNivel(self)
+	}
+
 	method validarAbrir(objetos) {
 		if (objetos.isEmpty()) {
 			self.error("No tengo nada para abrir")
@@ -80,10 +80,7 @@ class Personaje {
 	}
 	
 		
-	method usarHechizo(){
-		 self.validarHechizo()			
-		 nivel.hechizoNivel(self)
-	}
+	
 	 
 	method validarHechizo(){
 		 if (not self.tieneVarita()){
@@ -94,7 +91,7 @@ class Personaje {
 	method repararLlave() {
 		self.validarReparar()
 		self.soltar()
-		ultimoObjGuardado = llave
+		objetoActual = llave
 		llavesRotas.clear()
 		
 	}
@@ -169,14 +166,11 @@ class Personaje {
 		}
 	}
 
-	method contenidoPermitido(){
-			puedeAgarrarVarita = true
-	}
-	
-	
+
 	method estaEnLaMismaPosicionQue(obstaculo){
 		return self.position() == obstaculo.position()
 	}
+	
 	method elGuardiaEsSolido() = false
 
 }

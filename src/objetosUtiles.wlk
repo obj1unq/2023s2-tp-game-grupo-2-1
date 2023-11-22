@@ -84,6 +84,7 @@ class Varita inherits Objeto{
 }
 
 object llave inherits Varita{
+	
 	override method image() = "llave.png"
 	override method esLlave() = true
 	override method esVarita() = false

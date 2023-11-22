@@ -111,7 +111,7 @@ object menu inherits Nivel{
 }
 
 object reglas inherits Nivel{
-	override method image() = "background.png"
+	override method image() = "fondoReglas.png"
 	
 	override method terminar(){
 		game.clear()
