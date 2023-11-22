@@ -67,9 +67,13 @@ describe "hechizos Harry" {
 	method initialize(){
 	nivelC.iniciar()
 	}
-	test "Comprobar el cambio de estado del guardia luego de usar patronus"{
+	test "Comprobar el cambio de estado del guardia no perseguidor luego de usar patronus"{
 		guardiasNoPerseguidores.estaticos()
 		assert.that(guardiasNoPerseguidores.guardias().all({guardia => guardia.estado() == guardiaEstatico}))
 	}
 	
+	test "Comprobar el cambio de estado del guardia perseguidor luego de usar patronus"{
+		guardiasPerseguidores.estaticos()
+		assert.that(guardiasPerseguidores.guardias().all({guardia => guardia.estado() == guardiaEstatico}))
+	}
 }
