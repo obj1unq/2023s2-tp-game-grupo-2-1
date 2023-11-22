@@ -360,7 +360,7 @@ class PuertaNivel{
 }
 
 object puertaNivelVisible inherits PuertaNivel(estado = abierto){
-	method image() = "puerta.png"
+	method image() = "puerta.png" 
 }
 
 class ListaDePuas {

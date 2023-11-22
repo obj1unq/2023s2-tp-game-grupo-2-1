@@ -14,7 +14,7 @@ class Personaje {
 	var property objetoActual = nada
 	
 	method transformacion()
-
+ 
 	method estadoHabitual()
 
 	method congelado()
