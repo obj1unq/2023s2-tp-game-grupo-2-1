@@ -86,7 +86,7 @@ class Personaje {
 		 self.validarHechizo()			
 		 nivel.hechizoNivel(self)
 	}
-	
+	 
 	method validarHechizo(){
 		 if (not self.tieneVarita()){
 		 	self.error("¡ No tengo una varita !")
