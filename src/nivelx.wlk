@@ -133,7 +133,14 @@ object nivel1 inherits NivelDeJuego {
 
 	override method image() =   "nivelM.png"
 	
-
+	override method generar(){
+		super()
+		game.addVisual(sirius)
+		game.addVisual(harry)
+		sirius.position(game.at(4,8))
+		harry.position(game.at(3,8))
+	}
+	
     override method celdas(){
         return
         [[_, _, _, _, _, _, _, _, _, _, p, _, _, _, p, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _],
@@ -145,7 +152,7 @@ object nivel1 inherits NivelDeJuego {
          [_, _, p, _, _, _, _, _, _, _, p, _, _, _, _, _, _, _, _, _, gp, _, _, lr6, _, _, _, p, _, _],
          [_, _, p, p, p, _, _, p, ti, p, p, _, _, zv, _, _, _, _, _, _, _, _, _, _, _, _, _, p, p, p],
          [p, p, p, p, p, p, p, p, ti, p, p, _, _, _, _, _, _, gp, _, _, _, _, gp, _, _, _, _, p, p, p],
-         [_, _, _, h, s, _, _, _,   _, _, _, _, _, _, gp, _, _, lr1, _, _, _, _, _, _, _, _, _, p, p, p],
+         [_, _, _, _, _, _, _, _,   _, _, _, _, _, _, gp, _, _, lr1, _, _, _, _, _, _, _, _, _, p, p, p],
          [_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, gp, _, _, _, lr5, _, _, _, sp, pn],
          [p, p, p, _, _, _, _, _, _, _, _, _, _, _, zv, _, _, _, _, _, lr3, _, _, _, _, _, _, p, p, p],
          [_, _, p, _, _, _, _, _, _, _, _, _, zv, _, _, _, _, _, _, _, _, _, _, _, _, _, _, p, _, _],
@@ -172,6 +179,7 @@ object nivel1 inherits NivelDeJuego {
 	
 
 	override method configurar(){
+		
 		keyboard.up().onPressDo({ harry.mover(arriba) })
 		keyboard.down().onPressDo({ harry.mover(abajo) })
 		keyboard.left().onPressDo({ harry.mover(izquierda) })
