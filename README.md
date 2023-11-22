@@ -14,7 +14,7 @@ En “Harry Potter y el escape de Azkaban” Harry y sus amigos descubrieron que
 
 ## Capturas
 
-<img projectFolder="fondoReglas.png" width="1000px" height="400px"> 
+<img assets="fondoReglas.png" width="1000px" height="400px"> 
 
 ## Reglas de Juego / Instrucciones
 
