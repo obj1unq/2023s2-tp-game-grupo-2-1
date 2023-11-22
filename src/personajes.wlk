@@ -12,8 +12,10 @@ class Personaje {
 	const property llavesRotas = #{}
 	var property tieneVarita = false
 	var property nivel = nivelM
+	var property objAnterior = nada
 	var property puedeAgarrarVarita = false
-	
+	var property ultimoObjGuardado = nada
+	 
 	method transformacion()
 
 	method estadoHabitual()
@@ -22,26 +24,26 @@ class Personaje {
 
 	method entrarEnZonaGuardias()
 
-	method image() = estado.image() + ".png"
+	method image() = "" + estado + "Con" + self.ultimoObjGuardado() + ""  + ".png"
 
 	method colisionarCon(personaje) {
 	}
 	
-	method llevaVarita(){
-		tieneVarita = true
-		estado.llevaVarita()
+	method tieneLlave() = ultimoObjGuardado.esLlave() // o objeto == llave 
+	method tieneVarita() = ultimoObjGuardado.esVarita()
+	method tieneNada() = ultimoObjGuardado.esNada()
+	
+	method guardar(objeto){
+		ultimoObjGuardado = objeto
 	}
+
+	
 	method transformarse() {
 		estado = self.transformacion()
-		game.schedule(10000, {self.volverEstadoAnterior() })
+		game.schedule(10000, {estado = self.estadoHabitual() })
 	}
 	
-	method volverEstadoAnterior(){
-		if (not estado.tieneNada()){
-			self.soltar()
-		}
-		self.estado(self.estadoHabitual())
-	}
+
 	
 	method usarObjeto() {
 		const colisiones = objetosUsables.losQuePertenecen(game.colliders(self))
@@ -56,18 +58,14 @@ class Personaje {
 	}
 	
 	method soltar(){
-		// si tiene el objeto del estado, entonces soltarlo, es decir, generarlo en la posicion actual
-		self.validarSoltar()
-		estado.objeto().generar(position)
-		estado.objeto(nada)
-	}
-	
-	
-	method validarSoltar() {
-		if (estado.objeto().esNada()) {
-			self.error("No tengo nada para soltar")
+		
+		if (not self.tieneNada()){
+			ultimoObjGuardado.generar(position)
+			ultimoObjGuardado = nada
 		}
 	}
+	
+	
 	
 	method validarAbrir(objetos) {
 		if (objetos.isEmpty()) {
@@ -95,8 +93,10 @@ class Personaje {
 		
 	method repararLlave() {
 		self.validarReparar()
-		estado.objeto(llave)
+		self.soltar()
+		ultimoObjGuardado = llave
 		llavesRotas.clear()
+		
 	}
 
 	
@@ -173,17 +173,6 @@ class Personaje {
 			puedeAgarrarVarita = true
 	}
 	
-	method obtenerVarita(){
-		
-			tieneVarita = true
-			estado.objeto(varita)
-
-	}
-	
-	method tieneLlave(){
-		return estado.tieneLlave()
-	}
-
 	
 	method estaEnLaMismaPosicionQue(obstaculo){
 		return self.position() == obstaculo.position()
@@ -239,16 +228,6 @@ object harry inherits Personaje {
 
 object sirius inherits Personaje {
 	
-	
-	
-//	override method varitaEnMano() {
-//		return siriusConVarita
-//	}
-//
-//	override method llaveEnMano() {
-//		return siriusConLlave
-//	}
-
 
 	method tirar(){
 		estado.objeto().position(position)
@@ -278,19 +257,12 @@ object sirius inherits Personaje {
 // estados normal 
 
 class Estado {
-	var property objeto  = nada
-
-	method image() = "" + self + "Con" + self.objeto() + ""
+	//var property objeto  = nada
+	//method image() = "" + self + "Con" + self.objeto() + ""
 	method esPerseguible() = true
 	method puedeMoverse() = true
 	method puedePasar(puerta) = false
-	method llevaVarita() {
-		objeto = varita
-	}
-
-	method tieneLlave() = objeto.esLlave() // o objeto == llave 
-	method tieneVarita() = objeto.esVarita()
-	method tieneNada() = objeto.esNada()
+	
 	
 	method entrarEnZonaGuardias(personaje){}
 
@@ -311,7 +283,7 @@ object harryHumano inherits Estado {
 
 
 object harryInvisible inherits Estado {
-	override method image() = "harryInvisible"
+
 	override method esPerseguible() = false
 }
 
@@ -323,9 +295,9 @@ object siriusHumano inherits Estado {}
 
 object siriusPerro  inherits Estado{
 
-	var property accion = ninguna
+
 	override method puedePasar(puerta) = true
-	override method esPerseguible() = accion.esPerseguible()
+	override method esPerseguible() = false
 
 
 }
@@ -335,27 +307,11 @@ object siriusCongelado inherits Estado{
 }
 
 
-object ninguna{
-	method esPerseguible() = false
-}
-object ladrido{
-	method esPerseguible() = true
-}
 
 object nada inherits Objeto{
 	
 	override method image(){}
-	method esLlave() = false
-	method esVarita() = false
-	method esNada()  = true
-	method generar(me){}
-}
-
-object llave inherits Objeto{
-	override method image(){}
-	method esLlave() = true 
-	method esVarita() = false
-	method esNada()  = false
+	override method esNada()  = true
 	method generar(me){}
 }
 
