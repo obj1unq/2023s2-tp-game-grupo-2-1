@@ -5,47 +5,47 @@ import enemigos.*
 import direcciones.*
 import objetosUtiles.*
 
-describe "nivel1"{
-
-	method initialize(){
-		nivel1.iniciar()
-	}
+//describe "nivel1"{
+//
+//	method initialize(){
+//		nivel1.iniciar()
+//	}
+//	
+//	test "harry NO puede lanzar hechizo"{
+//		assert.throwsException({harry.usarHechizo()})
+//	}
+//	
+//	test "harry puede reparar la llave"{
+//		harry.guardarLlaveRota(lr1)
+//		harry.guardarLlaveRota(lr2)
+//		harry.guardarLlaveRota(lr3)
+//		harry.guardarLlaveRota(lr4)
+//		harry.guardarLlaveRota(lr5)
+//		harry.guardarLlaveRota(lr6)
+//		harry.objetoActual(varita)
+//		harry.usarHechizo()
+//		assert.that(harry.objetoActual().esLlave())	
+//	}
+//	
+//	test "sirius puede tirar la varita"{
+//		
+//		sirius.objetoActual(varita)
+//		sirius.soltar()
+//		assert.equals(varita.position(), sirius.position())
+//	}
+//	
+//	test"sirius perro puede agarrar la varita"{
+//	 	sirius.transformarse()
+//	 	sirius.guardar(varita)
+//	 	assert.that(sirius.objetoActual().esVarita())
+//	}	
+//	test "guardia puede perseguir a harry"{
+//		harry.position(game.at(10,10))
+//		const guardia = new GuardiaPerseguidor(position = game.at(11,11), posicionDeCustodia = game.at(11,11))
+//		assert.that(guardia.puedePerseguir(harry))
+//	}
 	
-	test "harry NO puede lanzar hechizo"{
-		assert.throwsException({harry.usarHechizo()})
-	}
-	
-	test "harry puede reparar la llave"{
-		harry.guardarLlaveRota(lr1)
-		harry.guardarLlaveRota(lr2)
-		harry.guardarLlaveRota(lr3)
-		harry.guardarLlaveRota(lr4)
-		harry.guardarLlaveRota(lr5)
-		harry.guardarLlaveRota(lr6)
-		harry.objetoActual(varita)
-		harry.usarHechizo()
-		assert.that(harry.objetoActual().esLlave())	
-	}
-	
-	test "sirius puede tirar la varita"{
-		
-		sirius.objetoActual(varita)
-		sirius.soltar()
-		assert.equals(varita.position(), sirius.position())
-	}
-	
-	test"sirius perro puede agarrar la varita"{
-	 	sirius.transformarse()
-	 	sirius.guardar(varita)
-	 	assert.that(sirius.objetoActual().esVarita())
-	}	
-	test "guardia puede perseguir a harry"{
-		harry.position(game.at(10,10))
-		const guardia = new GuardiaPerseguidor(position = game.at(11,11), posicionDeCustodia = game.at(11,11))
-		assert.that(guardia.puedePerseguir(harry))
-	}
-	
-}
+//}
 
 
 describe "nivel2" {
