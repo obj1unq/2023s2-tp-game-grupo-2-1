@@ -10,7 +10,7 @@
 
 #Sinopsis
 
-En “Harry Potter y el escape de Azkaban” Hermione comprendió que había un conflicto en la linea temporal del tiempo actual o algo asi, despues de revisarlo se descubrió que Sirius Black escapo de la prisión de azkaban con la ayuda de un misterioso mago que posee una capa de invisibilidad, debido a que los testigos lo vieron utilizar el espectro patronus para detener a los dementores cuando se estaban yendo de azkaban, los testigos mencionaron que poseía la forma de un cervatillo Hermione infiere que harry tendría algo que ver al respecto e inmediatamente lo envio al pasado para descubrir que estaba pasando y arreglar este desperfecto en la linea temporal antes de afrontar las consecuencias que podría traer a su mundo.
+En “Harry Potter y el escape de Azkaban” Harry y sus amigos descubrieron que sirus black habia escapado de azkaban con la ayuda de su ahijado. Para mantener la linea temporal, Hermione mando a Harry al pasado a rescatar a su padrino.
 
 ## Capturas
 
@@ -18,11 +18,15 @@ En “Harry Potter y el escape de Azkaban” Hermione comprendió que había un 
 
 ## Reglas de Juego / Instrucciones
 
-(Escribirlas)
+utilizar W, A, S, D para mover a Sirius
+Utilizar las flechas para mover a Harry
+
+Harry utilzia la O para abrir puertas, Enter para usar objetos, L para soltar objetos y P para lanzar hechizos
+Sirius utiliza la E para abrir puertas, Space para usar objetos, Q para soltar objetos y Z para lanzar hechizos 
 
 
 ## Otros
 
-- Curso/Facultad
-- Versión de wollok
-- Una vez terminado, no tenemos problemas en que el repositorio sea público / queremos manternerlo privado
+- Programacion orientada a objetos 1 de la Universidad Nacional de Quilmes en Bernal
+- Ultima versión de Wollok
+- Una vez terminado, no tenemos problemas en que el repositorio sea público
