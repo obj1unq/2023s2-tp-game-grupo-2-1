@@ -83,9 +83,9 @@ class NivelDeJuego inherits Nivel{
 	}
 	
 	override method iniciar() {
-		//nivelActual.nivelActual(self)
+		nivelActual.nivelActual(self)
 		self.generar()
-		//self.configurar()
+		self.configurar()
 		self.accionDeNivel()
 //		musica.reproducir(self.cancion())
 	}
@@ -133,16 +133,16 @@ object nivelM inherits NivelDeJuego {
         [[_, _, _, _, _, _, _, _, _, _, p, _, _, _, p, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _],
          [_, _, _, _, _, _, _, _, _, _, p, _, _, _, p, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _],
          [_, _, p, p, p, p, p, p, p, p, p, p, _, _, p, p, p, p, p, p, p, p, p, p, p, p, p, p, _, _],
-         [_, _, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, _, _],
+         [_, _, p, p, p, p, p, p, p, p, p, p, _, _, p, p, p, p, p, p, p, p, p, p, p, p, p, p, _, _],
          [_, _, p, _, _, p, p, _, _, _, p, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, p, _, _],
-         [_, _, p, _, _, v, _, _, _, _, p, _, zv, _, _, _, zv, _, _, _, _, _, _, _, _, _, _, p, _, _],
+         [_, _, p, _, _, v, _, _, _, _, p, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, p, _, _],
          [_, _, p, _, _, _, _, _, _, _, p, _, _, _, _, _, _, _, _, _, gp, _, _, lr6, _, _, _, p, _, _],
-         [_, _, p, p, p, _, _, p, ti, p, p, _, _, zv, _, _, _, _, _, _, _, _, _, _, _, _, _, p, p, p],
-         [p, p, p, p, p, p, p, p, ti, p, p, _, _, _, _, _, _, gp, _, _, _, _, gp, _, _, _, _, p, p, p],
-         [_, _, _, h, s, _, _, _,   _, _, _, _, _, _, gp, _, _, lr1, _, _, _, _, _, _, _, _, _, p, p, p],
+         [_, _, p, p, p, _, _, p, tn, p, p, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, p, p, p],
+         [p, p, p, p, p, p, p, p, tn, p, p, _, _, _, _, _, _, gp, _, _, _, _, gp, _, _, _, _, p, p, p],
+         [_, _, _, h, s, _, _, _,   _, _, _, _, _, _, gp, _, _, lr1, _, _, _, _, _, _, _, _, _, sp, p, _],
          [_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, gp, _, _, _, lr5, _, _, _, sp, pn],
-         [p, p, p, _, _, _, _, _, _, _, _, _, _, _, zv, _, _, _, _, _, lr3, _, _, _, _, _, _, p, p, p],
-         [_, _, p, _, _, _, _, _, _, _, _, _, zv, _, _, _, _, _, _, _, _, _, _, _, _, _, _, p, _, _],
+         [p, p, p, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, lr3, _, _, _, _, _, _, p, p, p],
+         [_, _, p, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, p, _, _],
          [_, _, p, _, o, _, _, _, _, _, _, _, _, _, _, _, gp, _, _, _, _, _, _, _, _, _, _, p, _, _],
          [_, _, p, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, lr2, _, _, gp, lr4, _, _, _, p, _, _],
          [_, _, p, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, p, _, _],
@@ -296,17 +296,17 @@ object nivelB inherits NivelDeJuego{
 		 [_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _],
 		 [_, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, _, _],
 		 [_, p, _, _, _, _, _, _, _, _, p, _, _, _, _, _, _, _, _, _, _, gp, _, _, _, _, _, p, _, _],
-		 [_, p, _, _, _, _, _, _, _, _, p, _, _, _, _, _, _, _, _, _, _, _, _, _, gp, _, _, p, _, _],
-		 [_, p, _, _, _, _, _, _, _, _, p, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, p, _, _],
-		 [_, p, _, _, _, _, _, _, _, _, p, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, p, p, p],
-		 [p, p, _, _, _, _, _, _, _, _, p, p, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, p, p, p],
-		 [_, h, s, _, _, _, _, _, _, _, p, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, f, _],
+		 [_, p, _, _, pu, pu, pu, _, _, _, p, _, _, _, _, _, _, _, _, _, _, _, _, _, gp, _, _, p, _, _],
+		 [_, p, _, _, pu, ps, pu, _, _, _, p, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, p, _, _],
+		 [_, p, _, _, pu, bs, pu, _, _, _, p, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, p, p, p],
+		 [p, p, _, _, pu, pu, pu, _, _, _, p, p, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, p, p, p],
+		 [_, h, s, _, _, _, _, _, _, _, d1, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, f],
 		 [p, p, _, _, _, _, _, _, _, _, p, _, _, _, _, _, _, _, _, _, _, _, _, _, _, p, p, p, p, p, p, p],
 		 [_, p, _, _, _, _, _, _, _, _, p, p, _, _, _, _, _, _, _, _, _, _, _, _, p, p, p, p, p, _, _],
-		 [_, p, _, _, _, _, _, _, _, _, p, _, _, _, _, _, pu, pu, pu, pu, pu, pu, pu, p, p, p, p, p, _, _],
-		 [_, p, _, o, _, _, _, _, _, _, p, _, p, _, _, _, pu, _, pu, _, pu, _, pu, pu, _, pu, _, p, _, _],
-		 [_, p, _, _, _, _, _, _, _, _, p, tn, p, _, _, _, pu, pu, pu, pu, pu, pu, pu, p, pu, _, pa, p, _, _],
-		 [_, p, _, _, _, _, _, _, _, _, _, pu,  p, _, _, _, _, _, _, _, _, _, _, p, _, _, _, p, _, _],
+		 [_, p, _, _, _, _, _, _, _, _, p, _, _, _, _, _,  pu, pu, pu, pu, pu, pu, pu, p, p,  p,  p, p, _, _],
+		 [_, p, _, o, _, _, _, _, _, _, p, _, p, _, _, _,  pu, _,  pu, _,  pu, _,  pu, d2, _, pu, sb, p, _, _],
+		 [_, p, _, _, _, _, _, _, _, _, p, ti, p, _, _, _, pu, pu, pu, pu, pu, pu, pu, p, pu, sb, pa, p, _, _],
+		 [_, p, _, _, _, _, _, _, _, _, _, pu,  p, _, _, _, _, _, _, _, _, _, _, p, _, _, sb, p, _, _],
 		 [_, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, _, _],
 		 [_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _]
 	].reverse()
@@ -314,13 +314,15 @@ object nivelB inherits NivelDeJuego{
 	
 	override method accionDeNivel(){
 		game.onTick(800, "movimientoPuas", {caminoDePuas.activarMovimiento()})
+		game.onTick(1000, "caminataGuardias", {guardiasNoPerseguidores.perseguir()})
 	}
 	
 	override method siguiente(){
-		return nivelM
+		return nivelC
 	}
 	
 	override method terminarAccionNivel(){
+		super()
 		game.removeTickEvent("movimientoPuas")
 	}
 }
@@ -351,18 +353,12 @@ object c{
 object tn{
 
 	method generar(_position){
-		const tunell = new TunelVisible (position = _position)
+		const tunell = new Tunel (position = _position)
 		game.addVisual(tunell)
 	}
 	
 }
 
-object ti{
-	method generar(position){
-		const tunelInvisible = new TunelInvisible (position = position)
-		game.addVisual(tunelInvisible)
-	}     
-}
 
 
 
@@ -403,9 +399,6 @@ object pn{
 	}
 	
 }
-
-
-
 object g{
 
 	method generar(position){
@@ -442,13 +435,6 @@ object lr4 inherits LlaveRota{override method image() = "LR4.png"}
 object lr5 inherits LlaveRota{override method image() = "LR5.png"}
 object lr6 inherits LlaveRota{override method image() = "LR6.png"}	
 
-object zv {
-	method generar(position){
-		game.addVisual(new ZonaVigilada(position = position))
-	}
-}
-
-
 
 object a{
 	method generar(position){
@@ -457,7 +443,6 @@ object a{
 }
 
 object h{
-	
 	
 	method generar(position){
 		harry.position(position)
@@ -507,21 +492,54 @@ object pu {
 	}
 }
 
-object dn {
-	method generar(position){
-		const pua = new Pua(position = position)
-		game.addVisual(pua) 
-	}
-}
-
 object pa {
 	
 	method generar(position){
-		const palanc = new Palanca (position = position, objetoApuntado = puertaInteractuable)
-		game.addVisual(palanc)
+		palancaPuertaB.position(position)
+		game.addVisual(palancaPuertaB)
 	}
 }
 
-object pl {
-	
+object ps {
+	method generar(position){
+		palancaPuerta.position(position)
+		game.addVisual(palancaPuerta)
+	}
+}
+
+object d1 {
+	method generar(position){
+		p1.position(position)
+		game.addVisual(p1)
+	}
+}
+
+object d2 {
+	method generar(position){
+		p2.position(position)
+		game.addVisual(p2)
+	}
+}
+
+object ti {
+	method generar(position){
+		const tunelIn = new TunelInvisible (position = position)
+		game.addVisual(tunelIn)
+	}
+}
+
+object sb {
+	method generar(position){
+		const sensor = new SensorPalancaB (position = position)
+		game.addVisual(sensor) 
+		objetosUsables.agregarObjeto(sensor)
+		}
+}
+
+object bs { 
+	method generar(position){
+		const sensor = new SensorPalanca (position = position)
+		game.addVisual(sensor) 
+		objetosUsables.agregarObjeto(sensor)
+	}
 }

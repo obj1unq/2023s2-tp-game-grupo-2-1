@@ -12,27 +12,7 @@ program juego {
 	game.height(18)
 	
 	
-	nivelM.iniciar()	
-	    
-	    
-	game.onCollideDo(harry, {colisionado => colisionado.colisionarCon(harry)})
-	game.onCollideDo(sirius, {colisionado => colisionado.colisionarCon(sirius)})
-	
-	keyboard.up().onPressDo({ harry.mover(arriba) })
-	keyboard.down().onPressDo({ harry.mover(abajo) })
-	keyboard.left().onPressDo({ harry.mover(izquierda) })
-	keyboard.right().onPressDo({ harry.mover(derecha) })
-
-	keyboard.w().onPressDo({ sirius.mover(arriba) })
-	keyboard.s().onPressDo({ sirius.mover(abajo) })
-	keyboard.a().onPressDo({ sirius.mover(izquierda) })
-	keyboard.d().onPressDo({ sirius.mover(derecha) })
-	
-	
-	keyboard.space().onPressDo({ sirius.usarObjeto() })
-	keyboard.enter().onPressDo({ harry.usarObjeto() })
-	//keyboard.p().onPressDo({ harry.estaticos()})   
-	//keyboard.p().onPressDo({ harry.estaticos()})  
+	menu.iniciar()	  
 
 	keyboard.o().onPressDo({ harry.abrir() })
 	keyboard.e().onPressDo({ sirius.abrir() })    
