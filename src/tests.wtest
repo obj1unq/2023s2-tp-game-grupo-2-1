@@ -10,7 +10,7 @@ describe "nivel1" {
 	method initialize(){
 		nivel1.iniciar()
 	}
-	
+	 
 	test "harry entra a la zona guardias y no pueden moverse ni el ni sirius"{ 
 
 		harry.entrarEnZonaGuardias()
