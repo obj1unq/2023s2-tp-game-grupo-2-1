@@ -282,6 +282,9 @@ object nivelC inherits NivelDeJuego{
 		game.removeTickEvent("caminataGuardias")
 	}
 	
+	override method hechizoNivel(personaje){
+		personaje.patronus()
+	}
 	
 }
 
