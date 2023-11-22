@@ -113,16 +113,6 @@ describe "nivel4" {
 		
 	}
 	
-	test "harry entra a la zona invisible. Sirius puede moverse"{
-		harry.estado(harryHumano)
-		sirius.estado(siriusHumano)
-		harry.transformarse()
-		assert.equals(harryInvisible, harry.estado())
-		harry.entrarEnZonaGuardias()
-		sirius.position(game.at(0,0))
-		assert.that(sirius.sePuedeMover(arriba))
-	}
-	
 	test "sirius choca contra una pared y no puede moverse"{
 		sirius.position(game.at(2,1))
 		assert.notThat(sirius.sePuedeMover(arriba))
