@@ -20,8 +20,8 @@ describe "nivel1" {
 	}
 	
 	test "harry entra a la zona invisible. Los dos pueden moverse"{
-		harry.reiniciar()
-		sirius.reiniciar()
+		harry.perder()
+		sirius.perder()
 		harry.transformarse()
 		assert.equals(harryInvisible, harry.estado())
 		harry.entrarEnZonaGuardias()

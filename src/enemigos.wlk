@@ -171,7 +171,9 @@ class ListaGuardias {
 }
 
 
-object guardiasNoPerseguidores inherits ListaGuardias {}
+object guardiasNoPerseguidores1 inherits ListaGuardias {}
+
+object guardiasNoPerseguidores2 inherits ListaGuardias {}
 
 object guardiasPerseguidores inherits ListaGuardias {}
 

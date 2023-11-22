@@ -14,11 +14,6 @@ class Objeto {
 	method colisionarCon(personaje){}
 
 	method esSolidoPara(personaje) = false
-
-
-
-
-	
 }
 
 

@@ -11,7 +11,6 @@ class Personaje {
 	var property posicionPrincipio = game.at(0, 0)
 	const property llavesRotas = #{}
 	var property tieneVarita = false
-	var property nivel = nivelM
 	var property puedeAgarrarVarita = false
 	
 	method transformacion()
@@ -84,7 +83,7 @@ class Personaje {
 		
 	method usarHechizo(){
 		 self.validarHechizo()			
-		 nivel.hechizoNivel(self)
+		 nivelActual.nivelActual().hechizoNivel(self)
 	}
 	
 	method validarHechizo(){
@@ -129,7 +128,7 @@ class Personaje {
 	}
 
 	method volverAlPrincipio() {
-		self.position((posicionPrincipio))
+		self.position(posicionPrincipio)
 	}
 
 	method esSolidoPara(personaje) {
@@ -191,24 +190,6 @@ class Personaje {
 
 }
 
-//object harry inherits Personaje {
-//
-//	var property patronus = 1
-//
-//
-//	override method llaveEnMano() {
-//		return harryConLlave
-//	}
-//
-//	
-//	method usarLlave(puerta){
-//		if (self.estaEnLaPuerta(puerta)){
-//			puerta.seAbre()
-//		}
-//	}
-//	
-//	
-//}
 
 object protagonistas {
 
@@ -234,9 +215,6 @@ object protagonistas {
 
 object harry inherits Personaje {
 
-	var property patronus = 1
-
-
 	override method transformacion() {
 		return harryInvisible
 	}
@@ -255,17 +233,6 @@ object harry inherits Personaje {
 }
 
 object sirius inherits Personaje {
-	
-	
-	
-//	override method varitaEnMano() {
-//		return siriusConVarita
-//	}
-//
-//	override method llaveEnMano() {
-//		return siriusConLlave
-//	}
-
 
 	method tirar(){
 		estado.objeto().position(position)
@@ -281,7 +248,6 @@ object sirius inherits Personaje {
 
 	override method entrarEnZonaGuardias() {
 		game.say(self, "Me pueden ver!")
-			// game.schedule(1500, { self.volverAlPrincipio()})
 		self.serAtrapado()
 	}
 
@@ -320,7 +286,7 @@ object harryHumano inherits Estado {
 	
 	override method entrarEnZonaGuardias(personaje) {
 		game.say(personaje, "Me pueden ver!")
-			// game.schedule(1500, { personaje.volverAlPrincipio()})
+		game.schedule(1500, { personaje.volverAlPrincipio()})
 		personaje.serAtrapado()
 	}
 
@@ -334,6 +300,7 @@ object harryInvisible inherits Estado {
 
 object harryCongelado inherits Estado{
 	override method puedeMoverse() = false
+	override method image()= "harryNormal"
 }
 
 object siriusHumano inherits Estado {}
@@ -349,6 +316,7 @@ object siriusPerro  inherits Estado{
 
 object siriusCongelado inherits Estado{
 	override method puedeMoverse() = false
+	override method image() = "siriusHumanoConNada"
 }
 
 

@@ -11,17 +11,7 @@ program juego {
 	game.width(30)
 	game.height(18)
 
-	keyboard.o().onPressDo({ harry.abrir() })
-	keyboard.e().onPressDo({ sirius.abrir() })    
-	
-	keyboard.q().onPressDo({ sirius.soltar() }) 
-	keyboard.l().onPressDo({ harry.soltar() }) 
-	
-	keyboard.p().onPressDo({ harry.usarHechizo()}) 
-	keyboard.z().onPressDo({ sirius.usarHechizo()}) 
-
-	
-	nivelC.iniciar()	
+	nivel1.iniciar()	
 	    
 	game.start()
 }
