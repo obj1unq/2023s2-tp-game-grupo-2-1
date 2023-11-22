@@ -116,6 +116,18 @@ object reglas inherits Nivel{
 	}
 }
 
+object fin inherits Nivel{
+		override method image() = "fondoFin.png"
+	
+	override method terminar(){
+		game.clear()
+	}
+	
+	override method siguiente(){
+		return self
+	}
+}
+
 object nivel1 inherits NivelDeJuego {
 	
 
@@ -319,7 +331,7 @@ object nivel4 inherits NivelDeJuego {
 	}
 
 	override method siguiente(){
-		return self
+		return fin
 	}
 	
 	override method terminarAccionNivel(){
