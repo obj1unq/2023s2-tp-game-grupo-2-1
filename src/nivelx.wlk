@@ -269,7 +269,7 @@ object nivel3 inherits NivelDeJuego{
 		 [p, _, _, _, _, _, _, _, _,_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, p, p],
 		 [p, s, h, _, _, _, _, _, _,_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, p, p],
 		 [p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p]
-		].reverse()
+		].reverse() 
 	}
 	
 	override method accionDeNivel(){
