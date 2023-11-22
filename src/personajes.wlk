@@ -245,8 +245,7 @@ object sirius inherits Personaje {
 // estados normal 
 
 class Estado {
-	//var property objeto  = nada
-	//method image() = "" + self + "Con" + self.objeto() + ""
+
 	method esPerseguible() = true
 	method puedeMoverse() = true
 	method puedePasar(puerta) = false

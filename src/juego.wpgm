@@ -10,7 +10,7 @@ program juego {
 	game.cellSize(50)
 	game.width(30)
 	game.height(18)
-	
+	 
 	menu.iniciar()
 
 	game.start()
