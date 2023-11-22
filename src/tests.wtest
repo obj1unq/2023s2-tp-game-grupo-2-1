@@ -5,40 +5,7 @@ import enemigos.*
 import direcciones.*
 import objetosUtiles.*
 
-describe "nivel1" { 
-	
-	method initialize(){
-		nivel1.iniciar()
-	}
-	 
-	test "harry entra a la zona guardias y no pueden moverse ni el ni sirius"{  
 
-		harry.entrarEnZonaGuardias()
-		assert.equals(harryCongelado, harry.estado())
-		assert.notThat(harry.sePuedeMover(derecha))
-		assert.notThat(sirius.sePuedeMover(izquierda))
-		
-	}
-	
-	test "harry entra a la zona invisible. Los dos pueden moverse"{
-		harry.reiniciar()
-		sirius.reiniciar()
-		harry.transformarse()
-		assert.equals(harryInvisible, harry.estado())
-		harry.entrarEnZonaGuardias()
-		assert.that(harry.sePuedeMover(arriba))
-		assert.that(sirius.sePuedeMover(arriba))
-	}
-	
-	test "harry choca contra una pared"{
-		harry.position(game.at(2, 1))
-		sirius.position(game.at(2,1))
-		harry.mover(arriba)
-		sirius.mover(arriba)
-		assert.notThat(harry.sePuedeMover(arriba))
-		assert.notThat(sirius.sePuedeMover(arriba))
-	}
-}
 
 //describe "nivelB" {
 //	
@@ -61,3 +28,56 @@ describe "nivel1" {
 //		assert.equals(abierto, p1.estado())
 //	}
 //}
+
+describe "hechizos Harry" {
+	
+	method initialize(){
+	nivel3.iniciar()
+	}
+	test "Comprobar el cambio de estado del guardia no perseguidor luego de usar patronus"{
+		guardiasNoPerseguidores.estaticos()
+		assert.that(guardiasNoPerseguidores.guardias().all({guardia => guardia.estado() == guardiaEstatico}))
+	}
+	
+	test "Comprobar el cambio de estado del guardia perseguidor luego de usar patronus"{
+		guardiasPerseguidores.estaticos()
+		assert.that(guardiasPerseguidores.guardias().all({guardia => guardia.estado() == guardiaEstatico}))
+	}
+}
+
+describe "nivel4" { 
+	
+	method initialize(){
+		nivel4.iniciar()
+	}
+	 
+	test "harry entra a la zona guardias y no pueden moverse ni el ni sirius"{  
+
+		harry.entrarEnZonaGuardias()
+		assert.equals(harryCongelado, harry.estado())
+		assert.notThat(harry.sePuedeMover(derecha))
+		assert.notThat(sirius.sePuedeMover(izquierda))
+		
+	}
+	
+	test "harry entra a la zona invisible. Sirius puede moverse"{
+		harry.estado(harryHumano)
+		sirius.estado(siriusHumano)
+		harry.transformarse()
+		assert.equals(harryInvisible, harry.estado())
+		harry.entrarEnZonaGuardias()
+		assert.that(sirius.sePuedeMover(arriba))
+	}
+	
+	test "sirius choca contra una pared y no puede moverse"{
+		sirius.position(game.at(2,1))
+		assert.notThat(sirius.sePuedeMover(arriba))
+	}
+	
+	test "sirius pisa la zona invalida y vuelve al principio del camino"{
+		const caminoInvalido = new CaminoInvalido(position = game.at(4, 13))
+		caminoInvalido.colisionarCon(sirius)
+		assert.equals(caminoInvalido.arribaDeLaEntrada(), sirius.position())
+	}
+}
+	
