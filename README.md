@@ -10,19 +10,27 @@
 
 #Sinopsis
 
-En “Harry Potter y el escape de Azkaban” Harry y sus amigos descubrieron que sirus black habia escapado de azkaban con la ayuda de su ahijado. Para mantener la linea temporal, Hermione mando a Harry al pasado a rescatar a su padrino.
+En “Harry Potter y el escape de Azkaban” Harry y sus amigos descubrieron que Sirus Black habia escapado de azkaban con la ayuda de su ahijado. Para mantener la linea temporal, Hermione mando a Harry al pasado a rescatar a su padrino.
 
 ## Capturas
 
-(agregar)
+<img projectFolder="fondoReglas.png" width="1000px" height="400px"> 
 
 ## Reglas de Juego / Instrucciones
 
-utilizar W, A, S, D para mover a Sirius
+utiliz<ar W, A, S, D para mover a Sirius
 Utilizar las flechas para mover a Harry
 
-Harry utilzia la O para abrir puertas, Enter para usar objetos, L para soltar objetos y P para lanzar hechizos
-Sirius utiliza la E para abrir puertas, Space para usar objetos, Q para soltar objetos y Z para lanzar hechizos 
+Harry:
+- tecla O para abrir puertas
+- tecla Enter para usar objetos
+- tecla L para soltar objetos
+- tecla P para lanzar hechizos
+Sirius:
+- tecla E para abrir puertas
+- tecla Space para usar objetos
+- tecla Q para soltar objetos
+- tecla Z para lanzar hechizos 
 
 
 ## Otros
