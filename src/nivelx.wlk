@@ -257,16 +257,17 @@ object nivel3 inherits NivelDeJuego{
 
 	override method image() = "fondojuego.png"
 
+
 	override method celdas(){
 		return 
 		[[p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p],
 		 [p, p, p, p, p, _, f, _, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p],
-		 [p, _, _, _, _, _, _, a, a, a, a, a, a, a, a, ag, _, _, _, _, _, _, _, _, _, _, _, _, _, p, p],
+		 [p, _, _, _, _, _, _, _, gp, _, _, a, a, a, a, ag, a, a, _, _, _, _, _, _, _, _, _, _, _, p, p],
 		 [p, _, _, m, m, m, m, m, m, m, m, _, _, _, _, _, _, m, _, m, _, m, _, _, m, _, _, _, _, p, p],
-		 [p, _, a, a, ag, a, a, a, m, _, _, _, _, _, _, _, _, m, _, m, _, m, o, _, m, _, _, _, _, p, p],
+		 [p, _, _, _, gp, _, _, _, m, _, _, _, _, _, _, _, _, m, _, m, _, m, o, _, m, _, _, _, _, p, p],
 		 [p, _, _, _, _, _, o, _, _, _, _, _, _, _, _, _, _, m, _, _, _, m, _, _, m, _, _, _, _, p, p],
 		 [p, a, a, a, ag, a, a, a, m, _, _, _, _, _, _, _, _, m, m, m, _, m, _, _, m, m, m, m, _, p, p],
-		 [p, _, _, p, m, m, m, m, m, _, _, _, _, m, m, _, _, _, _, _, _, _, _, _, _, _, _, _, _, p, p],
+		 [p, _, _, m, m, m, m, m, m, _, _, _, _, m, m, _, _, _, _, _, _, g, _, _, _, _, _, _, _, p, p],
 		 [p, ag, a, a, a, a, a, a, m, _, _, m, m, m, m, _, _, m, m, m, m, m, m, m, m, _, _, m, _, p, p],
 		 [p, a, a, a, a, a, a, ag, m, _, _, m, o, _, m, _, _, m, a, a, a, a, ag, a, a, a, a, a, _, p, p],
 		 [p, m, m, m, m, m, _, _, m, _, _, m, _, _, m, _, _, m, _, _, m, _, _, m, m, m, m, m, m, _, p],
